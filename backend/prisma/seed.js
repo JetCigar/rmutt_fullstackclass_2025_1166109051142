@@ -9,6 +9,7 @@ async function main() {
     where: { role_name: 'SuperAdmin' }
   });
 
+
   if (!adminRole) {
     adminRole = await prisma.role.create({
       data: {
