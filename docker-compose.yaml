@@ -1,0 +1,75 @@
+# ลบ version ออกเพื่อให้ warning หายไป
+services:
+  # 1. Database Service
+  postgres:
+    image: postgres:15
+    container_name: ecommerce_postgres
+    restart: always
+    environment:
+      # ให้ไปอ่านค่าจากไฟล์ .env แทนการพิมพ์ลงไปตรงๆ
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-1234}
+      POSTGRES_DB: ${DB_NAME:-ecommerce}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # 2. Backend Service (Node.js + Prisma)
+  backend:
+    build: ./backend
+    container_name: ecommerce_backend
+    restart: always
+    ports:
+      - "3000:3000"
+      
+    env_file:
+      - ./backend/.env
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: sh -c "npx prisma generate && npx prisma migrate deploy && npx prisma db seed && npm run dev"
+    
+    # 3. Prisma Studio Service (พอร์ต 5555 สำหรับดูข้อมูล)
+  prisma-studio:
+    build: ./backend
+    container_name: ecommerce_prisma_studio
+    ports:
+      - "5555:5555"
+    env_file:
+      - ./backend/.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: npx prisma studio
+
+  # 3. Frontend Service (Angular)
+  frontend:
+    build: ./frontend
+    container_name: ecommerce_frontend
+    environment:
+      - NG_CLI_ANALYTICS=false
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    # เพิ่ม stdin_open และ tty เพื่อให้ Container ไม่หยุดทำงานเอง
+    stdin_open: true
+    tty: true
+    # ใช้คำสั่งมาตรฐานที่รองรับ Angular รุ่นใหม่
+    # ในส่วนของ frontend
+    command: npx ng serve --host 0.0.0.0 --poll 2000
+# ส่วนที่ขาดไปและทำให้เกิด Error: ต้องประกาศจองพื้นที่ volume ตรงนี้
+volumes:
+  postgres_data:
