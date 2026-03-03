@@ -27,12 +27,12 @@ app.post('/register', async (req, res) => {
 
 app.get('/test-db', async (req, res) => {
   try {
-    // ลอง query แบบง่ายที่สุด (เช่น นับจำนวน Category)
-    const categoryCount = await prisma.category.count();
+    // ลอง query แบบง่ายที่สุด (เช่น นับจำนวน Customer)
+    const customerCount = await prisma.customer.count();
     res.json({ 
       status: "connected",
-      message: "Database connection is healthy! 55555",
-      totalCategories: categoryCount 
+      message: "Database connection is healthy!",
+      totalCustomers: customerCount 
     });
   } catch (error) {
     res.status(500).json({ 
