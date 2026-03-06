@@ -3,27 +3,16 @@ const { PrismaClient } = require('@prisma/client');
 
 const app = express();
 const prisma = new PrismaClient();
+const cors = require('cors');
+app.use(cors()); // เปิด CORS ให้ทุกที่มาเข้าถึงได้
+let test = "test-server "
 
+console.log(test);
 
 app.use(express.json()); // ให้ Express อ่าน JSON จาก Body ได้
 
-// --- นี่คือฟังก์ชันที่คุณเขียน ---
-async function createUser(email, password) {
-  return await prisma.user.create({
-    data: { email, password },
-  });
-}
-
-// --- นี่คือวิธีนำไปใช้ใน server.js (สร้าง Route) ---
-app.post('/register', async (req, res) => {
-  const { email, password } = req.body;
-  try {
-    const user = await createUser(email, password);
-    res.status(201).json({ message: "User created!", user });
-  } catch (error) {
-    res.status(400).json({ error: "Email already exists or something went wrong" });
-  }
-});
+const allRoutes = require('../routes/index');
+app.use(allRoutes);
 
 app.get('/test-db', async (req, res) => {
   try {
@@ -42,7 +31,8 @@ app.get('/test-db', async (req, res) => {
     });
   }
 });
-const PORT = 3000;
+
+const PORT = 9999;
 
 app.listen(PORT, async () => {
   try {
@@ -54,3 +44,6 @@ app.listen(PORT, async () => {
     process.exit(1); // ปิดแอปทันทีถ้าต่อ DB ไม่ได้
   }
 });
+
+
+

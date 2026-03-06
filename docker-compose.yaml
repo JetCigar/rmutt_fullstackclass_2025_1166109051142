@@ -28,7 +28,7 @@ services:
     container_name: ecommerce_backend
     restart: always
     ports:
-      - "3000:3000"
+      - "9999:9999"
       
     env_file:
       - ./backend/.env
