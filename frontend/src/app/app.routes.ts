@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-<<<<<<< HEAD
 import { LoginComponent } from './login/login';
 import { RegisterComponent } from './register/register';
+import { Category } from './category/category';
 
 export const routes: Routes = [
   {
@@ -15,15 +15,13 @@ export const routes: Routes = [
   },
 
   {
+    path: 'category',
+    component: Category
+  },
+
+  {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'
   }
 ];
-=======
-import { Category } from './category/category';
-
-export const routes: Routes = [
-    {path: '', component: Category},
-];
->>>>>>> 140fe010314751975635b9e84e0e3e29c7bae605
