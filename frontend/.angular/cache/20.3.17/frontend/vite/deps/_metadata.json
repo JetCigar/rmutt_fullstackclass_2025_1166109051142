@@ -2,35 +2,62 @@
   "hash": "a01e954d",
   "configHash": "cf652b67",
   "lockfileHash": "223fd4ea",
+<<<<<<< Updated upstream
   "browserHash": "4ea73da4",
+=======
+  "browserHash": "a73c0dfc",
+>>>>>>> Stashed changes
   "optimized": {
     "@angular/common": {
       "src": "../../../../../../node_modules/@angular/common/fesm2022/common.mjs",
       "file": "@angular_common.js",
+<<<<<<< Updated upstream
       "fileHash": "b6bda5c9",
+=======
+      "fileHash": "e14238ef",
+>>>>>>> Stashed changes
       "needsInterop": false
     },
     "@angular/common/http": {
       "src": "../../../../../../node_modules/@angular/common/fesm2022/http.mjs",
       "file": "@angular_common_http.js",
+<<<<<<< Updated upstream
       "fileHash": "7055048c",
+=======
+      "fileHash": "d17d707e",
+>>>>>>> Stashed changes
       "needsInterop": false
     },
     "@angular/core": {
       "src": "../../../../../../node_modules/@angular/core/fesm2022/core.mjs",
       "file": "@angular_core.js",
+<<<<<<< Updated upstream
       "fileHash": "43cfd70b",
+=======
+      "fileHash": "f4a56727",
+      "needsInterop": false
+    },
+    "@angular/forms": {
+      "src": "../../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
+      "file": "@angular_forms.js",
+      "fileHash": "12115ddc",
+>>>>>>> Stashed changes
       "needsInterop": false
     },
     "@angular/platform-browser": {
       "src": "../../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
       "file": "@angular_platform-browser.js",
+<<<<<<< Updated upstream
       "fileHash": "fd3d8d5e",
+=======
+      "fileHash": "92e757a5",
+>>>>>>> Stashed changes
       "needsInterop": false
     },
     "@angular/router": {
       "src": "../../../../../../node_modules/@angular/router/fesm2022/router.mjs",
       "file": "@angular_router.js",
+<<<<<<< Updated upstream
       "fileHash": "4a6dc4cb",
       "needsInterop": false
     },
@@ -38,6 +65,9 @@
       "src": "../../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
       "file": "@angular_forms.js",
       "fileHash": "d1cb9732",
+=======
+      "fileHash": "595e4aec",
+>>>>>>> Stashed changes
       "needsInterop": false
     }
   },
