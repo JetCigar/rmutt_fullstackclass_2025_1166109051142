@@ -11,20 +11,22 @@
       <span>RMUTT:Khlong Hok</span>
     </div>
     <div class="header__topbar-right">
-      <div class="header__topbar-select">
-        <span>Eng</span>
-
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
-      <div class="header__topbar-select">
-        <span>USD</span>
-
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
+<div class="header__topbar-select" (click)="changeLang('Eng')">
+  <span>{{ selectedLang }}</span>
+  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+    <polyline points="6 9 12 15 18 9"/>
+  </svg>
+</div>
+<div class="header__topbar-select" (click)="changeCurrency('USD')">
+  <span>{{ selectedCurrency }}</span>
+  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+    <polyline points="6 9 12 15 18 9"/>
+  </svg>
+</div>
       <span class="header__topbar-divider">|</span>
-      <a href="/signin" class="header__topbar-link">Sign In</a>
-      <span>/</span>
-      <a href="/signup" class="header__topbar-link">Sign Up</a>
+<a routerLink="/login" class="header__topbar-link">Sign In</a>
+<span>/</span>
+<a routerLink="/register" class="header__topbar-link">Sign Up</a>
     </div>
   </div>
 
