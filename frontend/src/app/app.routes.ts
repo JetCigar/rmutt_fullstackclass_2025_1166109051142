@@ -17,6 +17,11 @@ export const routes: Routes = [
   },
 
   {
+    path: 'category',
+    component: Category
+  },
+
+  {
     path: '',
     redirectTo: 'login',
     pathMatch: 'full'

@@ -1,6 +1,7 @@
 const express = require("express")
 const cors = require("cors")
 const { PrismaClient } = require("@prisma/client")
+<<<<<<< HEAD
 
 const app = express();
 const prisma = new PrismaClient();
@@ -14,29 +15,46 @@ console.log(test);
 
 app.use(express.json())
 
+=======
+ 
+const app = express();
+const prisma = new PrismaClient();
+app.use(cors()); // เปิด CORS ให้ทุกที่มาเข้าถึงได้
+let test = "test-server "
+ 
+console.log(test);
+ 
+app.use(cors())
+app.use(express.json())
+ 
+>>>>>>> 5d50107ffee017b5f1412dc48abba4881d61c641
 const allRoutes = require('../routes/index');
 app.use(allRoutes);
-
+ 
 app.get('/test-db', async (req, res) => {
   try {
     // ลอง query แบบง่ายที่สุด (เช่น นับจำนวน Customer)
     const customerCount = await prisma.customer.count();
-    res.json({ 
+    res.json({
       status: "connected",
       message: "Database connection is healthy!",
-      totalCustomers: customerCount 
+      totalCustomers: customerCount
     });
   } catch (error) {
-    res.status(500).json({ 
-      status: "error", 
-      message: "Cannot connect to database", 
-      details: error.message 
+    res.status(500).json({
+      status: "error",
+      message: "Cannot connect to database",
+      details: error.message
     });
   }
 });
-
+ 
 const PORT = 9999;
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 5d50107ffee017b5f1412dc48abba4881d61c641
 app.listen(PORT, async () => {
   try {
     await prisma.$connect()
@@ -46,4 +64,8 @@ app.listen(PORT, async () => {
     console.error("Database connection failed:", error)
   }
 });
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 5d50107ffee017b5f1412dc48abba4881d61c641

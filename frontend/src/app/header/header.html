@@ -1,0 +1,85 @@
+<!-- ===================== HEADER COMPONENT ===================== -->
+<header class="header">
+
+  <!-- Top Bar -->
+  <div class="header__topbar">
+    <div class="header__topbar-left">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+        <circle cx="12" cy="10" r="3"/>
+      </svg>
+      <span>RMUTT:Khlong Hok</span>
+    </div>
+    <div class="header__topbar-right">
+      <div class="header__topbar-select">
+        <span>Eng</span>
+
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="header__topbar-select">
+        <span>USD</span>
+
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <span class="header__topbar-divider">|</span>
+      <a href="/signin" class="header__topbar-link">Sign In</a>
+      <span>/</span>
+      <a href="/signup" class="header__topbar-link">Sign Up</a>
+    </div>
+  </div>
+
+  <!-- Main Header -->
+  <div class="header__main">
+
+    <!-- Logo -->
+    <a href="/" class="header__logo">
+      <svg width="28" height="28" viewBox="0 0 40 40" fill="none">
+        <path d="M8 32 C8 20, 20 8, 34 6 C34 6, 36 20, 24 28 C18 32, 10 32, 8 32Z" fill="#22c55e"/>
+        <path d="M14 32 C14 26, 18 20, 26 16" stroke="#16a34a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      </svg>
+      <span class="header__logo-text">Ecobazar</span>
+    </a>
+
+    <!-- Search -->
+    <div class="header__search">
+      <div class="header__search-box">
+        <svg class="header__search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input
+          type="text"
+          class="header__search-input"
+          placeholder="Search"
+          [(ngModel)]="searchQuery"
+          (keydown.enter)="onSearch()"
+        />
+        <button class="header__search-btn" (click)="onSearch()">Search</button>
+      </div>
+    </div>
+
+    <!-- Icons -->
+    <div class="header__icons">
+      <button class="header__icon-btn" aria-label="Wishlist" (click)="onWishlistClick()">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.8">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+      </button>
+
+      <div class="header__cart" (click)="onCartClick()">
+        <div class="header__cart-icon-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.8">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 01-8 0"/>
+          </svg>
+          <span class="header__cart-badge">{{ cartCount }}</span>
+        </div>
+        <div class="header__cart-info">
+          <span class="header__cart-label">shopping cart:</span>
+          <span class="header__cart-price">{{ cartTotalFormatted }}</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</header>
