@@ -1,26 +1,40 @@
-<div class="container">
-  <h2>รายการหมวดหมู่สินค้า</h2>
+<div class="bg-light p-4 rounded" style="max-width: 320px;">
   
-  <table class="category-table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>ชื่อหมวดหมู่</th>
-        <th>รายละเอียด</th>
-      </tr>
-    </thead>
-    <tbody>
+  <div class="mb-4">
+    <label class="form-label fw-bold mb-3">ค้นหาสินค้า</label>
+    <input type="text" class="form-control shadow-none" placeholder="ค้นหา...">
+  </div>
+
+  <div class="mb-4">
+    <label class="form-label fw-bold mb-3">หมวดหมู่</label>
+    <div class="d-flex flex-column gap-3">
+      
       @for (item of categories; track item.category_id) {
-        <tr>
-          <td>{{ item.category_id }}</td>
-          <td><strong>{{ item.name }}</strong></td>
-          <td>{{ item.description }}</td>
-        </tr>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="form-check mb-0">
+            <input class="form-check-input shadow-none" type="checkbox" [id]="'category-' + item.category_id">
+            <label class="form-check-label" [for]="'category-' + item.category_id">
+              {{ item.name }}
+            </label>
+          </div>
+          <span class="text-muted small">({{ item.products?.length || 0 }})</span>
+        </div>
       } @empty {
-        <tr>
-          <td colspan="3">ไม่พบข้อมูลหมวดหมู่</td>
-        </tr>
+        <div class="text-muted small text-center py-2">ไม่พบข้อมูลหมวดหมู่</div>
       }
-    </tbody>
-  </table>
+
+    </div>
+  </div>
+
+  <div class="mb-4">
+    <label class="form-label fw-bold mb-3">ช่วงราคา</label>
+    <input type="range" class="form-range" min="0" max="6000" id="priceRange">
+    <div class="d-flex justify-content-between text-muted mt-2 small">
+      <span>฿0</span>
+      <span>฿6,000</span>
+    </div>
+  </div>
+
+  <button class="btn btn-light border w-100 py-2 shadow-sm">ล้างตัวกรอง</button>
+
 </div>

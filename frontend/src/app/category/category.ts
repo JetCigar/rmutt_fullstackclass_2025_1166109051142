@@ -24,6 +24,9 @@ export class Category implements OnInit {
 
       console.log(this.categories);
       console.log('ข้อมูลจาก API:', res);
+      console.log("ชื่อสินค้าตัวแรก:", this.categories[0].products[0].name);
+      console.log("ชื่อสินค้าตัวแรก:", this.categories[0].products[1].name);
+      console.log("ชื่อสินค้าตัวแรก:", this.categories[0].products[2].name);
       // สั่งให้ Angular ตรวจสอบการเปลี่ยนแปลงและวาดหน้าจอใหม่ทันที
       this.cdr.detectChanges();
     });

@@ -34,23 +34,13 @@ import {
   withI18nSupport,
   withIncrementalHydration,
   withNoHttpTransferCache
-<<<<<<< HEAD
-} from "./chunk-GARWWTWC.js";
+} from "./chunk-JLFKATUH.js";
 import "./chunk-YKXF6GWM.js";
 import {
   getDOM
-} from "./chunk-ZNIJXSTL.js";
+} from "./chunk-PG2ZBAVM.js";
 import "./chunk-2ZFTCAES.js";
 import "./chunk-D4IQEDMS.js";
-=======
-} from "./chunk-BBJWLWUH.js";
-import {
-  getDOM
-} from "./chunk-ETLMIGRG.js";
-import "./chunk-IG2GZATE.js";
-import "./chunk-2ZFTCAES.js";
-import "./chunk-TYRBVHJB.js";
->>>>>>> 140fe010314751975635b9e84e0e3e29c7bae605
 export {
   BrowserModule,
   By,
