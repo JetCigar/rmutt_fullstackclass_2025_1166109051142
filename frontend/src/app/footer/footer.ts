@@ -23,44 +23,36 @@ export class FooterComponent {
 
   footerSections: FooterSection[] = [
     {
-      title: 'My Account',
+      title: 'บัญชีของฉัน',
       links: [
-        { label: 'My Account',    href: '/account'  },
-        { label: 'Order History', href: '/orders'   },
-        { label: 'Shoping Cart',  href: '/cart'     },
-        { label: 'Wishlist',      href: '/wishlist' },
+        { label: 'บัญชีของฉัน',    href: '/account'  },
+        { label: 'ประวัติการสั่งซื้อ', href: '/orders'   },
+        { label: 'ตะกร้าสินค้า',  href: '/cart'     },
+        { label: 'รายการโปรด',      href: '/wishlist' },
       ],
     },
     {
-      title: 'Helps',
+      title: 'ช่วยเหลือ',
       links: [
-        { label: 'Contact',           href: '/contact' },
-        { label: 'Faqs',              href: '/faqs'    },
-        { label: 'Terms & Condition', href: '/terms'   },
-        { label: 'Privacy Policy',    href: '/privacy' },
+        { label: 'ติดต่อ',           href: '/contact' },
+        { label: 'คำถามที่พบบ่อย',              href: '/faqs'    },
+        { label: 'ข้อกำหนดและเงื่อนไข', href: '/terms'   },
+        { label: 'นโยบายความเป็นส่วนตัว',    href: '/privacy' },
       ],
     },
     {
-      title: 'Proxy',
+      title: 'หมวดหมู่',
       links: [
-        { label: 'About',       href: '/about'   },
-        { label: 'Shop',        href: '/shop'    },
-        { label: 'Product',     href: '/product' },
-        { label: 'Track Order', href: '/track'   },
+        { label: 'เกี่ยวกับเรา',       href: '/about'   },
+        { label: 'ร้านค้า',        href: '/shop'    },
+        { label: 'สินค้า',     href: '/product' },
+        { label: 'ติดตามคำสั่งซื้อ', href: '/track'   },
       ],
     },
-    {
-      title: 'Categories',
-      links: [
-        { label: 'Fruit & Vegetables', href: '/category/fruit-vegetables' },
-        { label: 'Meat & Fish',        href: '/category/meat-fish'        },
-        { label: 'Bread & Bakery',     href: '/category/bread-bakery'     },
-        { label: 'Beauty & Health',    href: '/category/beauty-health'    },
-      ],
-    },
+ 
   ];
 
-  paymentMethods: string[] = ['Apple Pay', 'VISA', 'Discover', 'Mastercard'];
+  paymentMethods: string[] = [ 'VISA', 'PromptPay', 'MasterCard'];
 
   socialLinks = [
     { name: 'Facebook',  href: '#', icon: 'facebook'  },

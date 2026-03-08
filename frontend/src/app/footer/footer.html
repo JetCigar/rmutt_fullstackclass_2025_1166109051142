@@ -6,25 +6,31 @@
 
       <!-- Brand Column -->
       <div class="footer__brand">
-        <a href="/" class="footer__logo">
-          <svg width="26" height="26" viewBox="0 0 40 40" fill="none">
-            <path d="M8 32 C8 20, 20 8, 34 6 C34 6, 36 20, 24 28 C18 32, 10 32, 8 32Z" fill="#22c55e"/>
-            <path d="M14 32 C14 26, 18 20, 26 16" stroke="#16a34a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-          </svg>
-          <span class="footer__logo-text">Ecobazar</span>
-        </a>
+<a href="/" class="footer__logo">
+
+  <img 
+    src="https://cdn-icons-png.flaticon.com/512/4568/4568190.png"
+    class="logo-icon"
+    alt="KasetThai logo"
+  >
+
+  <span class="logo-text">
+    <span class="logo-dark">Kaset</span><span class="logo-green">Thai</span>
+  </span>
+
+</a>
         <p class="footer__desc">
-          Morbi cursus porttitor enim lobortis malesuada. Duis gravida turpis dui, eget bibendum magna congue nec.
+          ร้านขายอุปกรณ์การเกษตรออนไลน์ครบวงจร เครื่องจักร ระบบน้ำ อุปกรณ์การเพาะปลูก ส่งตรงถึงไร่นาของคุณ
         </p>
         <div class="footer__contacts">
-          <a href="tel:2195550114" class="footer__contact-badge">
+          <a href="tel:082 345-6789" class="footer__contact-badge">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2">
               <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.22 1.18 2 2 0 012.22 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.56-.56a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/>
             </svg>
-            (219) 555-0114
+            082 345-6789
           </a>
-          <a href="mailto:Proxy@gmail.com" class="footer__contact-badge footer__contact-badge--email">
-            Proxy&#64;gmail.com
+          <a href="mailto:Admin@gmail.com" class="footer__contact-badge footer__contact-badge--email">
+            Admin&#64;gmail.com  
           </a>
         </div>
       </div>
@@ -50,7 +56,7 @@
   <div class="footer__bottom">
     <div class="footer__bottom-inner">
       <p class="footer__copyright">
-        Ecobazar eCommerce &copy; {{ currentYear }}. All Rights Reserved
+        KasetThai &copy; {{ currentYear }}. All Rights Reserved
       </p>
       <div class="footer__bottom-right">
 
@@ -59,7 +65,7 @@
           @for (pay of paymentMethods; track pay) {
             <span class="footer__payment-badge">{{ pay }}</span>
           }
-          <span class="footer__payment-badge footer__payment-badge--secure">🔒 Secure</span>
+          
         </div>
 
         <!-- Social Icons -->

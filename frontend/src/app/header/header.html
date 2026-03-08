@@ -1,6 +1,5 @@
 <!-- ===================== HEADER COMPONENT ===================== -->
 <header class="header">
-
   <!-- Top Bar -->
   <div class="header__topbar">
     <div class="header__topbar-left">
@@ -8,25 +7,27 @@
         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
         <circle cx="12" cy="10" r="3"/>
       </svg>
-      <span>RMUTT:Khlong Hok</span>
+      <span>ส่งทั่วไทย จากRMUTT:Khlong Hok</span>
     </div>
+
     <div class="header__topbar-right">
-<div class="header__topbar-select" (click)="changeLang('Eng')">
-  <span>{{ selectedLang }}</span>
-  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-    <polyline points="6 9 12 15 18 9"/>
-  </svg>
-</div>
-<div class="header__topbar-select" (click)="changeCurrency('USD')">
-  <span>{{ selectedCurrency }}</span>
-  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-    <polyline points="6 9 12 15 18 9"/>
-  </svg>
+   <div class="header__topbar-lang">
+
+  <span (click)="toggleLang()" class="lang">
+    {{ selectedLang }}
+  </span>
+
+  <span class="divider">|</span>
+
+  <span (click)="toggleCurrency()" class="currency">
+    {{ selectedCurrency }}
+  </span>
+
 </div>
       <span class="header__topbar-divider">|</span>
-<a routerLink="/login" class="header__topbar-link">Sign In</a>
+<a routerLink="/login" class="header__topbar-link">เข้าสู่ระบบ</a>
 <span>/</span>
-<a routerLink="/register" class="header__topbar-link">Sign Up</a>
+<a routerLink="/register" class="header__topbar-link">สมัครสมาชิก</a>
     </div>
   </div>
 
@@ -34,13 +35,15 @@
   <div class="header__main">
 
     <!-- Logo -->
-    <a href="/" class="header__logo">
-      <svg width="28" height="28" viewBox="0 0 40 40" fill="none">
-        <path d="M8 32 C8 20, 20 8, 34 6 C34 6, 36 20, 24 28 C18 32, 10 32, 8 32Z" fill="#22c55e"/>
-        <path d="M14 32 C14 26, 18 20, 26 16" stroke="#16a34a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      </svg>
-      <span class="header__logo-text">Ecobazar</span>
-    </a>
+  <a href="/" class="header__logo">
+<img src="https://cdn-icons-png.flaticon.com/512/4568/4568190.png"
+     class="logo-icon"
+     alt="sprout icon">
+<span class="logo-text">
+  <span class="logo-dark">Kaset</span><span class="logo-green">Thai</span>
+</span>
+
+</a>
 
     <!-- Search -->
     <div class="header__search">
@@ -51,11 +54,11 @@
         <input
           type="text"
           class="header__search-input"
-          placeholder="Search"
+          placeholder="ค้นหาอุปกรณ์การเกษตร..."
           [(ngModel)]="searchQuery"
           (keydown.enter)="onSearch()"
         />
-        <button class="header__search-btn" (click)="onSearch()">Search</button>
+        <button class="header__search-btn" (click)="onSearch()">ค้นหา</button>
       </div>
     </div>
 
@@ -77,7 +80,7 @@
           <span class="header__cart-badge">{{ cartCount }}</span>
         </div>
         <div class="header__cart-info">
-          <span class="header__cart-label">shopping cart:</span>
+          <span class="header__cart-label">ตะกร้าสินค้า:</span>
           <span class="header__cart-price">{{ cartTotalFormatted }}</span>
         </div>
       </div>

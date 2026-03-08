@@ -66,20 +66,31 @@
 }
 
 /* ---------- Logo ---------- */
-.header__logo {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  flex-shrink: 0;
+.header__logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  text-decoration:none;
 }
 
-.header__logo-text {
-  font-family: 'Georgia', serif;
-  font-size: 22px;
-  font-weight: 700;
-  color: #111827;
-  letter-spacing: -0.3px;
+.logo-icon{
+  width:34px;
+  height:34px;
+}
+
+.logo-text{
+  font-size:24px;
+  font-weight:700;
+  font-family: "Georgia", serif;
+  letter-spacing:0.5px;
+}
+
+.logo-dark{
+  color:#111;
+}
+
+.logo-green{
+  color:#16a34a;
 }
 
 /* ---------- Search ---------- */
@@ -205,4 +216,24 @@
   font-size: 14px;
   font-weight: 700;
   color: #111827;
+}
+.goog-te-banner-frame {
+  display: none !important;
+}
+
+body {
+  top: 0px !important;
+}
+
+.goog-logo-link {
+  display: none !important;
+}
+
+.goog-te-gadget {
+  font-size: 0px;
+}
+.header__container{
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 24px;
 }

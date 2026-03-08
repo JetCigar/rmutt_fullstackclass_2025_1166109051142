@@ -4,6 +4,10 @@ import { RegisterComponent } from './register/register';
 import { Category } from './category/category';
 
 export const routes: Routes = [
+   /*{
+    path: ' ',
+    component: HomeComponent
+  },*/
   {
     path: 'login',
     component: LoginComponent
@@ -21,7 +25,8 @@ export const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'navbar',
+    /*ไม่มีหน้า HomeComponent ให้เลยเริ่มที่อันนี้ navbar */
     pathMatch: 'full'
   }
 ];

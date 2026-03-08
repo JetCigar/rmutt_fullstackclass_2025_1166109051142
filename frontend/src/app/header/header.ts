@@ -1,24 +1,31 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,RouterModule],
   templateUrl: './header.html',
   styleUrls: ['./header.css']
 })
 export class HeaderComponent {
 
-  cartCount: number = 2;
-  cartTotal: number = 57.00;
+  cartCount: number = 0;
+  cartTotal: number = 0;
   searchQuery: string = '';
 
-  // ✅ เพิ่มตัวแปรที่หายไป
-  selectedLang: string = 'Eng';
-  selectedCurrency: string = 'USD';
 
+selectedLang: string = 'TH';
+selectedCurrency: string = 'THB';
+toggleLang() {
+  this.selectedLang = this.selectedLang === 'TH' ? 'EN' : 'TH';
+}
+
+toggleCurrency() {
+  this.selectedCurrency = this.selectedCurrency === 'USD' ? 'THB' : 'USD';
+}
   changeLang(lang: string) {
     this.selectedLang = lang;
     console.log('Language:', lang);

@@ -98,3 +98,35 @@
 .navbar__phone-number:hover {
   color: #22c55e;
 }
+/* ---------- Breadcrumb ---------- */
+
+.navbar__breadcrumb {
+  width: 100%;
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+}
+
+.navbar__breadcrumb-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 24px;
+  font-size: 14px;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.navbar__breadcrumb a {
+  color: #6b7280;
+  text-decoration: none;
+}
+
+.breadcrumb__separator {
+  color: #9ca3af;
+}
+
+.breadcrumb__item {
+  color: #111827;
+  font-weight: 500;
+}

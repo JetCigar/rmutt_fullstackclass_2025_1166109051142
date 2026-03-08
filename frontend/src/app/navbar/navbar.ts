@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 interface NavItem {
   label: string;
@@ -16,12 +17,49 @@ interface NavItem {
   styleUrls: ['./navbar.css']
 })
 export class NavbarComponent {
+
   navItems: NavItem[] = [
-    { label: 'Home',       href: '/',        hasDropdown: true  },
-    { label: 'Shop',       href: '/shop',    hasDropdown: true  },
-    { label: 'Pages',      href: '/pages',   hasDropdown: true  },
-    { label: 'Blog',       href: '/blog',    hasDropdown: true  },
-    { label: 'About Us',   href: '/about',   hasDropdown: false },
-    { label: 'Contact Us', href: '/contact', hasDropdown: false },
+   
+    { label: 'หน้าแรก', href: '/', hasDropdown: false },/*Home */
+    { label: 'สินค้า', href: '/category', hasDropdown: false },
+    { label: 'โปรโมชั่น', href: '/promotion', hasDropdown: false },
+    { label: 'เกี่ยวกับเรา', href: '/about', hasDropdown: false },
+    { label: 'ติดต่อเรา', href: '/footer', hasDropdown: false },
   ];
+
+  breadcrumbs: string[] = [];
+
+  // ⭐ map route -> ภาษาไทย
+  breadcrumbMap: any = {
+    '/login': 'เข้าสู่ระบบ',
+    '/register': 'สมัครสมาชิก',
+    '/': 'หน้าแรก',/*Home */
+    '/category': 'สินค้าทั้งหมด',
+    '/promotion': 'โปรโมชั่น',
+    '/about': 'เกี่ยวกับเรา',
+    '/footer': 'ติดต่อเรา'
+  };
+
+  constructor(private router: Router) {
+
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+
+const url = this.router.url.split('?')[0];
+
+const path = '/' + url.split('/')[1];
+
+const label = this.breadcrumbMap[path];
+
+        this.breadcrumbs = [];
+
+        if (url !== '/' && label) {
+          this.breadcrumbs.push(label);
+        }
+
+      });
+
+  }
+
 }
