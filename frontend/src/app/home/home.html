@@ -1,0 +1,131 @@
+<div class="home-container">
+  <!-- +++ ส่วน Hero ใหม่ตามแบบที่คุณส่งมา +++ -->
+  <section class="hero-grid">
+    <!-- แบนเนอร์หลักด้านซ้าย -->
+    <div class="main-banner">
+      <div class="banner-overlay-green">
+        <span class="welcome-text">ยินดีต้อนรับสู่ KASETTHAI</span>
+        <h1>อุปกรณ์การเกษตร<br>คุณภาพสูง</h1>
+
+        <div class="promo-row">
+          <span class="discount-tag">ลดสูงสุด <span class="highlight-box">30%</span></span>
+          <p>จัดส่งฟรีทุกออเดอร์ เมื่อสั่งซื้อครบ 2,000 บาท</p>
+        </div>
+
+        <button class="btn-buy-now" [routerLink]="['/category']">เลือกซื้อสินค้า &rarr;</button>
+      </div>
+    </div>
+
+    <!-- โปรโมชั่นย่อยด้านขวา -->
+    <div class="side-promos">
+      <div class="promo-card-mini orange-tint">
+        <span class="card-label color-orange">โปรโมชั่นพิเศษ</span>
+        <h3>ลด 75%</h3>
+        <p>เฉพาะสินค้าเครื่องพ่นยา</p>
+        <a href="#" class="card-link color-orange" [routerLink]="['/category']">ซื้อเลย &rarr;</a>
+      </div>
+
+      <div class="promo-card-mini">
+        <span class="card-label color-green">สินค้ายอดนิยม</span>
+        <h3>ดีลพิเศษประจำเดือน</h3>
+        <p>อุปกรณ์ระบบน้ำ</p>
+        <a href="#" class="card-link color-green" [routerLink]="['/category']">ซื้อเลย &rarr;</a>
+      </div>
+    </div>
+  </section>
+  <!-- +++ สิ้นสุดส่วน Hero ใหม่ +++ -->
+
+  <section class="features">
+    <div class="feature">
+      <span class="icon">🚚</span>
+      <p>จัดส่งฟรี เมื่อสั่งซื้อครบ 2,000 บาท</p>
+    </div>
+    <div class="feature">
+      <span class="icon">💬</span>
+      <p>ให้คำปรึกษา 24/7</p>
+    </div>
+    <div class="feature">
+      <span class="icon">🛡️</span>
+      <p>ชำระเงินปลอดภัย 100%</p>
+    </div>
+    <div class="feature">
+      <span class="icon">↩️</span>
+      <p>รับประกันคืนเงิน ภายใน 30 วัน</p>
+    </div>
+  </section>
+
+  <!-- +++ ส่วนโปรโมชั่นวันนี้ (3 การ์ด) +++ -->
+  <section class="promo-today-grid">
+    <!-- การ์ด 1: ตัวนับเวลา -->
+    <div class="promo-card timer-bg">
+      <div class="card-content">
+        <span class="label-yellow">โปรโมชั่นเดือนนี้</span>
+        <h3>ลดทั้งร้าน</h3>
+        <div class="countdown-timer">
+          <div class="time-box"><span>{{days()}}</span><label>วัน</label></div>
+          <div class="time-box"><span>{{hours()}}</span><label>ชม</label></div>
+          <div class="time-box"><span>{{minutes()}}</span><label>นาที</label></div>
+          <div class="time-box"><span>{{seconds()}}</span><label>วินาที</label></div>
+        </div>
+        <button class="btn-green-small" [routerLink]="['/category']">ซื้อเลย &rarr;</button>
+      </div>
+    </div>
+
+    <!-- การ์ด 2: ปั๊มน้ำ -->
+    <div class="promo-card green-bg">
+      <div class="card-content">
+        <span class="label-light-green">ราคาพิเศษ</span>
+        <h3>ปั๊มน้ำราคาประหยัด</h3>
+        <p>เริ่มต้นเพียง ฿3,200</p>
+        <button class="btn-white-small" [routerLink]="['/category']">ซื้อเลย &rarr;</button>
+      </div>
+    </div>
+
+    <!-- การ์ด 3: สินค้าใหม่ -->
+    <div class="promo-card cream-bg">
+      <div class="card-content">
+        <span class="label-orange">จัดส่งฟรี</span>
+        <h3>สินค้าใหม่ล่าสุด</h3>
+        <p>ลดสูงสุด <span class="tag-red">64%</span></p>
+        <button class="btn-green-small" [routerLink]="['/category']">ซื้อเลย &rarr;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- +++ ส่วนหมวดหมู่ยอดนิยม +++ -->
+  <section class="popular-categories">
+    <div class="section-header">
+      <div class="header-text">
+        <span class="sub-label">หมวดหมู่</span>
+        <h2>หมวดหมู่ยอดนิยม</h2>
+      </div>
+      <a [routerLink]="['/category']" class="view-all">ดูทั้งหมด &rarr;</a>
+    </div>
+
+    <div class="category-grid">
+      <div *ngFor="let category of categories" class="category-card-item">
+        <div class="category-img-wrapper">
+          <!-- ใช้รูปจากตัวแปร category ถ้ามี ถ้าไม่มีใช้รูป default -->
+          <img [src]="category.image || 'https://cdn-icons-png.flaticon.com/512/1865/1865231.png'"
+            alt="{{category.name}}">
+        </div>
+        <span class="cat-name">{{category.name}}</span>
+        <span class="cat-count">{{category.product_count || 0}} สินค้า</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="product-recommend">
+    <h4>สินค้าแนะนำ</h4>
+    <div class="product-list">
+      <div *ngFor="let product of products" class="product-item">
+        <img [src]="product.images[0]?.image_url" alt="{{product.name}}">
+        <div class="product-info">
+          <span class="product-name">{{product.name}}</span>
+          <span class="product-price">฿{{product.price}}</span>
+          <button class="btn-cart">เพิ่มลงตะกร้า</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

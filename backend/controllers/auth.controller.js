@@ -1,43 +1,68 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const User = require("../models/user.model");
+const { PrismaClient } = require("@prisma/client")
+const bcrypt = require("bcrypt")
 
+const prisma = new PrismaClient()
+
+// REGISTER
 exports.register = async (req, res) => {
   try {
-    
-    const { username, email, password } = req.body;
+    const { first_name, last_name, email, password } = req.body
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const existingUser = await prisma.customer.findUnique({
+      where: { email }
+    })
 
-    const user = await User.createUser(username, email, hashedPassword);
+    if (existingUser) {
+      return res.status(400).json({ message: "Email already exists" })
+    }
 
-    res.status(201).json({ message: "User registered", user });
+    const hashedPassword = await bcrypt.hash(password, 10)
 
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    const user = await prisma.customer.create({
+      data: {
+        first_name,
+        last_name,
+        email,
+        password_hash: hashedPassword
+      }
+    })
+
+    res.json({
+      message: "Register success",
+      user
+    })
+
+  } catch (error) {
+    res.status(500).json({ error: error.message })
   }
-};
+}
 
+
+// LOGIN
 exports.login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password } = req.body
 
-    const user = await User.findUserByEmail(email);
-    if (!user) return res.status(400).json({ message: "User not found" });
+    const user = await prisma.customer.findUnique({
+      where: { email }
+    })
 
-    const validPassword = await bcrypt.compare(password, user.password);
-    if (!validPassword)
-      return res.status(400).json({ message: "Invalid password" });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" })
+    }
 
-    const token = jwt.sign(
-      { id: user.id, email: user.email },
-      process.env.JWT_SECRET,
-      { expiresIn: "1d" }
-    );
+    const validPassword = await bcrypt.compare(password, user.password_hash)
 
-    res.json({ token });
+    if (!validPassword) {
+      return res.status(401).json({ message: "Invalid password" })
+    }
 
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.json({
+      message: "Login success",
+      user
+    })
+
+  } catch (error) {
+    res.status(500).json({ error: error.message })
   }
-};
+}
