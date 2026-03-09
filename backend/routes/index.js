@@ -8,4 +8,7 @@ const categoryRoutes = require('./category.routes');
 // จับคู่ URL Prefix กับ Routes ย่อย
 router.use('/api/categories', categoryRoutes);
 
+const productRoutes = require('./product.routes');
+router.use('/api/products', productRoutes);
+
 module.exports = router;

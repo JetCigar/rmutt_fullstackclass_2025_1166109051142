@@ -2,12 +2,13 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './login/login';
 import { RegisterComponent } from './register/register';
 import { Category } from './category/category';
+import { HomeComponent } from './home/home';
 
 export const routes: Routes = [
-   /*{
-    path: ' ',
+  {
+    path: '',
     component: HomeComponent
-  },*/
+  },
   {
     path: 'login',
     component: LoginComponent

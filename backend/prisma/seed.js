@@ -165,6 +165,18 @@ async function main() {
   });
   console.log('✅ 8 Products created successfully');
 
+  
+// เพิ่ม ProductImage ที่นี่
+// await prisma.productImage.upsert({
+//   where: { image_id: 1 },
+//   update: {},
+//   create: {
+//     product_id: product1.product_id,
+//     image_url: 'https://storage.googleapis.com/techsauce-prod/ugc/uploads/2020/6/1200_630_%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%83%E0%B8%8A%E0%B9%89_AI_%E0%B9%83%E0%B8%99%E0%B8%9F%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B8%A1_18866.jpg',
+//     is_primary: true
+//   }
+// });
+
   // 7. สร้าง Discount
   const discount1 = await prisma.discount.upsert({
     where: { code: 'RAINY2026' }, update: {},
