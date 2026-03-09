@@ -1,0 +1,139 @@
+.cart-page{
+  display:flex;
+  gap:30px;
+  width:90%;
+  margin:auto;
+  margin-top:120px;   /* เว้น nav */
+}
+
+.blur{
+  filter: blur(5px);
+}
+
+/* LEFT */
+
+.cart-left{
+  flex:2;
+}
+
+.cart-card{
+  display:flex;
+  align-items:center;
+  background:#f9f9f9;
+  border-radius:12px;
+  padding:15px;
+  margin-bottom:15px;
+}
+
+.product-img{
+  width:70px;
+  height:70px;
+  background:#eaeaea;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:30px;
+  margin-right:15px;
+}
+
+.product-info{
+  flex:1;
+}
+
+.category{
+  font-size:12px;
+  color:#3bb273;
+  background:#e9f7ef;
+  display:inline-block;
+  padding:3px 8px;
+  border-radius:10px;
+}
+
+.sku{
+  font-size:12px;
+  color:#777;
+}
+
+.qty-box{
+  margin-top:10px;
+}
+
+.qty-box button{
+  border:1px solid #ccc;
+  background:white;
+  width:30px;
+  height:30px;
+  border-radius:20px;
+}
+
+.product-price{
+  text-align:right;
+  margin-right:15px;
+}
+
+.price{
+  color:#16a34a;
+  font-weight:bold;
+  font-size:18px;
+}
+
+.remove button{
+  border:none;
+  background:#ffdede;
+  color:red;
+  width:30px;
+  height:30px;
+  border-radius:50%;
+}
+
+/* RIGHT */
+
+.cart-right{
+  flex:1;
+}
+
+.summary-box{
+  background:white;
+  border-radius:12px;
+  padding:20px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.summary-row{
+  display:flex;
+  justify-content:space-between;
+  margin-top:10px;
+}
+
+.summary-total{
+  display:flex;
+  justify-content:space-between;
+  font-size:20px;
+  font-weight:bold;
+  margin-top:10px;
+}
+
+.free{
+  color:#16a34a;
+}
+
+.checkout-btn{
+  width:100%;
+  margin-top:20px;
+  padding:12px;
+  background:#22c55e;
+  border:none;
+  color:white;
+  font-size:16px;
+  border-radius:8px;
+}
+
+.continue-btn{
+  width:100%;
+  margin-top:10px;
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #ddd;
+  background:white;
+}

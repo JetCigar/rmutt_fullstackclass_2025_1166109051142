@@ -1,0 +1,73 @@
+.review-section{
+    text-align:center;
+    padding:80px 40px;
+    background:#f5f5f5;
+  }
+  
+  .subtitle{
+    color:#666;
+    margin-bottom:40px;
+  }
+  
+  .review-container{
+    display:flex;
+    gap:30px;
+    justify-content:center;
+    margin-bottom:50px;
+  }
+  
+  .review-card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    width:320px;
+    text-align:left;
+    box-shadow:0 3px 10px rgba(0,0,0,0.05);
+  }
+  
+  .quote{
+    color:#444;
+    margin-bottom:15px;
+  }
+  
+  .stars{
+    color:#ff8c00;
+    font-size:18px;
+    margin-bottom:20px;
+  }
+  
+  .user{
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  
+  .avatar{
+    width:40px;
+    height:40px;
+    background:#00a000;
+    color:white;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+  }
+  
+  .stats{
+    background:#00b300;
+    color:white;
+    display:flex;
+    justify-content:space-around;
+    padding:40px;
+    border-radius:15px;
+  }
+  
+  .stat-box h3{
+    font-size:36px;
+    margin:0;
+  }
+  
+  .stat-box p{
+    margin-top:5px;
+  }

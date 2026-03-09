@@ -38,15 +38,9 @@ import {
   withNoXsrfProtection,
   withRequestsMadeViaParent,
   withXsrfConfiguration
-<<<<<<< HEAD
 } from "./chunk-YKXF6GWM.js";
 import "./chunk-2ZFTCAES.js";
 import "./chunk-D4IQEDMS.js";
-=======
-} from "./chunk-IG2GZATE.js";
-import "./chunk-2ZFTCAES.js";
-import "./chunk-TYRBVHJB.js";
->>>>>>> 140fe010314751975635b9e84e0e3e29c7bae605
 export {
   FetchBackend,
   HTTP_INTERCEPTORS,

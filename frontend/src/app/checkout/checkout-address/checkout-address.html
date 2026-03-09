@@ -1,0 +1,266 @@
+```html
+<div class="modal-overlay" (click)="onClose()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+
+    <!-- Header -->
+    <div class="modal-header">
+      <div class="header-left">
+        <span class="header-icon">💳</span>
+        <div>
+          <h2 class="header-title">ชำระเงิน</h2>
+          <p class="header-subtitle">ขั้นตอนที่ 1: ที่อยู่จัดส่ง</p>
+        </div>
+      </div>
+      <button type="button" class="close-btn" (click)="onClose()">✕</button>
+    </div>
+
+    <!-- Step -->
+    <div class="step-progress">
+      <div class="step active">
+        <div class="step-circle active">1</div>
+        <span class="step-label active">ที่อยู่</span>
+      </div>
+
+      <div class="step-line"></div>
+
+      <div class="step">
+        <div class="step-circle">2</div>
+        <span class="step-label">ชำระเงิน</span>
+      </div>
+
+      <div class="step-line"></div>
+
+      <div class="step">
+        <div class="step-circle">3</div>
+        <span class="step-label">ยืนยัน</span>
+      </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="modal-body">
+
+      <!-- loading -->
+      <div *ngIf="isLoading" class="loading-state">
+        <div class="spinner"></div>
+        <p>กำลังโหลด...</p>
+      </div>
+
+      <!-- error -->
+      <div *ngIf="errorMessage" class="error-banner">
+        ⚠️ {{ errorMessage }}
+      </div>
+
+      <!-- empty -->
+      <div *ngIf="!isLoading && addresses.length === 0" class="empty-state">
+        <p>ยังไม่มีที่อยู่จัดส่ง</p>
+      </div>
+
+      <!-- address list -->
+      <div *ngIf="!isLoading && addresses.length > 0" class="addresses-list">
+
+        <div
+          *ngFor="let address of addresses"
+          class="address-card"
+          [class.selected]="selectedAddressId === address.address_id"
+          (click)="!editingAddress && selectAddress(address.address_id)"
+        >
+
+          <!-- card content -->
+          <div class="address-card-inner">
+
+            <div class="address-radio">
+              <div
+                class="radio-dot"
+                [class.active]="selectedAddressId === address.address_id"
+              ></div>
+            </div>
+
+            <div class="address-info">
+              <p class="address-name">{{ customerName }}</p>
+              <p class="address-line">{{ address.address_line }}</p>
+              <p class="address-line">
+                {{ address.province }} {{ address.zip_code }}
+              </p>
+            </div>
+
+            <div class="address-actions">
+
+              <span *ngIf="address.is_default" class="default-badge">
+                ค่าเริ่มต้น
+              </span>
+
+              <button
+                type="button"
+                class="edit-btn"
+                (click)="startEdit(address,$event); $event.stopPropagation()"
+              >
+                แก้ไข
+              </button>
+
+              <button
+                type="button"
+                class="delete-btn"
+                (click)="deleteAddress(address.address_id,$event); $event.stopPropagation()"
+              >
+                🗑️
+              </button>
+
+            </div>
+
+          </div>
+
+          <!-- EDIT FORM -->
+          <div
+            *ngIf="editingAddress?.address_id === address.address_id"
+            class="edit-form"
+            (click)="$event.stopPropagation()"
+          >
+
+            <p class="edit-form-title">✏️ แก้ไขที่อยู่</p>
+
+            <div class="form-group">
+              <label>ที่อยู่ / บ้านเลขที่</label>
+              <input
+                type="text"
+                [(ngModel)]="editAddressLine"
+                class="form-input"
+                placeholder="123 ถนน..."
+              />
+            </div>
+
+            <div class="form-row">
+
+              <div class="form-group">
+                <label>จังหวัด</label>
+                <select [(ngModel)]="editProvince" class="form-select">
+                  <option value="">เลือกจังหวัด</option>
+                  <option *ngFor="let p of provinces" [value]="p">
+                    {{ p }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label>รหัสไปรษณีย์</label>
+                <input
+                  type="text"
+                  maxlength="5"
+                  [(ngModel)]="editZipCode"
+                  class="form-input"
+                  placeholder="10xxx"
+                />
+              </div>
+
+            </div>
+
+            <div class="edit-actions">
+
+              <button
+                type="button"
+                class="btn-cancel-edit"
+                (click)="cancelEdit(); $event.stopPropagation()"
+              >
+                ยกเลิก
+              </button>
+
+              <button
+                type="button"
+                class="btn-save-edit"
+                (click)="saveEdit(); $event.stopPropagation()"
+              >
+                💾 บันทึก
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- add address -->
+      <button
+        type="button"
+        class="add-address-btn"
+        (click)="toggleNewAddressForm()"
+      >
+        {{ showNewAddressForm ? '✕ ซ่อนฟอร์ม' : '+ เพิ่มที่อยู่ใหม่' }}
+      </button>
+
+      <!-- new address form -->
+      <!-- new address form -->
+<div *ngIf="showNewAddressForm" class="new-address-form">
+
+  <div class="form-group">
+    <label>ที่อยู่</label>
+    <input
+      type="text"
+      [(ngModel)]="newAddressLine"
+      class="form-input"
+      placeholder="บ้านเลขที่ / ถนน / หมู่"
+    />
+  </div>
+
+  <div class="form-row">
+
+    <div class="form-group">
+      <label>จังหวัด</label>
+      <select [(ngModel)]="newProvince" class="form-select">
+        <option value="">เลือกจังหวัด</option>
+        <option *ngFor="let p of provinces" [value]="p">
+          {{ p }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>รหัสไปรษณีย์</label>
+      <input
+        type="text"
+        maxlength="5"
+        [(ngModel)]="newZipCode"
+        class="form-input"
+        placeholder="10xxx"
+      />
+    </div>
+
+  </div>
+
+  <!-- ปุ่มบันทึก -->
+  <div class="edit-actions">
+
+    <button
+      type="button"
+      class="btn-cancel-edit"
+      (click)="toggleNewAddressForm()"
+    >
+      ยกเลิก
+    </button>
+
+    <button
+      type="button"
+      class="btn-save-edit"
+      (click)="createAddress()"
+    >
+      💾 บันทึกที่อยู่
+    </button>
+
+  </div>
+
+</div>
+
+    <!-- footer -->
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn-next"
+        (click)="onNext()"
+        [disabled]="isLoading"
+      >
+        ถัดไป →
+      </button>
+    </div>
+
+  </div>
+</div>
