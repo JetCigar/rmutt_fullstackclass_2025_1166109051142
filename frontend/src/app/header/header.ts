@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, FormsModule,RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './header.html',
   styleUrls: ['./header.css']
 })
 export class HeaderComponent {
+  constructor(private router: Router) {}
 
   cartCount: number = 0;
   cartTotal: number = 0;
@@ -43,7 +44,7 @@ toggleCurrency() {
   }
 
   onWishlistClick(): void {
-    console.log('[Header] Wishlist clicked');
+    this.router.navigate(['/order']);
   }
 
   onCartClick(): void {

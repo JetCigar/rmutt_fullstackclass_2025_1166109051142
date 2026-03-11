@@ -1,0 +1,34 @@
+<section class="account">
+  <app-account-sidebar></app-account-sidebar>
+
+  <main class="account__content">
+    <header class="account__header">
+      <h1>คำสั่งซื้อของฉัน</h1>
+      <p class="account__subtitle">ดูรายการคำสั่งซื้อทั้งหมดในรูปแบบที่เข้าใจง่าย</p>
+    </header>
+
+    <section class="orders">
+      <article class="order-card" *ngFor="let order of orders">
+        <div class="order-card__header">
+          <div>
+            <div class="order-card__title">คำสั่งซื้อ #{{ order.id }}</div>
+            <div class="order-card__date">{{ order.date }}</div>
+          </div>
+          <div class="order-card__status">{{ order.status }}</div>
+        </div>
+
+        <ul class="order-card__items">
+          <li *ngFor="let item of order.items" class="order-card__item">
+            <div class="order-card__item-name">{{ item.name }} x{{ item.qty }}</div>
+            <div class="order-card__item-price">{{ formatPrice(item.price) }}</div>
+          </li>
+        </ul>
+
+        <div class="order-card__footer">
+          <div class="order-card__total">รวมทั้งหมด</div>
+          <div class="order-card__total-amount">{{ formatPrice(getTotal(order)) }}</div>
+        </div>
+      </article>
+    </section>
+  </main>
+</section>
