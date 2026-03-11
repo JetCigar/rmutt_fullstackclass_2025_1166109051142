@@ -33,13 +33,17 @@ yarn-error.log
 .sass-cache/
 /connect.lock
 /coverage
-/libpeerconnection.log
-testem.log
-/typings
-__screenshots__/
 
 # System files
 .DS_Store
 Thumbs.db
 .env
 node_modules/
+
+# Build outputs
+frontend/dist/
+frontend/build_output.txt
+
+# Angular specific
+.angular/cache/
+*.tsbuildinfo
