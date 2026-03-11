@@ -1,1 +1,106 @@
-<p>register works!</p>
+<div class="login-wrapper">
+  <div class="login-card">
+
+    <!-- Logo -->
+    <div class="logo">
+      <i class="bi bi-leaf"></i>
+      <span>Kaset<span class="green">Thai</span></span>
+    </div>
+
+    <h2>สมัครสมาชิก</h2>
+
+    <form (ngSubmit)="register()">
+
+      <!-- Name -->
+      <div class="name-column">
+
+        <div class="field">
+          <label>ชื่อ</label>
+          <input type="text" placeholder="ชื่อ" [(ngModel)]="firstname" name="firstname" required />
+        </div>
+
+        <div class="field">
+          <label>นามสกุล</label>
+          <input type="text" placeholder="นามสกุล" [(ngModel)]="lastname" name="lastname" required />
+        </div>
+
+      </div>
+
+      <!-- Email -->
+      <label>อีเมล</label>
+      <input type="email" placeholder="กรอกอีเมล" [(ngModel)]="email" name="email" required />
+
+      <!-- Phone -->
+      <label>เบอร์โทรศัพท์</label>
+      <input type="text" placeholder="0812345678" [(ngModel)]="phone" name="phone" />
+
+      <!-- Password -->
+      <label>รหัสผ่าน</label>
+
+      <div class="position-relative password-field">
+
+        <input [type]="showPassword ? 'text' : 'password'" 
+               placeholder="อย่างน้อย 6 ตัวอักษร"
+               [(ngModel)]="password"  
+               name="password"
+               (input)="checkPassword()"
+        />
+
+        <i class="bi eye-icon" [class.bi-eye]="!showPassword" [class.bi-eye-slash]="showPassword"
+          (click)="togglePassword()">
+        </i>
+
+      </div>
+
+      <div class="password-rules">
+        <p [class.valid]="hasUpperLower">✔ ต้องมีตัวพิมพ์เล็กและพิมพ์ใหญ่</p>
+        <p [class.valid]="hasMinLength">✔ อย่างน้อย 6 ตัวอักษร</p>
+        <p [class.valid]="hasSpecial">✔ ต้องมีอักขระพิเศษ (!@#$%)</p>
+      </div>
+
+      <!-- Confirm Password -->
+      <label>ยืนยันรหัสผ่าน</label>
+
+      <div class="position-relative password-field">
+
+        <input [type]="showConfirmPassword ? 'text' : 'password'" placeholder="กรอกรหัสผ่านอีกครั้ง"
+          [(ngModel)]="confirmPassword" name="confirmPassword" (input)="checkConfirmPassword()" />
+
+        <i class="bi eye-icon" [class.bi-eye]="!showConfirmPassword" [class.bi-eye-slash]="showConfirmPassword"
+          (click)="toggleConfirmPassword()">
+        </i>
+
+      </div>
+
+      <p class="error" *ngIf="passwordMismatch">
+        รหัสผ่านไม่ตรงกัน
+      </p>
+      <!-- Terms -->
+      <div class="terms">
+
+        <input type="checkbox" [(ngModel)]="acceptTerms" name="terms" required />
+
+        <span>
+          ฉันยอมรับ
+          <a>ข้อกำหนดการใช้งาน</a>
+          และ
+          <a>นโยบายความเป็นส่วนตัว</a>
+        </span>
+
+      </div>
+
+      <!-- Button -->
+      <button type="submit" class="register-btn"
+        [disabled]="passwordMismatch || !(hasUpperLower && hasMinLength && hasSpecial && acceptTerms)">
+        สมัครสมาชิก
+      </button>
+
+    </form>
+
+    <p class="login-link">
+      มีบัญชีอยู่แล้ว?
+      <a routerLink="/login">เข้าสู่ระบบ</a>
+    </p>
+
+  </div>
+</div>
