@@ -4,9 +4,8 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('--- 🌱 Start Seeding Agricultural Equipment Data ---');
 
-  // only clear cart items when running in development/test to avoid wiping real data
   if (process.env.NODE_ENV !== 'production') {
-    // await prisma.cartItem.deleteMany();
+  await prisma.cartItem.deleteMany();
   }
 
   // 1. สร้าง Role
