@@ -86,7 +86,7 @@
         <span>฿{{ totalPrice }}</span>
       </div>
 
-      <button class="checkout-btn" (click)="openCheckout()">
+      <button class="checkout-btn" >
         ดำเนินการชำระเงิน
       </button>
 
@@ -98,9 +98,5 @@
 
   </div>
 
-  <app-checkout-address
-    *ngIf="showCheckout"
-    (closeModal)="showCheckout=false">
-  </app-checkout-address>
 
 </div>

@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../services/cart.service';
 import { Router } from '@angular/router';
-import { CheckoutAddress } from '../checkout/checkout-address/checkout-address';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule,CheckoutAddress],
+  imports: [CommonModule],
   templateUrl: './cart.html',
   styleUrls: ['./cart.scss']
 })
@@ -34,33 +33,11 @@ export class CartComponent implements OnInit {
   }
 
 
-  //ngOnInit(): void {
-  //  this.loadCart();
-  //}
-
   ngOnInit(): void {
-    // mock data
-    this.cartItems = [
-      {
-        cart_item_id: 999,
-        quantity: 1,
-        product: {
-          name: "เครื่องตัดหญ้าทดลอง",
-          sku: "MOCK-001",
-          price: 500,
-          stock_quantity: 10,
-          category: {
-            name: "สินค้าเกษตร"
-          }
-        }
-      }
-    ];
-  
-    this.calculateTotal();
-  
-    // โหลดของจริงจาก backend
     this.loadCart();
   }
+
+
 
 
   // โหลด cart
