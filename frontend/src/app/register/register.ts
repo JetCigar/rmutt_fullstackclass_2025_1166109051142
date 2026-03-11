@@ -31,6 +31,21 @@ export class RegisterComponent {
   hasSpecial = false;
   passwordMismatch = false;
 
+  showTerms = false;
+  showPrivacy = false;
+
+  openTerms() {
+    this.showTerms = true;
+  }
+
+  openPrivacy() {
+    this.showPrivacy = true;
+  }
+
+  closePopup() {
+    this.showTerms = false;
+    this.showPrivacy = false;
+  }
   constructor(private http: HttpClient, private router: Router) { }
 
   togglePassword() {

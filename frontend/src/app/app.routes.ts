@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './login/login';
 import { RegisterComponent } from './register/register';
 import { Category } from './category/category';
-
 export const routes: Routes = [
 
   {
@@ -24,6 +23,7 @@ export const routes: Routes = [
   {
     path: 'category',
     component: Category
-  }
+  },
 
+ 
 ];
