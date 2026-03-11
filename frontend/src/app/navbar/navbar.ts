@@ -19,7 +19,7 @@ interface NavItem {
 export class NavbarComponent implements OnInit {
 
   navItems: NavItem[] = [
-    { label: 'หน้าแรก', href: '/', hasDropdown: false },
+    { label: 'หน้าแรก', href: '/Home', hasDropdown: false },
     { label: 'สินค้า', href: '/category', hasDropdown: false },
     { label: 'โปรโมชั่น', href: '/promotion', hasDropdown: false },
     { label: 'เกี่ยวกับเรา', href: '/about', hasDropdown: false },
