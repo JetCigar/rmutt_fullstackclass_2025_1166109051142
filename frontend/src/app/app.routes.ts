@@ -2,14 +2,12 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './login/login';
 import { RegisterComponent } from './register/register';
 import { Category } from './category/category';
+
 export const routes: Routes = [
-
-  {
-    path: '',
-    redirectTo: 'login',
-    pathMatch: 'full'
-  },
-
+   /*{
+    path: ' ',
+    component: HomeComponent
+  },*/
   {
     path: 'login',
     component: LoginComponent
@@ -25,5 +23,10 @@ export const routes: Routes = [
     component: Category
   },
 
- 
+  {
+    path: '',
+    redirectTo: 'navbar',
+    /*ไม่มีหน้า HomeComponent ให้เลยเริ่มที่อันนี้ navbar */
+    pathMatch: 'full'
+  }
 ];

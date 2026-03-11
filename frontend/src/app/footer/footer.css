@@ -1,0 +1,219 @@
+/* ===================== FOOTER STYLES ===================== */
+
+.footer {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  width: 100%;
+}
+
+/* ---------- Main Footer ---------- */
+.footer__main {
+  background-color: #1d2128;
+  padding: 48px 48px 36px;
+}
+
+.footer__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.8fr 1fr 1fr 1fr 1fr;
+  gap: 40px;
+}
+
+/* ---------- Brand ---------- */
+/* ---------- New Logo ---------- */
+.logo-icon{
+  width:28px;
+  height:28px;
+  object-fit:contain;
+}
+
+.logo-text{
+  font-family:'Georgia', serif;
+  font-size:20px;
+  font-weight:700;
+  letter-spacing:-0.3px;
+}
+
+.logo-dark{
+  color:#ffffff;
+}
+
+.logo-green{
+  color:#22c55e;
+}
+
+.footer__desc {
+  font-size: 13px;
+  color: #7a7f8e;
+  line-height: 1.75;
+  margin: 0 0 20px 0;
+  max-width: 220px;
+}
+
+.footer__contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer__contact-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 6px 12px;
+  border: 1px solid #3a3f4e;
+  border-radius: 4px;
+  width: fit-content;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.footer__contact-badge:hover {
+  border-color: #22c55e;
+}
+
+.footer__contact-badge--email {
+  color: #22c55e;
+}
+
+/* ---------- Link Columns ---------- */
+.footer__col-title {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 20px 0;
+  letter-spacing: 0.2px;
+}
+
+.footer__col-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer__col-link {
+  font-size: 13px;
+  color: #7a7f8e;
+  text-decoration: none;
+  line-height: 1.4;
+  transition: color 0.2s;
+}
+
+.footer__col-link:hover {
+  color: #22c55e;
+}
+
+/* ---------- Bottom Bar ---------- */
+.footer__bottom {
+  background-color: #16191f;
+  padding: 14px 48px;
+}
+
+.footer__bottom-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.footer__copyright {
+  font-size: 12px;
+  color: #5a5f6e;
+  margin: 0;
+}
+
+.footer__bottom-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* ---------- Payments ---------- */
+.footer__payments {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.footer__payment-badge {
+  background: #2a2f3a;
+  border-radius: 3px;
+  padding: 3px 8px;
+  font-size: 9px;
+  color: #7a7f8e;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.footer__payment-badge--secure {
+  color: #22c55e;
+  border: 1px solid #22c55e;
+}
+
+/* ---------- Socials ---------- */
+.footer__socials {
+  display: flex;
+  gap: 8px;
+}
+
+.footer__social {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #2a2f3a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7a7f8e;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.footer__social:hover {
+  background: #22c55e;
+  color: #ffffff;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .footer__inner {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 32px;
+  }
+
+  .footer__brand {
+    grid-column: span 3;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer__main {
+    padding: 32px 24px;
+  }
+
+  .footer__inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+
+  .footer__brand {
+    grid-column: span 2;
+  }
+
+  .footer__bottom {
+    padding: 14px 24px;
+  }
+
+  .footer__bottom-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
