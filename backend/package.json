@@ -3,8 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "server/server.js",
-  
-
   "scripts": {
     "start": "node server/server.js",
     "dev": "nodemon server/server.js"
@@ -14,7 +12,8 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "@prisma/client": "^6.0.0",
+    "@prisma/client": "^6.19.2",
+    "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
