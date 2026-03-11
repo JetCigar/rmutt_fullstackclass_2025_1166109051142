@@ -12,11 +12,6 @@ console.log(test);
 app.use(cors())
 app.use(express.json())
 
-
-const addressRoutes = require("../routes/address.routes")
-app.use("/api/addresses", addressRoutes)
-
-
 app.get('/test-db', async (req, res) => {
   try {
     // ลอง query แบบง่ายที่สุด (เช่น นับจำนวน Customer)
