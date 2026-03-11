@@ -5,10 +5,21 @@ const prisma = new PrismaClient();
 // สร้างฟังก์ชันสำหรับจัดการ logic นี้
 const getTestCategory = async (req, res) => {
   try {
-    const category = await prisma.category.findMany();
+    const categories = await prisma.category.findMany({
+      include: {
+        _count: {
+          select: { products: true }
+        }
+      }
+    });
+
+    const result = categories.map(cat => ({
+      ...cat,
+      product_count: cat._count.products
+    }));
 
     res.json({ 
-      categories: category
+      categories: result
     });
   } catch (error) {
     res.status(500).json({ 

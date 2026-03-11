@@ -39,183 +39,74 @@ async function main() {
     },
   });
 
-  // 4. สร้างที่อยู่จัดส่งให้ลูกค้า
-  let address = await prisma.address.findFirst({
-    where: { customer_id: customer1.customer_id }
-  });
-  
-  if (!address) {
-    address = await prisma.address.create({
-      data: {
-        customer_id: customer1.customer_id,
-        address_line: '99/9 หมู่ 1 ตำบลคลองหก ฟาร์มเกษตรพอเพียง',
-        province: 'ปทุมธานี',
-        zip_code: '12110',
-        is_default: true,
-      }
+  // 4. สร้าง Category
+  const categories = [
+    { id: 1, name: 'เครื่องจักรกลการเกษตร', desc: 'เครื่องตัดหญ้า, รถไถ, รถเกี่ยว' },
+    { id: 2, name: 'ระบบน้ำและข้อต่อ', desc: 'ท่อ PE, ท่อ PVC, ข้อต่อต่างๆ' },
+    { id: 3, name: 'เครื่องตัดหญ้า', desc: 'เครื่องตัดหญ้าสะพายบ่า, รถตัดหญ้า' },
+    { id: 4, name: 'ปั๊มน้ำ', desc: 'ปั๊มน้ำหอยโข่ง, ปั๊มซับเมอร์ส' },
+    { id: 5, name: 'เครื่องพ่นยา', desc: 'เครื่องพ่นยาแบตเตอรี่, ถังพ่นยา' },
+    { id: 6, name: 'ปุ๋ยและยา', desc: 'ปุ๋ยเคมี, ปุ๋ยอินทรีย์, ยาฆ่าแมลง' },
+  ];
+
+  const catModels = {};
+  for (const cat of categories) {
+    catModels[cat.id] = await prisma.category.upsert({
+      where: { category_id: cat.id },
+      update: { name: cat.name },
+      create: { category_id: cat.id, name: cat.name, description: cat.desc },
     });
   }
-
-  // 5. สร้าง Category (เพิ่มหมวดหมู่ปุ๋ยและวัสดุการเกษตร)
-  const categoryMachine = await prisma.category.upsert({
-    where: { category_id: 1 }, 
-    update: {},
-    create: { name: 'เครื่องจักรกลการเกษตร', description: 'เครื่องตัดหญ้า, ปั๊มน้ำ, เครื่องพ่นยา' },
-  });
-
-  const categoryTools = await prisma.category.upsert({
-    where: { category_id: 2 }, 
-    update: {},
-    create: { name: 'อุปกรณ์ทำสวนและเครื่องมือช่าง', description: 'กรรไกรตัดกิ่ง, จอบ, เสียม, สายยาง' },
-  });
-
-  const categorySupplies = await prisma.category.upsert({
-    where: { category_id: 3 }, 
-    update: {},
-    create: { name: 'วัสดุการเกษตรและปุ๋ย', description: 'ปุ๋ย, ดินปลูก, ถาดเพาะกล้า, เมล็ดพันธุ์' },
-  });
   console.log('✅ Categories created');
 
-  // 6. สร้าง Product (สินค้าเดิม 3 รายการ + สินค้าใหม่ 5 รายการ)
-  // --- สินค้าเดิม ---
-  const product1 = await prisma.product.upsert({
-    where: { sku: 'AG-BC-004' }, update: {},
-    create: { category_id: categoryMachine.category_id, sku: 'AG-BC-004', name: 'เครื่องตัดหญ้าสะพายบ่า 4 จังหวะ', price: 2590.00, stock_quantity: 20 },
-  });
+  // 5. สร้าง Products (12 รายการ)
+  const products = [
+    { sku: 'AG-BC-004', name: 'เครื่องตัดหญ้าสะพายบ่า 4 จังหวะ', price: 4500.00, catId: 3, img: 'https://images.unsplash.com/photo-1599420186946-7b6fb4e297f0?auto=format&fit=crop&q=80&w=600' },
+    { sku: 'AG-WP-200', name: 'ปั๊มน้ำซับเมอร์ส 1.5HP (Solar)', price: 3200.00, catId: 4, img: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=600' },
+    { sku: 'AG-PE-100', name: 'ท่อ PE ขนาด 20mm (100 เมตร)', price: 800.00, catId: 2, img: 'https://images.unsplash.com/photo-1590682680695-43b964a3ae17?auto=format&fit=crop&q=80&w=600' },
+    { sku: 'AG-SP-020', name: 'เครื่องพ่นยาแบตเตอรี่ 20 ลิตร', price: 1200.00, catId: 5, img: 'https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&q=80&w=600' },
+    { sku: 'AG-HZ-001', name: 'รถเกี่ยวข้าวสมรรถภาพสูง', price: 850000.00, catId: 1, img: 'https://images.unsplash.com/photo-1592323860467-31034c568551?auto=format&fit=crop&q=80&w=600' },
+    { sku: 'AG-FT-555', name: 'ปุ๋ยเรือใบ 16-16-16 (50 กก.)', price: 1450.00, catId: 6, img: 'https://images.unsplash.com/photo-1628352081506-83c43143df6a?auto=format&fit=crop&q=80&w=600' },
+    { sku: 'AG-HT-101', name: 'จอบด้ามเหล็ก ตราค้างคาว', price: 250.00, catId: 1, img: 'https://images.unsplash.com/photo-1615821360172-870348705353?auto=format&fit=crop&q=80&w=600' },
+    { sku: 'AG-PM-300', name: 'เครื่องสูบน้ำหอยโข่ง 2 นิ้ว', price: 4200.00, catId: 4, img: 'https://images.unsplash.com/photo-1563911302283-d2bc129e7570?auto=format&fit=crop&q=80&w=600' },
+    { sku: 'AG-DR-005', name: 'โดรนเพื่อการเกษตร DJI T30', price: 180000.00, catId: 1, img: 'https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&q=80&w=600' },
+    { sku: 'AG-SD-999', name: 'เมล็ดพันธุ์ข้าวโพด (10 กก.)', price: 650.00, catId: 6, img: 'https://images.unsplash.com/photo-1524486483162-3bc424ac3ad6?auto=format&fit=crop&q=80&w=600' },
+    { sku: 'AG-BC-007', name: 'เครื่องตัดหญ้ารถเข็น 4 ล้อ', price: 8900.00, catId: 3, img: 'https://images.unsplash.com/photo-1589335300189-581173b3b022?auto=format&fit=crop&q=80&w=600' },
+    { sku: 'AG-SP-016', name: 'เครื่องพ่นยาแบบสะพายเครื่องยนต์', price: 3800.00, catId: 5, img: 'https://images.unsplash.com/photo-1563514227147-6d2ff665a6a0?auto=format&fit=crop&q=80&w=600' },
+  ];
 
-  const product2 = await prisma.product.upsert({
-    where: { sku: 'AG-WP-002' }, update: {},
-    create: { category_id: categoryMachine.category_id, sku: 'AG-WP-002', name: 'ปั๊มน้ำหอยโข่ง 2 นิ้ว 1.5 HP', price: 3200.00, stock_quantity: 15 },
-  });
+  for (const p of products) {
+    const productModel = await prisma.product.upsert({
+      where: { sku: p.sku },
+      update: { name: p.name, price: p.price },
+      create: { 
+        category_id: catModels[p.catId].category_id, 
+        sku: p.sku, 
+        name: p.name, 
+        price: p.price, 
+        stock_quantity: 50 
+      },
+    });
 
-  const product3 = await prisma.product.upsert({
-    where: { sku: 'HT-PS-001' }, update: {},
-    create: { category_id: categoryTools.category_id, sku: 'HT-PS-001', name: 'กรรไกรตัดกิ่งไม้ด้ามอลูมิเนียม', price: 350.00, stock_quantity: 100 },
-  });
-
-  // --- สินค้าใหม่ 5 รายการ ---
-  const product4 = await prisma.product.upsert({
-    where: { sku: 'AG-SP-016' }, update: {},
-    create: {
-      category_id: categoryMachine.category_id,
-      sku: 'AG-SP-016',
-      name: 'เครื่องพ่นยาแบตเตอรี่ 16 ลิตร',
-      description: 'ฉีดพ่นละอองฝอยละเอียด แบตเตอรี่อึดใช้งานได้ทั้งวัน',
-      price: 990.00,
-      weight: 3.5,
-      stock_quantity: 30,
-      is_active: true,
-    },
-  });
-
-  const product5 = await prisma.product.upsert({
-    where: { sku: 'HT-HO-002' }, update: {},
-    create: {
-      category_id: categoryTools.category_id,
-      sku: 'HT-HO-002',
-      name: 'จอบขุดดินพร้อมด้ามเหล็ก',
-      description: 'เหล็กกล้าคาร์บอนสูง แข็งแรงทนทาน ไม่บิ่นง่าย',
-      price: 180.00,
-      weight: 1.5,
-      stock_quantity: 50,
-      is_active: true,
-    },
-  });
-
-  const product6 = await prisma.product.upsert({
-    where: { sku: 'HT-HS-020' }, update: {},
-    create: {
-      category_id: categoryTools.category_id,
-      sku: 'HT-HS-020',
-      name: 'สายยางรดน้ำเด้งดึ๋ง 20 เมตร พร้อมหัวฉีด',
-      description: 'สายยางไม่พับ ไม่หักงอ ทนแดด ทนฝน',
-      price: 390.00,
-      weight: 2.8,
-      stock_quantity: 40,
-      is_active: true,
-    },
-  });
-
-  const product7 = await prisma.product.upsert({
-    where: { sku: 'SU-FE-005' }, update: {},
-    create: {
-      category_id: categorySupplies.category_id,
-      sku: 'SU-FE-005',
-      name: 'ปุ๋ยคอกขี้วัวนมตากแห้ง บรรจุ 5 กก.',
-      description: 'ปุ๋ยอินทรีย์บำรุงดิน ผ่านการหมักและตากแห้ง ไร้กลิ่นรบกวน',
-      price: 60.00,
-      weight: 5.0,
-      stock_quantity: 100,
-      is_active: true,
-    },
-  });
-
-  const product8 = await prisma.product.upsert({
-    where: { sku: 'SU-TR-104' }, update: {},
-    create: {
-      category_id: categorySupplies.category_id,
-      sku: 'SU-TR-104',
-      name: 'ถาดเพาะกล้าไม้ 104 หลุม (แพ็ค 10 ใบ)',
-      description: 'พลาสติกเหนียว ทนทาน ใช้ซ้ำได้หลายรอบ',
-      price: 120.00,
-      weight: 1.0,
-      stock_quantity: 80,
-      is_active: true,
-    },
-  });
-  console.log('✅ 8 Products created successfully');
-
-  
-// เพิ่ม ProductImage ที่นี่
-// await prisma.productImage.upsert({
-//   where: { image_id: 1 },
-//   update: {},
-//   create: {
-//     product_id: product1.product_id,
-//     image_url: 'https://storage.googleapis.com/techsauce-prod/ugc/uploads/2020/6/1200_630_%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%83%E0%B8%8A%E0%B9%89_AI_%E0%B9%83%E0%B8%99%E0%B8%9F%E0%B8%B2%E0%B8%A3%E0%B9%8C%E0%B8%A1_18866.jpg',
-//     is_primary: true
-//   }
-// });
-
-  // 7. สร้าง Discount
-  const discount1 = await prisma.discount.upsert({
-    where: { code: 'RAINY2026' }, update: {},
-    create: { code: 'RAINY2026', discount_amount: 150.00, is_active: true },
-  });
-
-  // 8. จำลองการสร้าง Order
-  let order = await prisma.order.findFirst({
-    where: { customer_id: customer1.customer_id }
-  });
-
-  if (!order) {
-    const total_price = (2590.00 * 1) + (350.00 * 2) - 150.00;
-
-    order = await prisma.order.create({
-      data: {
-        customer_id: customer1.customer_id,
-        discount_id: discount1.discount_id,
-        total_amount: total_price,
-        status: 'pending',
-        order_items: {
-          create: [
-            { product_id: product1.product_id, quantity: 1, price_at_purchase: 2590.00 },
-            { product_id: product3.product_id, quantity: 2, price_at_purchase: 350.00 }
-          ]
-        },
-        payment: { create: { amount: total_price, payment_method: 'bank_transfer', status: 'pending' } },
-        shipping: { create: { address_id: address.address_id, status: 'preparing' } }
+    // เพิ่มรูปภาพ
+    await prisma.productImage.upsert({
+      where: { image_id: products.indexOf(p) + 1 }, // ใช้ index เป็น id ชั่วคราว
+      update: { image_url: p.img },
+      create: {
+        image_id: products.indexOf(p) + 1,
+        product_id: productModel.product_id,
+        image_url: p.img,
+        is_primary: true
       }
     });
   }
+  console.log('✅ 12 Products & Images created successfully');
 
   console.log('--- 🌾 Seeding Completed Successfully ---');
 }
 
 main()
-  .then(async () => {
-    await prisma.$disconnect();
-  })
+  .then(async () => { await prisma.$disconnect(); })
   .catch(async (e) => {
     console.error(e);
     await prisma.$disconnect();

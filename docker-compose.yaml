@@ -6,8 +6,6 @@ services:
     env_file:
       - ./backend/.env
     restart: always
-    env_file:
-      - ./backend/.env
     environment:
       # ให้ไปอ่านค่าจากไฟล์ .env แทนการพิมพ์ลงไปตรงๆ
       POSTGRES_USER: ${DB_USER}
@@ -30,7 +28,7 @@ services:
     restart: always
     ports:
       - "9999:9999"
-      
+
     volumes:
       - ./backend:/app
       - /app/node_modules
@@ -38,7 +36,7 @@ services:
       postgres:
         condition: service_healthy
     command: sh -c "npx prisma generate && npx prisma migrate deploy && npx prisma db seed && npm run dev"
-    
+
     # 3. Prisma Studio Service (พอร์ต 5555 สำหรับดูข้อมูล)
   prisma-studio:
     build: ./backend

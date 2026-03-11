@@ -12,10 +12,10 @@ import { ProductService, ProductData } from '../../services/product.service';
   imports: [RouterModule, CommonModule],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  categories: any[] = [];
-  products: ProductData[] = [];
+  // ใช้ Signals เพื่อรองรับ Zoneless Change Detection
+  categories = signal<any[]>([]);
+  products = signal<ProductData[]>([]);
 
-  // ใช้ Signal เพื่อให้หน้าจออัปเดตแน่นอน
   days = signal('00');
   hours = signal('00');
   minutes = signal('00');
@@ -72,14 +72,45 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   loadCategories() {
-    this.categoryService.getCategories().subscribe((data: any) => {
-      this.categories = data.categories || data;
+    this.categoryService.getCategories().subscribe({
+      next: (data: any) => {
+        let cats = data.categories || data;
+        // แมปรูปภาพให้ตรงกับชื่อหมวดหมู่เพื่อความสวยงาม
+        cats = cats.map((cat: any) => ({
+          ...cat,
+          image: this.getCategoryIcon(cat.name)
+        }));
+        this.categories.set(cats);
+        console.log('HomeComponent: Categories loaded', this.categories());
+      },
+      error: (err) => {
+        console.error('HomeComponent: Categories error', err);
+      }
     });
   }
 
+  getCategoryIcon(name: string): string {
+    const iconMap: { [key: string]: string } = {
+      'เครื่องจักรกลการเกษตร': 'https://cdn-icons-png.flaticon.com/512/2362/2362832.png',
+      'ระบบน้ำและข้อต่อ': 'https://cdn-icons-png.flaticon.com/512/3100/3100063.png',
+      'เครื่องตัดหญ้า': 'https://cdn-icons-png.flaticon.com/512/1500/1500511.png',
+      'ปั๊มน้ำ': 'https://cdn-icons-png.flaticon.com/512/3105/3105900.png',
+      'เครื่องพ่นยา': 'https://cdn-icons-png.flaticon.com/512/2942/2942813.png',
+      'ปุ๋ยและยา': 'https://cdn-icons-png.flaticon.com/512/2682/2682781.png'
+    };
+    return iconMap[name] || 'https://cdn-icons-png.flaticon.com/512/1865/1865231.png';
+  }
+
   loadProducts() {
-    this.productService.getProducts().subscribe((data: any) => {
-      this.products = data.products || data; // ปรับตาม response structure
+    this.productService.getProducts().subscribe({
+      next: (data: any) => {
+        const prods = data.products || data;
+        this.products.set(prods);
+        console.log('HomeComponent: Products loaded', this.products());
+      },
+      error: (err) => {
+        console.error('HomeComponent: Products error', err);
+      }
     });
   }
 }
