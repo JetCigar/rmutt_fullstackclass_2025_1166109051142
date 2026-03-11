@@ -130,3 +130,66 @@
   color: #111827;
   font-weight: 500;
 }
+/* ---------- USER MENU ---------- */
+
+.navbar__user{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-left:auto;
+}
+
+.navbar__login,
+.navbar__register{
+  color:#ffffff;
+  font-size:14px;
+  text-decoration:none;
+  transition:color 0.2s;
+}
+
+.navbar__login:hover,
+.navbar__register:hover{
+  color:#22c55e;
+}
+
+.navbar__profile{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:white;
+  cursor:pointer;
+}
+
+/* วงกลมของไอคอน */
+.navbar__profile svg{
+  width:22px;
+  height:22px;
+  padding:4px;
+  border-radius:50%;
+  border:1px solid #3a3f4e;
+}
+
+.navbar__profile:hover svg{
+  border-color:#22c55e;
+}
+
+.navbar__logout{
+  background:none;
+  border:none;
+  color:white;
+  cursor:pointer;
+  font-size:14px;
+  transition:color 0.2s;
+}
+
+.navbar__logout:hover{
+  color:#22c55e;
+}
+.navbar__profile span{
+  font-size:13px;
+  color:white;
+}
+.navbar__logout{
+  font-size:13px;
+  margin-left:8px;
+}

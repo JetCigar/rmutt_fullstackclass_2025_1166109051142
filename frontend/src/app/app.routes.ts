@@ -3,11 +3,18 @@ import { LoginComponent } from './login/login';
 import { RegisterComponent } from './register/register';
 import { Category } from './category/category';
 import { HomeComponent } from './home/home';
+import { ContactComponent } from './contact/contact';
+import { AboutComponent } from './about/about';
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     component: HomeComponent
+  },
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
   },
   {
     path: 'login',
@@ -23,11 +30,10 @@ export const routes: Routes = [
     path: 'category',
     component: Category
   },
-
+  { path: 'contact', component: ContactComponent }
+  ,
   {
-    path: '',
-    redirectTo: 'navbar',
-    /*ไม่มีหน้า HomeComponent ให้เลยเริ่มที่อันนี้ navbar */
-    pathMatch: 'full'
+    path: 'about',
+    component: AboutComponent
   }
 ];

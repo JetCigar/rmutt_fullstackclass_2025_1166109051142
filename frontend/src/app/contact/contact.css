@@ -1,0 +1,65 @@
+.contact-page{
+  max-width:900px;
+  margin:60px auto;
+  padding:20px;
+}
+
+/* TITLE */
+
+.contact-info h3{
+  color:#2f5d1a;
+  margin-bottom:30px;
+  text-align:center;
+  font-size:28px;
+}
+
+/* CARD */
+
+.info-card{
+  display:flex;
+  gap:16px;
+  padding:20px;
+  border-radius:14px;
+  background:#f6fbf4;
+  margin-bottom:20px;
+  align-items:center;
+  border:1px solid #e3f0dc;
+  transition:all .25s ease;
+}
+
+.info-card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 8px 18px rgba(0,0,0,0.08);
+}
+
+/* ICON */
+
+.icon{
+  width:50px;
+  height:50px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#e6f3e0;
+  border-radius:12px;
+  font-size:20px;
+  color:#2f5d1a;
+}
+/* TEXT */
+
+.info-card h4{
+  margin:0;
+  color:#2f5d1a;
+  font-size:18px;
+}
+
+.info-card p{
+  margin:4px 0;
+  font-weight:600;
+  color:#333;
+}
+
+.info-card span{
+  color:#7a7a7a;
+  font-size:13px;
+}
