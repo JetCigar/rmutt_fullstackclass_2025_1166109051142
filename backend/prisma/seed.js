@@ -4,6 +4,8 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('--- 🌱 Start Seeding Agricultural Equipment Data ---');
 
+    await prisma.cartItem.deleteMany();
+
   // 1. สร้าง Role
   const superAdminRole = await prisma.role.upsert({
     where: { role_id: 1 },
@@ -197,46 +199,7 @@ async function main() {
     });
   }
 
-    // 9. สร้าง CartItem โดยอ้างอิงชื่อสินค้า
-console.log('กำลังสร้างข้อมูลตะกร้าสินค้า...');
 
-// ค้นหาสินค้าจากชื่อ
-const hose = await prisma.product.findFirst({
-  where: {
-    name: 'สายยางรดน้ำเด้งดึ๋ง 20 เมตร พร้อมหัวฉีด'
-  }
-});
-
-const hoe = await prisma.product.findFirst({
-  where: {
-    name: 'จอบขุดดินพร้อมด้ามเหล็ก'
-  }
-});
-
-// ลบ cart เดิมก่อน
-await prisma.cartItem.deleteMany({
-  where: {
-    customer_id: customer1.customer_id
-  }
-});
-
-// เพิ่มสินค้าในตะกร้า
-await prisma.cartItem.createMany({
-  data: [
-    {
-      customer_id: customer1.customer_id,
-      product_id: hose.product_id,
-      quantity: 2
-    },
-    {
-      customer_id: customer1.customer_id,
-      product_id: hoe.product_id,
-      quantity: 1
-    }
-  ]
-});
-
-console.log('✅  เพิ่มข้อมูลตะกร้าสำเร็จ');
 
   console.log('--- 🌾 Seeding Completed Successfully ---');
 }
