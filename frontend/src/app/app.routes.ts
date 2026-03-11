@@ -5,6 +5,8 @@ import { Category } from './category/category';
 import { HomeComponent } from './home/home';
 import { ContactComponent } from './contact/contact';
 import { AboutComponent } from './about/about';
+import { Review } from './review/review';
+import { CartComponent } from './cart/cart';
 
 export const routes: Routes = [
   {
@@ -35,5 +37,14 @@ export const routes: Routes = [
   {
     path: 'about',
     component: AboutComponent
+  },
+  {
+    path: 'review',
+    component: Review
+  },
+
+   {
+    path: 'cart',
+    component: CartComponent
   }
 ];

@@ -1,0 +1,102 @@
+<div class="cart-page">
+
+  <!-- LEFT : CART ITEMS -->
+  <div class="cart-left">
+
+    <h2>🛒 ตะกร้าสินค้า ({{cartItems.length}} รายการ)</h2>
+
+    <div class="cart-card" *ngFor="let item of cartItems">
+
+      <div class="product-img">
+        📦
+      </div>
+
+      <div class="product-info">
+
+        <div class="category">
+          {{ item.product.category?.name || 'สินค้าเกษตร' }}
+        </div>
+
+        <h3>{{ item.product.name }}</h3>
+
+        <p class="sku">SKU: {{ item.product.sku }}</p>
+
+        <div class="qty-box">
+
+          <button class="qty-btn minus" (click)="decrease(item)">
+            -
+          </button>
+        
+          <span class="qty-number">
+            {{ item.quantity }}
+          </span>
+        
+          <button class="qty-btn plus" (click)="increase(item)">
+            +
+          </button>
+        
+        </div>
+
+      </div>
+
+      <div class="product-price">
+
+        <div class="price">
+          ฿{{ item.quantity * item.product.price }}
+        </div>
+
+        <small>
+          ฿{{ item.product.price }} × {{ item.quantity }}
+        </small>
+
+      </div>
+
+      <div class="remove">
+        <button (click)="remove(item)">✕</button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- RIGHT : SUMMARY -->
+
+  <div class="cart-right">
+
+    <div class="summary-box">
+
+      <h3>สรุปคำสั่งซื้อ</h3>
+
+      <p>{{ totalItems }} ชิ้น · {{ cartItems.length }} รายการ</p>
+
+      <div class="summary-row">
+        <span>ราคาสินค้า</span>
+        <span>฿{{ totalPrice }}</span>
+      </div>
+
+      <div class="summary-row">
+        <span>ค่าจัดส่ง</span>
+        <span class="free">ฟรี</span>
+      </div>
+
+      <hr>
+
+      <div class="summary-total">
+        <span>รวมทั้งสิ้น</span>
+        <span>฿{{ totalPrice }}</span>
+      </div>
+
+      <button class="checkout-btn" >
+        ดำเนินการชำระเงิน
+      </button>
+
+      <button class="continue-btn">
+        ← ช้อปปิ้งต่อ
+      </button>
+
+    </div>
+
+  </div>
+
+
+</div>

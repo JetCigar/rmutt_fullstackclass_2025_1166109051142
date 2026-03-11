@@ -44,4 +44,3 @@ app.listen(PORT, async () => {
     console.error("Database connection failed:", error)
   }
 });
- 

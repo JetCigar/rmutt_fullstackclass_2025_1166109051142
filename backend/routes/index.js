@@ -1,16 +1,19 @@
-// ไฟล์: server/routes/index.js
+// server/routes/index.js
 const express = require('express');
 const router = express.Router();
 
-// Import routes ย่อยๆ มาที่นี่
+// import routes
 const categoryRoutes = require('./category.routes');
 const authRoutes = require('./auth.routes');
+const cartRoutes = require('./cart.routes');
+const addressRoutes = require('./address.routes');
+const productRoutes = require('./product.routes');
 
-// จับคู่ URL Prefix กับ Routes ย่อย
+// use routes
 router.use('/api/categories', categoryRoutes);
 router.use('/auth', authRoutes);
-
-const productRoutes = require('./product.routes');
 router.use('/api/products', productRoutes);
+router.use('/api/cart', cartRoutes);
+router.use('/api/addresses', addressRoutes);
 
 module.exports = router;
