@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 interface NavItem {
   label: string;
@@ -15,13 +16,87 @@ interface NavItem {
   templateUrl: './navbar.html',
   styleUrls: ['./navbar.css']
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
+
   navItems: NavItem[] = [
-    { label: 'Home',       href: '/',        hasDropdown: true  },
-    { label: 'Shop',       href: '/shop',    hasDropdown: true  },
-    { label: 'Pages',      href: '/pages',   hasDropdown: true  },
-    { label: 'Blog',       href: '/blog',    hasDropdown: true  },
-    { label: 'About Us',   href: '/about',   hasDropdown: false },
-    { label: 'Contact Us', href: '/contact', hasDropdown: false },
+    { label: 'หน้าแรก', href: '/Home', hasDropdown: false },
+    { label: 'สินค้า', href: '/category', hasDropdown: false },
+    { label: 'โปรโมชั่น', href: '/promotion', hasDropdown: false },
+    { label: 'เกี่ยวกับเรา', href: '/about', hasDropdown: false },
+    { label: 'ติดต่อเรา', href: '/contact', hasDropdown: false },
   ];
+
+  breadcrumbs: string[] = [];
+
+  isLoggedIn = false;
+
+  // ⭐ เพิ่มตัวแปรเก็บชื่อผู้ใช้
+  username: string = '';
+
+  breadcrumbMap: any = {
+    '/login': 'เข้าสู่ระบบ',
+    '/register': 'สมัครสมาชิก',
+    '/': 'หน้าแรก',
+    '/category': 'สินค้าทั้งหมด',
+    '/promotion': 'โปรโมชั่น',
+    '/about': 'เกี่ยวกับเรา',
+    '/contact': 'ติดต่อเรา'
+  };
+
+  constructor(private router: Router) {}
+
+  ngOnInit(): void {
+
+    this.checkLogin();
+
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+
+        this.checkLogin();
+
+        const url = this.router.url.split('?')[0];
+        const path = '/' + url.split('/')[1];
+        const label = this.breadcrumbMap[path];
+
+        this.breadcrumbs = [];
+
+        if (url !== '/' && label) {
+          this.breadcrumbs.push(label);
+        }
+
+      });
+
+  }
+
+  checkLogin() {
+
+    const token = localStorage.getItem('token');
+    this.isLoggedIn = !!token;
+
+    const userData = localStorage.getItem('user');
+
+    if (userData) {
+
+      const user = JSON.parse(userData);
+
+      // ⭐ ดึงชื่อ user
+      this.username = user.name || user.email || 'User';
+
+    }
+
+  }
+
+  logout() {
+
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+
+    this.isLoggedIn = false;
+    this.username = '';
+
+    this.router.navigate(['/login']);
+
+  }
+
 }

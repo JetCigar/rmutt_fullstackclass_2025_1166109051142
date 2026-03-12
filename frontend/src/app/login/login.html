@@ -1,64 +1,64 @@
-<div class="login-page">
+<div class="login-wrapper">
 
   <div class="login-card">
 
-    <h2 class="title">เข้าสู่ระบบ</h2>
+    <!-- Logo -->
+    <div class="logo">
+        <i class="bi bi-leaf"></i>
+       <span>Kaset<span class="green">Thai</span></span>
+    </div>
 
-    <form (submit)="login()">
+    <h2>เข้าสู่ระบบ</h2>
 
-      <div class="form-group">
-        <label>อีเมล</label>
-        <input 
-          type="email"
-          [(ngModel)]="email"
-          name="email"
-          placeholder="กรอกอีเมลของคุณ"
-        />
-      </div>
+  <form (ngSubmit)="login()">
 
-      <div class="form-group">
-        <label>รหัสผ่าน</label>
+      <label>อีเมล</label>
+      <input
+        type="email"
+        placeholder="กรอกอีเมลของคุณ"
+        [(ngModel)]="email"
+        name="email"
+      />
 
-        <div class="password-input">
+<div class="mb-3">
+  <label>รหัสผ่าน</label>
 
-          <input
-            [type]="showPassword ? 'text' : 'password'"
-            [(ngModel)]="password"
-            name="password"
-            placeholder="กรอกรหัสผ่าน"
-          />
+  <div class="password-box">
 
-          <button
-            type="button"
-            class="show-password"
-            (click)="togglePassword()"
-          >
-            {{ showPassword ? '🙈' : '👁' }}
-          </button>
+    <input
+      [type]="showPassword ? 'text' : 'password'"
+      placeholder="กรอกรหัสผ่าน"
+      [(ngModel)]="password"
+      name="password"
+      required
+    />
 
-        </div>
-      </div>
+    <i
+      class="bi eye-icon"
+      [class.bi-eye]="!showPassword"
+      [class.bi-eye-slash]="showPassword"
+      (click)="togglePassword()">
+    </i>
 
-      <div class="options">
+  </div>
+</div>
 
-        <label>
-          <input type="checkbox">
-          จดจำฉัน
+      <div class="row">
+
+        <label class="remember">
+          <input type="checkbox">จดจำฉัน
         </label>
 
-        <a routerLink="/">ลืมรหัสผ่าน?</a>
+
 
       </div>
 
-      <button class="login-btn">
-        เข้าสู่ระบบ
-      </button>
+      <button type="submit">เข้าสู่ระบบ</button>
 
     </form>
 
-    <p class="register-text">
-      ยังไม่มีบัญชี?
-      <a routerLink="/register">สมัครสมาชิก</a>
+    <p class="register">
+      ยังไม่มีบัญชี? <a routerLink="/register">สมัครสมาชิก</a>
     </p>
 
   </div>
