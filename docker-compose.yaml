@@ -6,8 +6,6 @@ services:
     env_file:
       - .env
     restart: always
-    env_file:
-      - ./backend/.env
     environment:
       # ให้ไปอ่านค่าจากไฟล์ .env แทนการพิมพ์ลงไปตรงๆ
       POSTGRES_USER: ${DB_USER}

@@ -1,40 +1,86 @@
-<div class="bg-light p-4 rounded" style="max-width: 320px;">
-  
-  <div class="mb-4">
-    <label class="form-label fw-bold mb-3">ค้นหาสินค้า</label>
-    <input type="text" class="form-control shadow-none" placeholder="ค้นหา...">
-  </div>
-
-  <div class="mb-4">
-    <label class="form-label fw-bold mb-3">หมวดหมู่</label>
-    <div class="d-flex flex-column gap-3">
-      
-      @for (item of categories; track item.category_id) {
-        <div class="d-flex justify-content-between align-items-center">
-          <div class="form-check mb-0">
-            <input class="form-check-input shadow-none" type="checkbox" [id]="'category-' + item.category_id">
-            <label class="form-check-label" [for]="'category-' + item.category_id">
-              {{ item.name }}
-            </label>
-          </div>
-          <span class="text-muted small">({{ item.products?.length || 0 }})</span>
+<div class="container-fluid mt-4">
+  <div class="row">
+    
+    <div class="col-lg-3 col-md-4 mb-4">
+      <div class="bg-light p-4 rounded">
+        
+        <div class="mb-4">
+          <label class="form-label fw-bold mb-3">ค้นหาสินค้า</label>
+          <input type="text" class="form-control shadow-none" placeholder="ค้นหา...">
         </div>
-      } @empty {
-        <div class="text-muted small text-center py-2">ไม่พบข้อมูลหมวดหมู่</div>
-      }
 
+        <div class="mb-4">
+          <label class="form-label fw-bold mb-3">หมวดหมู่</label>
+          <div class="d-flex flex-column gap-3">
+            @for (item of categories; track item.category_id) {
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="form-check mb-0">
+                  <input class="form-check-input shadow-none" type="checkbox" [id]="'category-' + item.category_id" (change)="onCategoryChange($event, item.category_id)">
+                  <label class="form-check-label" [for]="'category-' + item.category_id">
+                    {{ item.name }}
+                  </label>
+                </div>
+                <span class="text-muted small">({{ item.products?.length || 0 }})</span>
+              </div>
+            } @empty {
+              <div class="text-muted small text-center py-2">ไม่พบข้อมูลหมวดหมู่</div>
+            }
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label fw-bold mb-3">ช่วงราคา</label>
+          <input type="range" class="form-range" min="0" max="6000" id="priceRange">
+          <div class="d-flex justify-content-between text-muted mt-2 small">
+            <span>฿0</span>
+            <span>฿6,000</span>
+          </div>
+        </div>
+        <button class="btn btn-light border w-100 py-2 shadow-sm">ล้างตัวกรอง</button>
+      </div>
+    </div>
+
+    <div class="col-lg-9 col-md-8">
+      
+      <div class="d-flex justify-content-between align-items-center bg-white border rounded p-3 mb-4">
+        <div class="fw-bold">
+          <i class="bi bi-sliders me-2"></i> พบ {{ filteredProducts.length }} สินค้า
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <label class="text-muted text-nowrap mb-0">เรียงตาม</label>
+          <select class="form-select form-select-sm shadow-none" style="width: 150px;">
+            <option selected>ล่าสุด</option>
+            <option value="1">ราคา: ต่ำไปสูง</option>
+            <option value="2">ราคา: สูงไปต่ำ</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-4">
+        @for (product of filteredProducts; track product.id) {
+          <div class="col">
+            <div class="card h-100 border-0 shadow-sm">
+              <img [src]="product.image_url || 'https://via.placeholder.com/300x300?text=No+Image'" class="card-img-top p-3" alt="product image" style="object-fit: contain; height: 200px;">
+              
+              <div class="card-body d-flex flex-column">
+                <h6 class="card-title text-truncate">{{ product.name }}</h6>
+                
+                <div class="mt-auto">
+                  <span class="text-success fw-bold fs-5">฿{{ product.price }}</span>
+                  </div>
+                
+                <button class="btn btn-outline-success w-100 mt-3 d-flex justify-content-center align-items-center gap-2">
+                  <i class="bi bi-cart-plus"></i> เพิ่มลงตะกร้า
+                </button>
+              </div>
+            </div>
+          </div>
+        } @empty {
+          <div class="col-12 text-center py-5">
+            <p class="text-muted">ไม่พบสินค้า</p>
+          </div>
+        }
+      </div>
     </div>
   </div>
-
-  <div class="mb-4">
-    <label class="form-label fw-bold mb-3">ช่วงราคา</label>
-    <input type="range" class="form-range" min="0" max="6000" id="priceRange">
-    <div class="d-flex justify-content-between text-muted mt-2 small">
-      <span>฿0</span>
-      <span>฿6,000</span>
-    </div>
-  </div>
-
-  <button class="btn btn-light border w-100 py-2 shadow-sm">ล้างตัวกรอง</button>
-
 </div>
