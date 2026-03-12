@@ -3,9 +3,9 @@
   <!-- LEFT : CART ITEMS -->
   <div class="cart-left">
 
-    <h2>🛒 ตะกร้าสินค้า ({{cartItems.length}} รายการ)</h2>
+    <h2>🛒 ตะกร้าสินค้า ({{cartItems().length}} รายการ)</h2>
 
-    <div class="cart-card" *ngFor="let item of cartItems">
+    <div class="cart-card" *ngFor="let item of cartItems()">
 
       <div class="product-img">
         📦
@@ -67,11 +67,11 @@
 
       <h3>สรุปคำสั่งซื้อ</h3>
 
-      <p>{{ totalItems }} ชิ้น · {{ cartItems.length }} รายการ</p>
+      <p>{{ totalItems() }} ชิ้น · {{ cartItems().length }} รายการ</p>
 
       <div class="summary-row">
         <span>ราคาสินค้า</span>
-        <span>฿{{ totalPrice }}</span>
+        <span>฿{{ totalPrice() }}</span>
       </div>
 
       <div class="summary-row">
@@ -83,14 +83,14 @@
 
       <div class="summary-total">
         <span>รวมทั้งสิ้น</span>
-        <span>฿{{ totalPrice }}</span>
+        <span>฿{{ totalPrice() }}</span>
       </div>
 
-      <button class="checkout-btn" >
+      <button class="checkout-btn" (click)="goCheckout()">
         ดำเนินการชำระเงิน
       </button>
 
-      <button class="continue-btn">
+      <button class="continue-btn" (click)="continueShopping()">
         ← ช้อปปิ้งต่อ
       </button>
 

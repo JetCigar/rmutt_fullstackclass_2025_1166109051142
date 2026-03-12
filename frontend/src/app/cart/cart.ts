@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../services/cart.service';
 import { Router } from '@angular/router';
@@ -11,16 +11,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./cart.scss']
 })
 export class CartComponent implements OnInit {
-
-  cartItems: any[] = [];
-  totalPrice: number = 0;
-
+  cartItems: any;
+  totalPrice: any;
+  totalItems: any;
   customerId: number = 1;
 
   constructor(
     private cartService: CartService,
     private router: Router
-  ) {}
+  ) {
+    this.cartItems = this.cartService.cartItems;
+    this.totalPrice = this.cartService.cartTotal;
+    this.totalItems = this.cartService.cartCount;
+  }
 
   goCheckout(){
     this.router.navigate(['/checkout/address'])
@@ -32,6 +35,9 @@ export class CartComponent implements OnInit {
     this.showCheckout = true;
   }
 
+  continueShopping() {
+    this.router.navigate(['/home']);
+  }
 
   ngOnInit(): void {
     this.loadCart();
@@ -43,26 +49,12 @@ export class CartComponent implements OnInit {
   // โหลด cart
   loadCart() {
     this.cartService.getCart(this.customerId).subscribe({
-      next: (data: any) => {
-        this.cartItems = data;
-        this.calculateTotal();
+      next: () => {
+        // ค่าใน Signal cartItems จะถูกอัปเดตจาก service แล้ว
       },
       error: (err: any) => {
         console.error("โหลด cart ไม่สำเร็จ", err);
       }
-    });
-  }
-
-  get totalItems(){
-    return this.cartItems.reduce((sum,item)=>sum+item.quantity,0)
-  }
-
-  // คำนวณราคารวม
-  calculateTotal() {
-    this.totalPrice = 0;
-
-    this.cartItems.forEach(item => {
-      this.totalPrice += item.quantity * item.product.price;
     });
   }
 
@@ -80,8 +72,8 @@ export class CartComponent implements OnInit {
       .subscribe(() => {
 
         item.quantity = newQty;
-        this.calculateTotal();
-
+        // บังคับให้ signal trigger การเปลี่ยนค่า
+        this.cartItems.set([...this.cartItems()]);
       });
   }
 
@@ -96,8 +88,8 @@ export class CartComponent implements OnInit {
       .subscribe(() => {
 
         item.quantity = newQty;
-        this.calculateTotal();
-
+        // บังคับให้ signal trigger การเปลี่ยนค่า
+        this.cartItems.set([...this.cartItems()]);
       });
   }
 
@@ -114,17 +106,13 @@ export class CartComponent implements OnInit {
       });
   }
 
-  // ล้างตะกร้า
+    // ล้างตะกร้า
   clearCart() {
-
     if (!confirm("ต้องการล้างตะกร้าหรือไม่?")) return;
 
     this.cartService.clearCart(this.customerId)
       .subscribe(() => {
-
-        this.cartItems = [];
-        this.totalPrice = 0;
-
+        this.cartService.cartItems.set([]); // อัปเดต state
       });
   }
 

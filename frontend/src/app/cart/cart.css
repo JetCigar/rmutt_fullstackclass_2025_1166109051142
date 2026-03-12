@@ -30,6 +30,7 @@
       -ms-flex-align: center;
           align-items: center;
   background: #f9f9f9;
+  border: 1px solid #cac9c9;
   border-radius: 12px;
   padding: 15px;
   margin-bottom: 15px;

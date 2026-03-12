@@ -84,7 +84,7 @@
         <h2 class="card-title-white">ลดทั้งร้าน</h2>
 
         <div class="countdown-row-v2">
-          <div class="timer-box-v2"><span>{{days()}}</span><label>วัน</label></div>
+          <!-- <div class="timer-box-v2"><span>{{days()}}</span><label>วัน</label></div> -->
           <div class="timer-box-v2"><span>{{hours()}}</span><label>ชม.</label></div>
           <div class="timer-box-v2"><span>{{minutes()}}</span><label>นาที</label></div>
           <div class="timer-box-v2"><span>{{seconds()}}</span><label>วินาที</label></div>
@@ -164,7 +164,7 @@
             <span class="price-now">฿{{product.price | number:'1.0-0'}}</span>
           </div>
 
-          <button class="btn-add-cart-outline">
+          <button class="btn-add-cart-outline" (click)="addToCart(product)">
             <span class="cart-icon">🛒</span> เพิ่มลงตะกร้า
           </button>
         </div>

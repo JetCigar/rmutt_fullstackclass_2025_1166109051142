@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -16,16 +17,22 @@ export class HeaderComponent {
   cartTotal: number = 0;
   searchQuery: string = '';
 
+  constructor(
+    private router: Router,
+    public cartService: CartService  // ฉีด CartService เพื่อดึง count, total แบบ Signal
+  ) {}
 
-selectedLang: string = 'TH';
-selectedCurrency: string = 'THB';
-toggleLang() {
-  this.selectedLang = this.selectedLang === 'TH' ? 'EN' : 'TH';
-}
+  selectedLang: string = 'TH';
+  selectedCurrency: string = 'THB';
+  
+  toggleLang() {
+    this.selectedLang = this.selectedLang === 'TH' ? 'EN' : 'TH';
+  }
 
-toggleCurrency() {
-  this.selectedCurrency = this.selectedCurrency === 'USD' ? 'THB' : 'USD';
-}
+  toggleCurrency() {
+    this.selectedCurrency = this.selectedCurrency === 'USD' ? 'THB' : 'USD';
+  }
+  
   changeLang(lang: string) {
     this.selectedLang = lang;
     console.log('Language:', lang);
@@ -48,9 +55,10 @@ toggleCurrency() {
 
   onCartClick(): void {
     console.log('[Header] Cart clicked');
+    this.router.navigate(['/cart']);
   }
 
   get cartTotalFormatted(): string {
-    return `$${this.cartTotal.toFixed(2)}`;
+    return `฿${this.cartService.cartTotal()}`;
   }
 }

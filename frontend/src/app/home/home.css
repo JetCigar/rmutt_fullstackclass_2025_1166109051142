@@ -544,4 +544,57 @@
 
 @media (max-width: 1024px) {
   .features-bar { flex-wrap: wrap; gap: 20px; justify-content: flex-start; }
+  .features-bar-v2 { flex-wrap: wrap; gap: 20px; }
+  
+  .promo-grid-v2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-premium-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .main-hero-banner {
+    height: 400px;
+  }
+  
+  .banner-main-title {
+    font-size: 2.5rem;
+  }
+
+  .promo-grid-v2 {
+    grid-template-columns: 1fr;
+  }
+  
+  .features-bar-v2 {
+    flex-wrap: wrap;
+    padding: 20px 0;
+  }
+
+  .feature-item-v2 {
+    width: 45%;
+    margin-bottom: 20px;
+  }
+  
+  .section-title-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-hero-banner {
+    height: 350px;
+  }
+
+  .banner-main-title {
+    font-size: 2rem;
+  }
+  
+  .feature-item-v2 {
+    width: 100%;
+  }
 }

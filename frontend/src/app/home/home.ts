@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CategoryService } from '../../services/category.service';
 import { ProductService, ProductData } from '../../services/product.service';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-home',
@@ -25,12 +26,15 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private categoryService: CategoryService,
     private productService: ProductService,
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
     this.loadCategories();
     this.loadProducts();
     this.startCountdown();
+    // โหลด Cart เริ่มต้นเพื่อให้ Header แสดงผลได้ถูกต้อง
+    this.cartService.getCart(1).subscribe();
   }
 
   ngOnDestroy(): void {
@@ -110,6 +114,28 @@ export class HomeComponent implements OnInit, OnDestroy {
       },
       error: (err) => {
         console.error('HomeComponent: Products error', err);
+      }
+    });
+  }
+
+  // เพิ่มสินค้าลงตะกร้า
+  addToCart(product: ProductData) {
+    // สมมติว่า customer_id = 1 (ควรจะมีจาก authentication)
+    const cartData = {
+      customer_id: 1,
+      product_id: product.product_id,
+      quantity: 1
+    };
+
+    this.cartService.addToCart(cartData).subscribe({
+      next: (response) => {
+        console.log('Product added to cart:', response);
+        // เมื่อเพิ่มเสร็จ ให้ดึงข้อมูลตะกร้าใหม่มาอัปเดต Signal ส่วนกลาง
+        this.cartService.getCart(1).subscribe();
+        alert('เพิ่มสินค้าลงตะกร้าแล้ว!');
+      },
+      error: (err) => {
+        console.error('Error adding to cart:', err?.error || err);
       }
     });
   }
