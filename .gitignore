@@ -47,3 +47,4 @@ frontend/build_output.txt
 # Angular specific
 .angular/cache/
 *.tsbuildinfo
+docker-compose.yml

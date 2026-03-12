@@ -7,6 +7,7 @@ const getTestCategory = async (req, res) => {
   try {
     const categories = await prisma.category.findMany({
       include: {
+        products: true, // รวมข้อมูลสินค้าที่อยู่ในหมวดหมู่นี้ด้วย
         _count: {
           select: { products: true }
         }

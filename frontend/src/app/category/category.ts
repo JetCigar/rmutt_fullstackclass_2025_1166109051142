@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { CategoryService ,CategoryData} from '../../services/category.service';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { CategoryService } from '../../services/category.service';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef } from '@angular/core'; // เพิ่มอันนี้
-
 
 @Component({
   selector: 'app-category',
@@ -12,22 +10,72 @@ import { ChangeDetectorRef } from '@angular/core'; // เพิ่มอัน�
 })
 export class Category implements OnInit {
   categories: any[] = [];
+  allProducts: any[] = []; // เพิ่มตัวแปรสำหรับเก็บสินค้าทั้งหมดเพื่อแสดงฝั่งขวา
+  filteredProducts: any[] = []; // ตัวแปรสำหรับเก็บสินค้าที่ถูกกรองตามหมวดหมู่ที่เลือกเอาไป for loop เพื่อ เเสดง 
+  selectedCategoryIds: number[] = []; // ตัวแปรสำหรับเก็บหมวดหมู่ที่ถูกเลือก
 
-  constructor(private categoryService: CategoryService,
-   private cdr: ChangeDetectorRef
-  ) {
 
-  }
+
+  constructor(
+    private categoryService: CategoryService,
+    private cdr: ChangeDetectorRef
+  ) { }
+
   ngOnInit(): void {
-    this.categoryService.getCategories().subscribe((res :any) => {
+    this.categoryService.getCategories().subscribe((res: any) => {
       this.categories = res.categories;
 
-      console.log(this.categories);
-      console.log('ข้อมูลจาก API:', res);
-      // สั่งให้ Angular ตรวจสอบการเปลี่ยนแปลงและวาดหน้าจอใหม่ทันที
+      // นำสินค้าจากทุกหมวดหมู่มารวมกัน (Flatten) ไว้ใน allProducts
+      this.allProducts = this.categories.reduce((acc, category) => {
+        if (category.products && category.products.length > 0) {
+          return acc.concat(category.products);
+        }
+        return acc;
+      }, []);
+      this.filteredProducts = [...this.allProducts]; // เริ่มต้นให้แสดงสินค้าทั้งหมดก่อน
+      // ฟังก์ชันกรองสินค้าเพื่อแสดงผล
+      console.log('หมวดหมู่:', this.categories);
+      console.log('สินค้าทั้งหมด:', this.allProducts);
+
       this.cdr.detectChanges();
     });
   }
+
+
+  onCategoryChange(event: any, categoryId: number) {
+    const isChecked = event.target.checked; // เช็คว่าเป็นการติ๊กถูก หรือเอาติ๊กออก
+
+    if (isChecked) {
+      // ถ้าติ๊กถูก ให้เอา ID ยัดใส่ Array
+      this.selectedCategoryIds.push(categoryId);
+    } else {
+      // ถ้าเอาติ๊กออก ให้เตะ ID ออกจาก Array
+      this.selectedCategoryIds = this.selectedCategoryIds.filter(id => id !== categoryId);
+    }
+
+    // แล้วค่อยเรียกใช้ applyFilter เพื่อกรองสินค้า
+    this.applyFilter();
+  }
+
+  
+  applyFilter() {
+    if (this.selectedCategoryIds.length === 0) {
+      // กรณีที่ 1: ไม่ได้ติ๊กอะไรเลย -> ให้แสดงสินค้าทั้งหมด
+      this.filteredProducts = [...this.allProducts];
+    } else {
+      // กรณีที่ 2: มีการติ๊กเลือกหมวดหมู่
+      // ไปหาหมวดหมู่ที่ตรงกับ ID ที่เราเลือกไว้
+      const selectedCategories = this.categories.filter(category =>
+        this.selectedCategoryIds.includes(category.category_id)
+      );
+
+      // เอาสินค้าของหมวดหมู่ที่เลือกมาเทรวมกัน
+      this.filteredProducts = selectedCategories.reduce((acc, category) => {
+        if (category.products && category.products.length > 0) {
+          return acc.concat(category.products);
+        }
+        return acc;
+      }, []);
+    }
+  }
 }
-
-

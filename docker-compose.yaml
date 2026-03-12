@@ -4,7 +4,7 @@ services:
     image: postgres:15
     container_name: ecommerce_postgres
     env_file:
-      - ./backend/.env
+      - .env
     restart: always
     environment:
       # ให้ไปอ่านค่าจากไฟล์ .env แทนการพิมพ์ลงไปตรงๆ
@@ -28,7 +28,8 @@ services:
     restart: always
     ports:
       - "9999:9999"
-
+    env_file:
+      - .env
     volumes:
       - ./backend:/app
       - /app/node_modules
@@ -44,7 +45,7 @@ services:
     ports:
       - "5555:5555"
     env_file:
-      - ./backend/.env
+      - .env
     depends_on:
       postgres:
         condition: service_healthy
