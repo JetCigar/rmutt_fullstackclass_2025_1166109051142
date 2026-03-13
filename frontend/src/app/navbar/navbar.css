@@ -13,6 +13,8 @@
   padding: 0 24px;
   max-width: 1200px;
   margin: 0 auto;
+  margin-left: 125px;
+  
 }
 
 /* ---------- Nav List ---------- */
@@ -68,6 +70,7 @@
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
+  margin-right: 900px;
 }
 
 .navbar__phone-icon {
