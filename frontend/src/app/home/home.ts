@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private categoryService: CategoryService,
     private productService: ProductService,
-    private cartService: CartService
+    private cartService: CartService,
   ) {}
 
   ngOnInit(): void {
@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     const countdownDate = new Date();
     // ถ้าสิ้นเดือนเหลือเวลาน้อย เราจะจำลองให้เหลืออย่างน้อย 3 วันเพื่อความสวยงาม
     countdownDate.setMonth(countdownDate.getMonth() + 1);
-    countdownDate.setDate(0); 
+    countdownDate.setDate(0);
     countdownDate.setHours(23, 59, 59);
 
     const updateTimer = () => {
@@ -82,25 +82,31 @@ export class HomeComponent implements OnInit, OnDestroy {
         // แมปรูปภาพให้ตรงกับชื่อหมวดหมู่เพื่อความสวยงาม
         cats = cats.map((cat: any) => ({
           ...cat,
-          image: this.getCategoryIcon(cat.name)
+          image: this.getCategoryIcon(cat.name),
         }));
         this.categories.set(cats);
         console.log('HomeComponent: Categories loaded', this.categories());
       },
       error: (err) => {
         console.error('HomeComponent: Categories error', err);
-      }
+      },
     });
   }
 
   getCategoryIcon(name: string): string {
     const iconMap: { [key: string]: string } = {
-      'เครื่องจักรกลการเกษตร': 'https://cdn-icons-png.flaticon.com/512/2362/2362832.png',
-      'ระบบน้ำและข้อต่อ': 'https://cdn-icons-png.flaticon.com/512/3100/3100063.png',
-      'เครื่องตัดหญ้า': 'https://cdn-icons-png.flaticon.com/512/1500/1500511.png',
-      'ปั๊มน้ำ': 'https://cdn-icons-png.flaticon.com/512/3105/3105900.png',
-      'เครื่องพ่นยา': 'https://cdn-icons-png.flaticon.com/512/2942/2942813.png',
-      'ปุ๋ยและยา': 'https://cdn-icons-png.flaticon.com/512/2682/2682781.png'
+      เครื่องจักรกลการเกษตร:
+        'https://th.bing.com/th/id/R.f337c256ee6216c9d6e0528251448267?rik=dwRtjhrrnfBixw&pid=ImgRaw&r=0',
+      ระบบน้ำและข้อต่อ:
+        'https://png.pngtree.com/png-clipart/20190925/original/pngtree-water-tap-icon-for-your-project-png-image_4892337.jpg',
+      เครื่องตัดหญ้า:
+        'https://tse3.mm.bing.net/th/id/OIP.OcZ3Du8KWZy6Sei2UJvf0QHaHa?rs=1&pid=ImgDetMain&o=7&rm=3',
+      ปั๊มน้ำ:
+        'https://th.bing.com/th/id/R.e8a2e02c19a2053719cb070f51e84ce9?rik=oLqn9LL%2fZonYoQ&pid=ImgRaw&r=0',
+      เครื่องพ่นยา:
+        'https://image.makewebeasy.net/makeweb/m_1200x600/2LYbR8tZ2/AfirstPage/HT767.png',
+      ปุ๋ยและยา:
+        'https://th.bing.com/th/id/OIP.P4k7f-KeaCttlP58k6Vy0wHaHa?w=201&h=200&c=7&r=0&o=7&pid=1.7&rm=3',
     };
     return iconMap[name] || 'https://cdn-icons-png.flaticon.com/512/1865/1865231.png';
   }
@@ -114,7 +120,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       },
       error: (err) => {
         console.error('HomeComponent: Products error', err);
-      }
+      },
     });
   }
 
@@ -124,7 +130,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     const cartData = {
       customer_id: 1,
       product_id: product.product_id,
-      quantity: 1
+      quantity: 1,
     };
 
     this.cartService.addToCart(cartData).subscribe({
@@ -136,7 +142,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       },
       error: (err) => {
         console.error('Error adding to cart:', err?.error || err);
-      }
+      },
     });
   }
 }

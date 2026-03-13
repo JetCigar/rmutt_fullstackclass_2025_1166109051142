@@ -61,18 +61,18 @@ async function main() {
 
   // 5. สร้าง Products (12 รายการ)
   const products = [
-    { sku: 'AG-BC-004', name: 'เครื่องตัดหญ้าสะพายบ่า 4 จังหวะ', price: 4500.00, catId: 3, img: 'https://images.unsplash.com/photo-1599420186946-7b6fb4e297f0?auto=format&fit=crop&q=80&w=600' },
-    { sku: 'AG-WP-200', name: 'ปั๊มน้ำซับเมอร์ส 1.5HP (Solar)', price: 3200.00, catId: 4, img: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&q=80&w=600' },
-    { sku: 'AG-PE-100', name: 'ท่อ PE ขนาด 20mm (100 เมตร)', price: 800.00, catId: 2, img: 'https://images.unsplash.com/photo-1590682680695-43b964a3ae17?auto=format&fit=crop&q=80&w=600' },
-    { sku: 'AG-SP-020', name: 'เครื่องพ่นยาแบตเตอรี่ 20 ลิตร', price: 1200.00, catId: 5, img: 'https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&q=80&w=600' },
-    { sku: 'AG-HZ-001', name: 'รถเกี่ยวข้าวสมรรถภาพสูง', price: 850000.00, catId: 1, img: 'https://images.unsplash.com/photo-1592323860467-31034c568551?auto=format&fit=crop&q=80&w=600' },
-    { sku: 'AG-FT-555', name: 'ปุ๋ยเรือใบ 16-16-16 (50 กก.)', price: 1450.00, catId: 6, img: 'https://images.unsplash.com/photo-1628352081506-83c43143df6a?auto=format&fit=crop&q=80&w=600' },
-    { sku: 'AG-HT-101', name: 'จอบด้ามเหล็ก ตราค้างคาว', price: 250.00, catId: 1, img: 'https://images.unsplash.com/photo-1615821360172-870348705353?auto=format&fit=crop&q=80&w=600' },
-    { sku: 'AG-PM-300', name: 'เครื่องสูบน้ำหอยโข่ง 2 นิ้ว', price: 4200.00, catId: 4, img: 'https://images.unsplash.com/photo-1563911302283-d2bc129e7570?auto=format&fit=crop&q=80&w=600' },
-    { sku: 'AG-DR-005', name: 'โดรนเพื่อการเกษตร DJI T30', price: 180000.00, catId: 1, img: 'https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&q=80&w=600' },
-    { sku: 'AG-SD-999', name: 'เมล็ดพันธุ์ข้าวโพด (10 กก.)', price: 650.00, catId: 6, img: 'https://images.unsplash.com/photo-1524486483162-3bc424ac3ad6?auto=format&fit=crop&q=80&w=600' },
-    { sku: 'AG-BC-007', name: 'เครื่องตัดหญ้ารถเข็น 4 ล้อ', price: 8900.00, catId: 3, img: 'https://images.unsplash.com/photo-1589335300189-581173b3b022?auto=format&fit=crop&q=80&w=600' },
-    { sku: 'AG-SP-016', name: 'เครื่องพ่นยาแบบสะพายเครื่องยนต์', price: 3800.00, catId: 5, img: 'https://images.unsplash.com/photo-1563514227147-6d2ff665a6a0?auto=format&fit=crop&q=80&w=600' },
+    { sku: 'AG-BC-004', name: 'เครื่องตัดหญ้าสะพายบ่า 4 จังหวะ', price: 4500.00, catId: 3, img: 'https://tse1.mm.bing.net/th/id/OIP.bACv0mtN21LaNUdvKrMtkQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3' },
+    { sku: 'AG-WP-200', name: 'ปั๊มน้ำซับเมอร์ส 1.5HP (Solar)', price: 3200.00, catId: 4, img: 'https://tse4.mm.bing.net/th/id/OIP.Iqx4lvmwlpckVI5vTrTyYQHaNK?w=1350&h=2400&rs=1&pid=ImgDetMain&o=7&rm=3' },
+    { sku: 'AG-PE-100', name: 'ท่อ PE ขนาด 20mm (100 เมตร)', price: 800.00, catId: 2, img: 'https://tse2.mm.bing.net/th/id/OIP.yJRCosQK5nGnHJzPwPYo1wHaHa?rs=1&pid=ImgDetMain&o=7&rm=3' },
+    { sku: 'AG-SP-020', name: 'เครื่องพ่นยาแบตเตอรี่ 20 ลิตร', price: 1200.00, catId: 5, img: 'https://tse1.mm.bing.net/th/id/OIP.KfkIKRdnQ2qQ-7pCVgRQGAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3' },
+    { sku: 'AG-HZ-001', name: 'รถเกี่ยวข้าวสมรรถภาพสูง', price: 850000.00, catId: 1, img: 'https://tse2.mm.bing.net/th/id/OIP.jSq0rOB9pDR7D6CB8c6ChAHaFc?rs=1&pid=ImgDetMain&o=7&rm=3' },
+    { sku: 'AG-FT-555', name: 'ปุ๋ยเรือใบ 16-16-16 (50 กก.)', price: 1450.00, catId: 6, img: 'https://img.lazcdn.com/g/p/bca33cc2ef5884c8a6c431b4209f9c4e.png_720x720q80.png_.webp' },
+    { sku: 'AG-HT-101', name: 'จอบด้ามเหล็ก ตราค้างคาว', price: 250.00, catId: 1, img: 'https://tse4.mm.bing.net/th/id/OIP.WBgW9ZsQRrkJw6srpIjVpAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3' },
+    { sku: 'AG-PM-300', name: 'เครื่องสูบน้ำหอยโข่ง 2 นิ้ว', price: 4200.00, catId: 4, img: 'https://th.bing.com/th/id/OIP.8HY2lUO8jQF7xdPwsL4gjwHaFj?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3' },
+    { sku: 'AG-DR-005', name: 'โดรนเพื่อการเกษตร DJI T30', price: 180000.00, catId: 1, img: 'https://www.kubotasanvithayu.com/uploads/7132/shop/202203/202203-30-140744_CY-0.jpg' },
+    { sku: 'AG-SD-999', name: 'เมล็ดพันธุ์ข้าวโพด (10 กก.)', price: 650.00, catId: 6, img: 'https://img.lazcdn.com/g/p/0cd4c8c51adbe1bbf331bfd5ecf2efa5.jpg_720x720q80.jpg' },
+    { sku: 'AG-BC-007', name: 'เครื่องตัดหญ้ารถเข็น 4 ล้อ', price: 8900.00, catId: 3, img: 'https://cf.shopee.co.th/file/48266a0644b635b655222be830e9d70d' },
+    { sku: 'AG-SP-016', name: 'เครื่องพ่นยาแบบสะพายเครื่องยนต์', price: 3800.00, catId: 5, img: 'https://tse4.mm.bing.net/th/id/OIP.5Ltxjez8CQfZigjuQX-XmAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3' },
   ];
 
   for (const p of products) {

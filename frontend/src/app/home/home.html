@@ -1,139 +1,181 @@
-<div class="home-container">
+<div class="home-container container-fluid py-4 px-md-5">
   <!-- +++ ส่วน Hero (Top Section) +++ -->
-  <section class="hero-premium-grid">
-    <!-- แบนเนอร์หลักด้านซ้าย -->
-    <div class="main-hero-banner hero-man-bg">
-      <div class="banner-overlay-green-v3">
-        <span class="welcome-label">ยินดีต้อนรับสู่ KASETTHAI</span>
-        <h1 class="banner-main-title">อุปกรณ์การเกษตร<br>คุณภาพสูง</h1>
+  <section class="hero-premium-grid mb-5">
+    <div class="row g-4">
+      <!-- แบนเนอร์หลักด้านซ้าย -->
+      <div class="col-lg-8">
+        <div class="main-hero-banner hero-man-bg h-100 border-0 rounded-4 overflow-hidden position-relative">
+          <div class="banner-overlay-green-v3 p-4 p-md-5 d-flex flex-column justify-content-center h-100">
+            <span class="welcome-label fw-bold mb-2">ยินดีต้อนรับสู่ KASETTHAI</span>
+            <h1 class="banner-main-title display-4 fw-extrabold mb-4">อุปกรณ์การเกษตร<br>คุณภาพสูง</h1>
 
-        <div class="promo-info-tag">
-          <div class="benefit-row">
-            <span class="discount-label">ลดสูงสุด</span>
-            <div class="discount-pill">30%</div>
+            <div class="promo-info-tag mb-4">
+              <div class="benefit-row d-flex align-items-center mb-2">
+                <span class="discount-label me-2">ลดสูงสุด</span>
+                <div class="discount-pill badge bg-warning text-dark fs-5">30%</div>
+              </div>
+              <p class="promo-subtext mb-0">จัดส่งฟรีทุกออเดอร์ เมื่อสั่งซื้อครบ 2,000 บาท</p>
+            </div>
+
+            <button class="btn-action-green-v2 btn btn-lg text-white align-self-start" [routerLink]="['/category']">
+              เลือกซื้อสินค้า <span class="arrow-right ms-2">→</span>
+            </button>
           </div>
-          <p class="promo-subtext">จัดส่งฟรีทุกออเดอร์ เมื่อสั่งซื้อครบ 2,000 บาท</p>
-        </div>
-
-        <button class="btn-action-green-v2" [routerLink]="['/category']">
-          เลือกซื้อสินค้า <span class="arrow-right">→</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- โปรโมชั่นย่อยด้านขวา -->
-    <div class="side-hero-promos">
-      <div class="side-card promo-orange-soft">
-        <div class="card-content">
-          <span class="card-tag">โปรโมชั่นพิเศษ</span>
-          <h3 class="highlight-text">ลด 75%</h3>
-          <p>เฉพาะสินค้าเครื่องพ่นยา</p>
-          <a [routerLink]="['/category']" class="link-shop text-orange">ซื้อเลย &rarr;</a>
         </div>
       </div>
 
-      <div class="side-card promo-white-clean">
-        <div class="card-content">
-          <span class="card-tag tag-popular">สินค้ายอดนิยม</span>
-          <h3>ดีลพิเศษประจำเดือน</h3>
-          <p>อุปกรณ์ระบบน้ำ</p>
-          <a [routerLink]="['/category']" class="link-shop text-green">ซื้อเลย &rarr;</a>
+      <!-- โปรโมชั่นย่อยด้านขวา -->
+      <div class="col-lg-4">
+        <div class="side-hero-promos d-flex flex-column h-100 gap-4">
+          <div class="side-card promo-orange-soft flex-grow-1 p-4 rounded-4 shadow-sm border-0 d-flex align-items-center">
+            <div class="card-content">
+              <span class="card-tag badge bg-white text-orange mb-2">โปรโมชั่นพิเศษ</span>
+              <h3 class="highlight-text display-6 fw-bold mb-2">ลด 75%</h3>
+              <p class="mb-3">เฉพาะสินค้าเครื่องพ่นยา</p>
+              <a [routerLink]="['/category']" class="link-shop text-orange text-decoration-none fw-bold">ซื้อเลย &rarr;</a>
+            </div>
+          </div>
+
+          <div class="side-card promo-white-clean flex-grow-1 p-4 rounded-4 shadow-sm border-0 d-flex align-items-center">
+            <div class="card-content">
+              <span class="card-tag tag-popular badge bg-success mb-2 text-white">สินค้ายอดนิยม</span>
+              <h3 class="fw-bold mb-2">ดีลพิเศษประจำเดือน</h3>
+              <p class="mb-3">อุปกรณ์ระบบน้ำ</p>
+              <a [routerLink]="['/category']" class="link-shop text-green text-decoration-none fw-bold">ซื้อเลย &rarr;</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- +++ ส่วนจุดเด่น (Features Bar) +++ -->
-  <section class="features-bar-v2">
-    <div class="feature-item-v2">
-      <div class="icon-circle-v2">🚚</div>
-      <div class="feature-info-v2">
-        <h5>จัดส่งฟรี</h5>
-        <p>เมื่อสั่งซื้อครบ 2,000 บาท</p>
+  <section class="features-bar-v2 mb-5 py-4 bg-light rounded-4">
+    <div class="row g-4 text-center">
+      <div class="col-6 col-md-3">
+        <div class="feature-item-v2 p-3">
+          <div class="icon-circle-v2 rounded-circle bg-white shadow-sm d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 60px; height: 60px; font-size: 1.5rem;">
+            <i class="bi bi-truck"></i>
+          </div>
+          <div class="feature-info-v2">
+            <h5 class="fw-bold mb-1">จัดส่งฟรี</h5>
+            <p class="small text-muted mb-0">เมื่อสั่งซื้อครบ 2,000 บาท</p>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="feature-item-v2">
-      <div class="icon-circle-v2">🎧</div>
-      <div class="feature-info-v2">
-        <h5>ให้คำปรึกษา 24/7</h5>
-        <p>ทีมงานพร้อมช่วยเหลือคุณ</p>
+      <div class="col-6 col-md-3">
+        <div class="feature-item-v2 p-3">
+          <div class="icon-circle-v2 rounded-circle bg-white shadow-sm d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 60px; height: 60px; font-size: 1.5rem;">
+            <i class="bi bi-headset"></i>
+          </div>
+          <div class="feature-info-v2">
+            <h5 class="fw-bold mb-1">ให้คำปรึกษา 24/7</h5>
+            <p class="small text-muted mb-0">ทีมงานพร้อมช่วยเหลือคุณ</p>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="feature-item-v2">
-      <div class="icon-circle-v2">🛡️</div>
-      <div class="feature-info-v2">
-        <h5>ชำระเงินปลอดภัย 100%</h5>
-        <p>เงินของคุณปลอดภัยอยู่เสมอ</p>
+      <div class="col-6 col-md-3">
+        <div class="feature-item-v2 p-3">
+          <div class="icon-circle-v2 rounded-circle bg-white shadow-sm d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 60px; height: 60px; font-size: 1.5rem;">
+            <i class="bi bi-shield-lock"></i>
+          </div>
+          <div class="feature-info-v2">
+            <h5 class="fw-bold mb-1">ชำระเงินปลอดภัย</h5>
+            <p class="small text-muted mb-0">เงินของคุณปลอดภัยเสมอ</p>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="feature-item-v2">
-      <div class="icon-circle-v2">🔄</div>
-      <div class="feature-info-v2">
-        <h5>รับประกันคืนเงิน</h5>
-        <p>คืนเงินได้ภายใน 30 วัน</p>
+      <div class="col-6 col-md-3">
+        <div class="feature-item-v2 p-3">
+          <div class="icon-circle-v2 rounded-circle bg-white shadow-sm d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 60px; height: 60px; font-size: 1.5rem;">
+            <i class="bi bi-arrow-repeat"></i>
+          </div>
+          <div class="feature-info-v2">
+            <h5 class="fw-bold mb-1">รับประกันคืนเงิน</h5>
+            <p class="small text-muted mb-0">คืนเงินได้ภายใน 30 วัน</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- +++ ส่วนโปรโมชั่นเสริม (Promo Grid V2) +++ -->
-  <section class="promo-grid-v2">
-    <!-- Card 1: Countdown Sale -->
-    <div class="promo-card-v2 card-countdown-bg">
-      <div class="card-overlay-dark">
-        <span class="tag-yellow">โปรโมชั่นเดือนนี้</span>
-        <h2 class="card-title-white">ลดทั้งร้าน</h2>
+  <section class="promo-grid-v2 mb-5">
+    <div class="row g-4">
+      <!-- Card 1: Countdown Sale -->
+      <div class="col-md-6 col-lg-4">
+        <div class="promo-card-v2 card-countdown-bg rounded-4 overflow-hidden position-relative h-100 shadow-sm border-0">
+          <div class="card-overlay-dark p-4 d-flex flex-column h-100 justify-content-center align-items-center text-center">
+            <span class="tag-yellow badge bg-warning text-dark mb-3">โปรโมชั่นเดือนนี้</span>
+            <h2 class="card-title-white text-white mb-4 fw-bold">ลดทั้งร้าน</h2>
 
-        <div class="countdown-row-v2">
-          <!-- <div class="timer-box-v2"><span>{{days()}}</span><label>วัน</label></div> -->
-          <div class="timer-box-v2"><span>{{hours()}}</span><label>ชม.</label></div>
-          <div class="timer-box-v2"><span>{{minutes()}}</span><label>นาที</label></div>
-          <div class="timer-box-v2"><span>{{seconds()}}</span><label>วินาที</label></div>
+            <div class="countdown-row-v2 d-flex gap-2 mb-4">
+              <div class="timer-box-v2 bg-white rounded p-2 text-dark d-flex flex-column min-w-60">
+                <span class="fw-bold fs-4">{{hours()}}</span>
+                <label class="small text-muted">ชม.</label>
+              </div>
+              <div class="timer-box-v2 bg-white rounded p-2 text-dark d-flex flex-column min-w-60">
+                <span class="fw-bold fs-4">{{minutes()}}</span>
+                <label class="small text-muted">นาที</label>
+              </div>
+              <div class="timer-box-v2 bg-white rounded p-2 text-dark d-flex flex-column min-w-60">
+                <span class="fw-bold fs-4">{{seconds()}}</span>
+                <label class="small text-muted">วินาที</label>
+              </div>
+            </div>
+
+            <button class="btn-shop-white btn btn-light rounded-pill px-4" [routerLink]="['/category']">ซื้อเลย &rarr;</button>
+          </div>
         </div>
-
-        <button class="btn-shop-white" [routerLink]="['/category']">ซื้อเลย &rarr;</button>
       </div>
-    </div>
 
-    <!-- Card 2: Green Promo -->
-    <div class="promo-card-v2 card-green-solid">
-      <span class="tag-light-green">ราคาพิเศษ</span>
-      <h2 class="card-title-white">ปั๊มน้ำราคาประหยัด</h2>
-      <p class="card-price-text">เริ่มต้นเพียง ฿3,200</p>
-      <button class="btn-shop-white" [routerLink]="['/category']">ซื้อเลย &rarr;</button>
-    </div>
-
-    <!-- Card 3: Orange Promo -->
-    <div class="promo-card-v2 card-orange-soft">
-      <span class="tag-orange-dark">จัดส่งฟรี</span>
-      <h2 class="card-title-dark">สินค้าใหม่ล่าสุด</h2>
-      <div class="benefit-tag-row">
-        <span class="text-label">ลดสูงสุด</span>
-        <span class="discount-badge-v2">64%</span>
+      <!-- Card 2: Green Promo -->
+      <div class="col-md-6 col-lg-4">
+        <div class="promo-card-v2 card-green-solid rounded-4 p-4 text-center d-flex flex-column justify-content-center h-100 shadow-sm border-0">
+          <span class="tag-light-green badge bg-success mb-3 align-self-center">ราคาพิเศษ</span>
+          <h2 class="card-title-white text-white fw-bold mb-2">ปั๊มน้ำราคาประหยัด</h2>
+          <p class="card-price-text text-white fs-4 fw-bold mb-4">เริ่มต้นเพียง ฿3,200</p>
+          <button class="btn-shop-white btn btn-light rounded-pill px-4 align-self-center" [routerLink]="['/category']">ซื้อเลย &rarr;</button>
+        </div>
       </div>
-      <button class="btn-shop-green" [routerLink]="['/category']">ซื้อเลย &rarr;</button>
+
+      <!-- Card 3: Orange Promo -->
+      <div class="col-lg-4">
+        <div class="promo-card-v2 card-orange-soft rounded-4 p-4 text-center d-flex flex-column justify-content-center h-100 shadow-sm border-0">
+          <span class="tag-orange-dark badge bg-warning text-dark mb-3 align-self-center">จัดส่งฟรี</span>
+          <h2 class="card-title-dark fw-bold mb-2">สินค้าใหม่ล่าสุด</h2>
+          <div class="benefit-tag-row d-flex align-items-center justify-content-center mb-4">
+            <span class="text-label me-2">ลดสูงสุด</span>
+            <span class="discount-badge-v2 badge bg-danger fs-5">64%</span>
+          </div>
+          <button class="btn-shop-green btn btn-success rounded-pill px-4 align-self-center" [routerLink]="['/category']">ซื้อเลย &rarr;</button>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- +++ หมวดหมู่ยอดนิยม +++ -->
-  <section class="home-section">
-    <div class="section-title-row">
+  <section class="home-section mb-5">
+    <div class="section-title-row d-flex justify-content-between align-items-end mb-4">
       <div class="title-group">
-        <span class="top-label">หมวดหมู่</span>
-        <h2>หมวดหมู่ยอดนิยม</h2>
+        <span class="top-label text-success fw-bold small text-uppercase mb-1 d-block text-secondary">หมวดหมู่</span>
+        <h2 class="fw-bold mb-0">หมวดหมู่ยอดนิยม</h2>
       </div>
-      <a [routerLink]="['/category']" class="link-view-all">ดูทั้งหมด &rarr;</a>
+      <a [routerLink]="['/category']" class="link-view-all text-decoration-none text-success fw-bold">ดูทั้งหมด &rarr;</a>
     </div>
 
-    <div class="horizontal-list">
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-3">
       @for (category of categories(); track category.category_id) {
-      <div class="category-item-card">
-        <div class="cat-img-box">
-          <img [src]="category.image || 'https://cdn-icons-png.flaticon.com/512/1865/1865231.png'"
-            [alt]="category.name">
-        </div>
-        <div class="cat-info-box">
-          <span class="cat-label">{{category.name}}</span>
-          <span class="cat-items">{{category.product_count || 0}} สินค้า</span>
+      <div class="col">
+        <div class="category-item-card text-center p-3 rounded-4 bg-white border h-100 transition-all shadow-sm">
+          <div class="cat-img-box mb-3 d-flex align-items-center justify-content-center" style="height: 100px;">
+            <img [src]="category.image || 'https://cdn-icons-png.flaticon.com/512/1865/1865231.png'"
+              [alt]="category.name" class="img-fluid h-100 object-fit-contain p-2" style="max-height: 80px;">
+          </div>
+          <div class="cat-info-box">
+            <h6 class="cat-label fw-bold mb-1 d-block text-truncate">{{category.name}}</h6>
+            <small class="cat-items text-muted">{{category.product_count || 0}} สินค้า</small>
+          </div>
         </div>
       </div>
       }
@@ -142,31 +184,33 @@
 
   <!-- +++ สินค้าแนะนำ +++ -->
   <section class="home-section">
-    <div class="section-title-row">
+    <div class="section-title-row d-flex justify-content-between align-items-end mb-4">
       <div class="title-group">
-        <span class="top-label">คัดสรรเพื่อคุณ</span>
-        <h2>สินค้าแนะนำ</h2>
+        <span class="top-label text-success fw-bold small text-uppercase mb-1 d-block text-secondary">คัดสรรเพื่อคุณ</span>
+        <h2 class="fw-bold mb-0">สินค้าแนะนำ</h2>
       </div>
-      <a [routerLink]="['/category']" class="link-view-all">ดูทั้งหมด &rarr;</a>
+      <a [routerLink]="['/category']" class="link-view-all text-decoration-none text-success fw-bold">ดูทั้งหมด &rarr;</a>
     </div>
 
-    <div class="horizontal-list">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
       @for (product of products(); track product.product_id) {
-      <div class="product-premium-card">
-        <div class="prod-img-box">
-          <img [src]="product.images[0]?.image_url || 'https://via.placeholder.com/300x200?text=Product'"
-            [alt]="product.name">
-        </div>
-        <div class="prod-info-box">
-          <h4 class="prod-name">{{product.name}}</h4>
-
-          <div class="price-box">
-            <span class="price-now">฿{{product.price | number:'1.0-0'}}</span>
+      <div class="col">
+        <div class="product-premium-card card h-100 border-0 rounded-4 shadow-sm overflow-hidden transition-all">
+          <div class="prod-img-box p-4 bg-light d-flex align-items-center justify-content-center" style="height: 220px;">
+            <img [src]="product.images[0]?.image_url || 'https://via.placeholder.com/300x200?text=Product'"
+              [alt]="product.name" class="img-fluid h-100 object-fit-contain">
           </div>
+          <div class="prod-info-box card-body p-4 d-flex flex-column">
+            <h5 class="prod-name fw-bold mb-3 overflow-hidden text-truncate-2" style="min-height: 2.8rem;">{{product.name}}</h5>
 
-          <button class="btn-add-cart-outline" (click)="addToCart(product)">
-            <span class="cart-icon">🛒</span> เพิ่มลงตะกร้า
-          </button>
+            <div class="price-box mb-4">
+              <span class="price-now fs-4 fw-bold text-success">฿{{product.price | number:'1.0-0'}}</span>
+            </div>
+
+            <button class="btn btn-outline-success rounded-pill fw-bold w-100 mt-auto d-flex align-items-center justify-content-center" (click)="addToCart(product)">
+              <span class="cart-icon me-2">🛒</span> เพิ่มลงตะกร้า
+            </button>
+          </div>
         </div>
       </div>
       }
