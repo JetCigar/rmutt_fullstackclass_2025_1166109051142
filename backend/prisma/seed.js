@@ -201,12 +201,8 @@ async function main() {
     });
   }
 
-
-
   console.log('--- 🌾 Seeding Completed Successfully ---');
 }
-
-
 
 main()
   .then(async () => {
@@ -217,4 +213,3 @@ main()
     await prisma.$disconnect();
     process.exit(1);
   });
-
