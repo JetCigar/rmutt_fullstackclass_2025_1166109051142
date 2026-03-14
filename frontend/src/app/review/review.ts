@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
@@ -9,14 +8,13 @@ import { ReviewService, ReviewData } from '../services/review.service';
 @Component({
   selector: 'app-review',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, AccountSidebar],
+  imports: [HttpClientModule, AccountSidebar],
   templateUrl: './review.html',
   styleUrl: './review.css',
 })
 export class Review implements OnInit {
   reviews: ReviewData[] = [];
   loading = false;
-  noData = false;
   error = '';
 
   constructor(
@@ -31,7 +29,6 @@ export class Review implements OnInit {
 
   loadReviews() {
     this.error = '';
-    this.noData = false;
     this.loading = true;
 
     const stored = localStorage.getItem('user');
@@ -65,10 +62,6 @@ export class Review implements OnInit {
       .subscribe({
         next: (res) => {
           this.reviews = res.reviews || [];
-          this.noData = !this.reviews.length;
-          if (this.noData) {
-            this.error = res?.message || 'ยังไม่มีรีวิวที่เคยเขียน';
-          }
         },
         error: (err) => {
           console.error('Failed to load reviews', err);

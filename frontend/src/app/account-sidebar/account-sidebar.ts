@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import { Subscription } from 'rxjs';
 import { AccountService } from '../services/account.service';
 
@@ -10,10 +10,12 @@ interface AccountMenuItem {
   route?: string;
 }
 
+import { NgClass } from '@angular/common';
+
 @Component({
   selector: 'app-account-sidebar',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [NgClass, RouterLink, RouterLinkActive],
   templateUrl: './account-sidebar.html',
   styleUrls: ['./account-sidebar.css'],
 })

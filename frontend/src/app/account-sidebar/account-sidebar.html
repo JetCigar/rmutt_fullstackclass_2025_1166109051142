@@ -9,25 +9,21 @@
 
   <nav class="menu" aria-label="เมนูบัญชี">
     <ul>
-      <li
-        *ngFor="let item of menuItems"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        <a
-          *ngIf="item.route"
-          [routerLink]="item.route"
-          class="menu__item"
-          type="button"
-        >
-          <i class="bi" [ngClass]="item.icon" aria-hidden="true"></i>
-          <span class="menu__label">{{ item.label }}</span>
-        </a>
-        <button *ngIf="!item.route" type="button" class="menu__item" disabled>
-          <i class="bi" [ngClass]="item.icon" aria-hidden="true"></i>
-          <span class="menu__label">{{ item.label }}</span>
-        </button>
-      </li>
+      @for (item of menuItems; track item.label) {
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          @if (item.route) {
+            <a [routerLink]="item.route" class="menu__item" type="button">
+              <i class="bi" [ngClass]="item.icon" aria-hidden="true"></i>
+              <span class="menu__label">{{ item.label }}</span>
+            </a>
+          } @else {
+            <button type="button" class="menu__item" disabled>
+              <i class="bi" [ngClass]="item.icon" aria-hidden="true"></i>
+              <span class="menu__label">{{ item.label }}</span>
+            </button>
+          }
+        </li>
+      }
     </ul>
   </nav>
 

@@ -1,6 +1,6 @@
 import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { AccountSidebar } from '../account-sidebar/account-sidebar';
 import { AccountService, ProfileData, UpdateProfilePayload } from '../services/account.service';
@@ -8,7 +8,7 @@ import { AccountService, ProfileData, UpdateProfilePayload } from '../services/a
 @Component({
   selector: 'app-setting-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, AccountSidebar],
+  imports: [FormsModule, AccountSidebar],
   templateUrl: './setting-page.html',
   styleUrl: './setting-page.css',
 })

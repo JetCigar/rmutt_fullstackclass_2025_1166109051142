@@ -142,9 +142,4 @@
   }
 }
 
-.order-empty {
-  padding: 1rem;
-  color: #555;
-  font-weight: 600;
-}
-
+.order-empty { display: flex; justify-content: center; padding: 2rem; text-align: center; color: #888; font-weight: 500; font-style: italic; width: 100%; }

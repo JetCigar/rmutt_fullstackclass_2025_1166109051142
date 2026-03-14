@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
@@ -9,14 +8,13 @@ import { OrderService, OrderData } from '../services/order.service';
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, AccountSidebar],
+  imports: [HttpClientModule, AccountSidebar],
   templateUrl: './order.html',
   styleUrls: ['./order.css'],
 })
 export class Order implements OnInit {
   orders: OrderData[] = [];
   loading = false;
-  noData = false;
   error = '';
 
   constructor(
@@ -31,7 +29,6 @@ export class Order implements OnInit {
 
   loadOrders() {
     this.error = '';
-    this.noData = false;
     this.loading = true;
 
     const stored = localStorage.getItem('user');
@@ -65,10 +62,6 @@ export class Order implements OnInit {
       .subscribe({
         next: (res) => {
           this.orders = res.orders || [];
-          this.noData = !this.orders.length;
-          if (this.noData) {
-            this.error = res?.message || 'ไม่มีคำสั่งซื้อในขณะนี้';
-          }
         },
         error: (err) => {
           console.error('Failed to load orders', err);

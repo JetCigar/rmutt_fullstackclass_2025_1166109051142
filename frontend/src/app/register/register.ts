@@ -4,12 +4,11 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, RouterLink, CommonModule, HttpClientModule],
+  imports: [FormsModule, RouterLink, HttpClientModule],
   templateUrl: './register.html',
   styleUrl: './register.css'
 })

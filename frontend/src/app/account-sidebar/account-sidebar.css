@@ -79,6 +79,7 @@
   font-size: 0.93rem;
   color: #1b1f23;
   text-align: left;
+  text-decoration: none;
   transition: background 120ms ease, color 120ms ease;
 }
 

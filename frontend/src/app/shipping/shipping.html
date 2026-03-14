@@ -4,28 +4,36 @@
   <main class="account__content">
     <header class="account__header">
       <h1>สถานะการจัดส่ง</h1>
-      <p class="account__subtitle">แสดงสถานะการจัดส่งสินค้าทั้งหมดที่เคยสั่งซื้อ</p>
     </header>
 
     <section class="shippings">
-      <div *ngIf="loading" class="shipping-loading">กำลังโหลดสถานะจัดส่ง...</div>
-      <div *ngIf="!loading && noData" class="shipping-empty">ยังไม่มีข้อมูลการจัดส่ง</div>
-      <div *ngIf="!loading && error && !noData" class="shipping-error">{{ error }}</div>
+      @if (loading) {
+        <div class="shipping-loading">กำลังโหลดสถานะจัดส่ง...</div>
+      }
+      @if (!loading && error) {
+        <div class="shipping-error">{{ error }}</div>
+      }
 
-      <article class="shipping-card" *ngFor="let s of shippings">
-        <div class="shipping-card__header">
-          <div>
-            <div class="shipping-card__title">คำสั่งซื้อ {{ s.order_code }}</div>
-            <div class="shipping-card__subtitle">เลขติดตาม: {{ s.tracking_number }}</div>
+      @for (s of shippings; track s.order_code) {
+        <article class="shipping-card">
+          <div class="shipping-card__header">
+            <div>
+              <div class="shipping-card__title">คำสั่งซื้อ {{ s.order_code }}</div>
+              <div class="shipping-card__subtitle">เลขติดตาม: {{ s.tracking_number }}</div>
+            </div>
+            <span class="shipping-card__status" [ngStyle]="{ 'background-color': statusColor(s.status) + '20', color: statusColor(s.status) }">{{ s.status }}</span>
           </div>
-          <span class="shipping-card__status" [ngStyle]="{ 'background-color': statusColor(s.status) + '20', color: statusColor(s.status) }">{{ s.status }}</span>
-        </div>
 
-        <div class="shipping-card__body">
-          <div><strong>จัดส่งจาก</strong> {{ s.address || 'ข้อมูลที่อยู่ไม่ครบ' }}</div>
-          <div><strong>วันที่จัดส่ง</strong> {{ s.shipped_at || '-' }}</div>
-        </div>
-      </article>
+          <div class="shipping-card__body">
+            <div><strong>จัดส่งจาก</strong> {{ s.address || 'ข้อมูลที่อยู่ไม่ครบ' }}</div>
+            <div><strong>วันที่จัดส่ง</strong> {{ s.shipped_at || '-' }}</div>
+          </div>
+        </article>
+      } @empty {
+        @if (!loading) {
+          <div class="shipping-empty">ยังไม่มีข้อมูลการจัดส่ง</div>
+        }
+      }
     </section>
   </main>
 </section>

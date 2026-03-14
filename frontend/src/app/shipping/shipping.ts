@@ -1,22 +1,22 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { AccountSidebar } from '../account-sidebar/account-sidebar';
 import { ShippingService, ShippingData } from '../services/shipping.service';
 
+import { NgStyle } from '@angular/common';
+
 @Component({
   selector: 'app-shipping',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, AccountSidebar],
+  imports: [NgStyle, HttpClientModule, AccountSidebar],
   templateUrl: './shipping.html',
   styleUrl: './shipping.css',
 })
 export class Shipping implements OnInit {
   shippings: ShippingData[] = [];
   loading = false;
-  noData = false;
   error = '';
 
   constructor(
@@ -31,7 +31,6 @@ export class Shipping implements OnInit {
 
   loadShippings() {
     this.error = '';
-    this.noData = false;
     this.loading = true;
 
     const stored = localStorage.getItem('user');
@@ -65,10 +64,6 @@ export class Shipping implements OnInit {
       .subscribe({
         next: (res) => {
           this.shippings = res.shippings || [];
-          this.noData = !this.shippings.length;
-          if (this.noData) {
-            this.error = res?.message || 'ยังไม่มีข้อมูลการจัดส่ง';
-          }
         },
         error: (err) => {
           console.error('Failed to load shippings', err);

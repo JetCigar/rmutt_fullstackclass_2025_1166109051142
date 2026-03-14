@@ -4,44 +4,47 @@
   <main class="account__content">
     <header class="account__header">
       <h1>ตั้งค่าบัญชี</h1>
-      <p class="account__subtitle">แก้ไขข้อมูลส่วนตัวของคุณได้ที่นี่</p>
     </header>
 
     <section class="settings">
       <div class="setting-card">
-        <div *ngIf="loading" class="setting-card__loading">
-          กำลังโหลดข้อมูล...
-        </div>
+        @if (loading) {
+          <div class="setting-card__loading">
+            กำลังโหลดข้อมูล...
+          </div>
+        }
 
-        <ng-container *ngIf="!loading">
+        @if (!loading) {
           <div class="setting-card__row">
             <div>
-              <div class="setting-card__label">ชื่อ</div>
+              <div class="setting-card__label">ชื่อ-นามสกุล</div>
               <div class="setting-card__value">
-                <ng-container *ngIf="editingField !== 'name'">
+                @if (editingField !== 'name') {
                   {{ profile?.first_name }} {{ profile?.last_name }}
-                </ng-container>
-                <ng-container *ngIf="editingField === 'name'">
+                } @else {
                   <div class="field-grid">
                     <input type="text" placeholder="ชื่อ" [(ngModel)]="editFirstName" />
                     <input type="text" placeholder="นามสกุล" [(ngModel)]="editLastName" />
                   </div>
-                </ng-container>
+                }
               </div>
             </div>
 
             <div class="setting-card__actions">
-              <button type="button" class="btn btn-secondary" *ngIf="editingField !== 'name'" (click)="startEdit('name')">
-                แก้ไข
-              </button>
-              <div *ngIf="editingField === 'name'" class="action-buttons">
-                <button type="button" class="btn btn-primary" (click)="saveChanges()" [disabled]="saving">
-                  บันทึก
+              @if (editingField !== 'name') {
+                <button type="button" class="btn btn-secondary" (click)="startEdit('name')">
+                  แก้ไข
                 </button>
-                <button type="button" class="btn btn-ghost" (click)="cancelEdit()" [disabled]="saving">
-                  ยกเลิก
-                </button>
-              </div>
+              } @else {
+                <div class="action-buttons">
+                  <button type="button" class="btn btn-primary" (click)="saveChanges()" [disabled]="saving">
+                    บันทึก
+                  </button>
+                  <button type="button" class="btn btn-ghost" (click)="cancelEdit()" [disabled]="saving">
+                    ยกเลิก
+                  </button>
+                </div>
+              }
             </div>
           </div>
 
@@ -49,27 +52,29 @@
             <div>
               <div class="setting-card__label">อีเมล</div>
               <div class="setting-card__value">
-                <ng-container *ngIf="editingField !== 'email'">
+                @if (editingField !== 'email') {
                   {{ profile?.email }}
-                </ng-container>
-                <ng-container *ngIf="editingField === 'email'">
+                } @else {
                   <input type="email" placeholder="อีเมล" [(ngModel)]="editEmail" />
-                </ng-container>
+                }
               </div>
             </div>
 
             <div class="setting-card__actions">
-              <button type="button" class="btn btn-secondary" *ngIf="editingField !== 'email'" (click)="startEdit('email')">
-                แก้ไข
-              </button>
-              <div *ngIf="editingField === 'email'" class="action-buttons">
-                <button type="button" class="btn btn-primary" (click)="saveChanges()" [disabled]="saving">
-                  บันทึก
+              @if (editingField !== 'email') {
+                <button type="button" class="btn btn-secondary" (click)="startEdit('email')">
+                  แก้ไข
                 </button>
-                <button type="button" class="btn btn-ghost" (click)="cancelEdit()" [disabled]="saving">
-                  ยกเลิก
-                </button>
-              </div>
+              } @else {
+                <div class="action-buttons">
+                  <button type="button" class="btn btn-primary" (click)="saveChanges()" [disabled]="saving">
+                    บันทึก
+                  </button>
+                  <button type="button" class="btn btn-ghost" (click)="cancelEdit()" [disabled]="saving">
+                    ยกเลิก
+                  </button>
+                </div>
+              }
             </div>
           </div>
 
@@ -77,27 +82,29 @@
             <div>
               <div class="setting-card__label">เบอร์โทร</div>
               <div class="setting-card__value">
-                <ng-container *ngIf="editingField !== 'phone'">
+                @if (editingField !== 'phone') {
                   {{ profile?.phone || '-' }}
-                </ng-container>
-                <ng-container *ngIf="editingField === 'phone'">
+                } @else {
                   <input type="tel" placeholder="เบอร์โทร" [(ngModel)]="editPhone" />
-                </ng-container>
+                }
               </div>
             </div>
 
             <div class="setting-card__actions">
-              <button type="button" class="btn btn-secondary" *ngIf="editingField !== 'phone'" (click)="startEdit('phone')">
-                แก้ไข
-              </button>
-              <div *ngIf="editingField === 'phone'" class="action-buttons">
-                <button type="button" class="btn btn-primary" (click)="saveChanges()" [disabled]="saving">
-                  บันทึก
+              @if (editingField !== 'phone') {
+                <button type="button" class="btn btn-secondary" (click)="startEdit('phone')">
+                  แก้ไข
                 </button>
-                <button type="button" class="btn btn-ghost" (click)="cancelEdit()" [disabled]="saving">
-                  ยกเลิก
-                </button>
-              </div>
+              } @else {
+                <div class="action-buttons">
+                  <button type="button" class="btn btn-primary" (click)="saveChanges()" [disabled]="saving">
+                    บันทึก
+                  </button>
+                  <button type="button" class="btn btn-ghost" (click)="cancelEdit()" [disabled]="saving">
+                    ยกเลิก
+                  </button>
+                </div>
+              }
             </div>
           </div>
 
@@ -105,40 +112,46 @@
             <div>
               <div class="setting-card__label">รหัสผ่าน</div>
               <div class="setting-card__value">
-                <ng-container *ngIf="editingField !== 'password'">
+                @if (editingField !== 'password') {
                   •••••••••
-                </ng-container>
-                <ng-container *ngIf="editingField === 'password'">
+                } @else {
                   <div class="field-grid">
                     <input type="password" placeholder="รหัสผ่านใหม่" [(ngModel)]="editPassword" />
                     <input type="password" placeholder="ยืนยันรหัสผ่าน" [(ngModel)]="editPasswordConfirm" />
                   </div>
-                </ng-container>
+                }
               </div>
             </div>
 
             <div class="setting-card__actions">
-              <button type="button" class="btn btn-secondary" *ngIf="editingField !== 'password'" (click)="startEdit('password')">
-                เปลี่ยน
-              </button>
-              <div *ngIf="editingField === 'password'" class="action-buttons">
-                <button type="button" class="btn btn-primary" (click)="saveChanges()" [disabled]="saving">
-                  บันทึก
+              @if (editingField !== 'password') {
+                <button type="button" class="btn btn-secondary" (click)="startEdit('password')">
+                  เปลี่ยน
                 </button>
-                <button type="button" class="btn btn-ghost" (click)="cancelEdit()" [disabled]="saving">
-                  ยกเลิก
-                </button>
-              </div>
+              } @else {
+                <div class="action-buttons">
+                  <button type="button" class="btn btn-primary" (click)="saveChanges()" [disabled]="saving">
+                    บันทึก
+                  </button>
+                  <button type="button" class="btn btn-ghost" (click)="cancelEdit()" [disabled]="saving">
+                    ยกเลิก
+                  </button>
+                </div>
+              }
             </div>
           </div>
 
-          <div class="setting-card__notice" *ngIf="message">
-            {{ message }}
-          </div>
-          <div class="setting-card__notice setting-card__notice--error" *ngIf="error">
-            {{ error }}
-          </div>
-        </ng-container>
+          @if (message) {
+            <div class="setting-card__notice">
+              {{ message }}
+            </div>
+          }
+          @if (error) {
+            <div class="setting-card__notice setting-card__notice--error">
+              {{ error }}
+            </div>
+          }
+        }
       </div>
     </section>
   </main>
