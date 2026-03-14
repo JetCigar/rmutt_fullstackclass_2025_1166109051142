@@ -1,0 +1,31 @@
+<section class="account">
+  <app-account-sidebar></app-account-sidebar>
+
+  <main class="account__content">
+    <header class="account__header">
+      <h1>รีวิวของฉัน</h1>
+      <p class="account__subtitle">รวบรวมรีวิวทั้งหมดจากสินค้าที่คุณเคยสั่งซื้อ</p>
+    </header>
+
+    <section class="reviews">
+      <div *ngIf="loading" class="review-loading">กำลังโหลดรีวิว...</div>
+      <div *ngIf="!loading && noData" class="review-empty">ยังไม่มีรีวิว</div>
+      <div *ngIf="!loading && error && !noData" class="review-error">{{ error }}</div>
+
+      <article class="review-card" *ngFor="let review of reviews">
+        <div class="review-card__row">
+          <div class="review-card__title">{{ review.product_name }}</div>
+          <div class="review-card__date">{{ review.created_at }}</div>
+        </div>
+
+        <div class="review-card__stars">
+          <ng-container *ngFor="let filled of stars(review.rating); let idx = index">
+            <i class="bi" [ngClass]="filled ? 'bi-star-fill' : 'bi-star'" aria-hidden="true"></i>
+          </ng-container>
+        </div>
+
+        <p class="review-card__comment">{{ review.comment || 'ไม่มีข้อความรีวิว' }}</p>
+      </article>
+    </section>
+  </main>
+</section>

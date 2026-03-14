@@ -1,0 +1,103 @@
+.account {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: #f6f9fb;
+  min-height: calc(100vh - 240px);
+  justify-content: center;
+}
+
+.account__content {
+  flex: 1;
+  max-width: 1140px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  padding: 1.2rem;
+}
+
+.account__header h1 {
+  font-size: 1.7rem;
+  margin: 0;
+  color: #222;
+}
+
+.account__subtitle {
+  margin-top: 0.3rem;
+  color: #5f6b7a;
+  font-size: 1rem;
+}
+
+.shippings {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.shipping-card {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.shipping-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.shipping-card__title {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.shipping-card__subtitle {
+  font-size: 0.9rem;
+  color: #5f6b7a;
+}
+
+.shipping-card__status {
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.82rem;
+}
+
+.shipping-card__body {
+  display: grid;
+  gap: 0.45rem;
+  color: #344055;
+}
+
+.shipping-loading,
+.shipping-error {
+  padding: 0.85rem;
+  font-weight: 600;
+}
+
+.shipping-error {
+  color: #d64541;
+}
+
+@media (max-width: 900px) {
+  .account {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 1.5rem 1rem;
+  }
+
+  .account-sidebar {
+    flex: 0 0 280px;
+  }
+
+  .account__content {
+    min-width: 340px;
+  }
+}
+
+.shipping-empty { padding: 1rem; color: #555; font-weight: 600; }
+

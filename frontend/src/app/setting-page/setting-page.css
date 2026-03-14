@@ -1,0 +1,201 @@
+:host {
+  display: block;
+}
+
+.account {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: #f6f9fb;
+  min-height: calc(100vh - 240px);
+  justify-content: center;
+}
+
+.account__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 1140px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  padding: 1.2rem;
+}
+
+.account__header h1 {
+  font-size: 1.6rem;
+  margin: 0;
+  color: #11181e;
+}
+
+.account__subtitle {
+  margin: 0.3rem 0 0;
+  color: #5f6b7a;
+  font-size: 0.95rem;
+}
+
+.setting-card {
+  background: white;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 1.25rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.setting-card__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.setting-card__row:last-child {
+  border-bottom: none;
+}
+
+.setting-card__label {
+  font-weight: 700;
+  color: #11181e;
+  margin-bottom: 0.35rem;
+}
+
+.setting-card__value {
+  color: #5f6b7a;
+  font-size: 0.95rem;
+  min-width: 250px;
+  max-width: 600px;
+}
+
+.setting-card__actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 0.45rem 0.9rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: #1fbc52;
+  border-color: #1fbc52;
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #16913b;
+}
+
+.btn-secondary {
+  background: white;
+  border-color: rgba(0, 0, 0, 0.12);
+  color: #11181e;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: transparent;
+  color: #5f6b7a;
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+input[type='text'],
+input[type='email'],
+input[type='tel'],
+input[type='password'] {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: 10px;
+  font-size: 0.95rem;
+  outline: none;
+  box-sizing: border-box;
+}
+
+input[type='text']:focus,
+input[type='email']:focus,
+input[type='tel']:focus,
+input[type='password']:focus {
+  border-color: rgba(31, 188, 82, 0.7);
+  box-shadow: 0 0 0 2px rgba(31, 188, 82, 0.25);
+}
+
+.setting-card__notice {
+  padding: 0.75rem 0.85rem;
+  border-radius: 10px;
+  background: rgba(31, 188, 82, 0.12);
+  color: #1fbc52;
+  font-weight: 600;
+}
+
+.setting-card__notice--error {
+  background: rgba(222, 61, 61, 0.12);
+  color: #de3d3d;
+}
+
+.setting-card__loading {
+  padding: 1rem;
+  font-weight: 600;
+  color: #5f6b7a;
+}
+
+@media (max-width: 900px) {
+  .account {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 1.5rem 1rem;
+  }
+
+  .account-sidebar {
+    flex: 0 0 280px;
+  }
+
+  .account__content {
+    min-width: 340px;
+  }
+
+  .setting-card__row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .setting-card__actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+

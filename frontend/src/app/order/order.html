@@ -8,6 +8,9 @@
     </header>
 
     <section class="orders">
+      <div *ngIf="loading" class="order-loading">กำลังโหลดคำสั่งซื้อ...</div>
+      <div *ngIf="!loading && noData" class="order-empty">ยังไม่มีคำสั่งซื้อในขณะนี้</div>
+      <div *ngIf="!loading && error && !noData" class="order-error">{{ error }}</div>
       <article class="order-card" *ngFor="let order of orders">
         <div class="order-card__header">
           <div>

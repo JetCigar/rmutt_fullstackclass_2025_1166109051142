@@ -4,32 +4,32 @@ import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { AccountSidebar } from '../account-sidebar/account-sidebar';
-import { OrderService, OrderData } from '../services/order.service';
+import { AddressService, AddressData } from '../services/address.service';
 
 @Component({
-  selector: 'app-order',
+  selector: 'app-address',
   standalone: true,
   imports: [CommonModule, HttpClientModule, AccountSidebar],
-  templateUrl: './order.html',
-  styleUrls: ['./order.css'],
+  templateUrl: './address.html',
+  styleUrl: './address.css',
 })
-export class Order implements OnInit {
-  orders: OrderData[] = [];
+export class Address implements OnInit {
+  addresses: AddressData[] = [];
   loading = false;
   noData = false;
   error = '';
 
   constructor(
-    private orderService: OrderService,
+    private addressService: AddressService,
     private router: Router,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
-    this.loadOrders();
+    this.loadAddresses();
   }
 
-  loadOrders() {
+  loadAddresses() {
     this.error = '';
     this.noData = false;
     this.loading = true;
@@ -37,7 +37,7 @@ export class Order implements OnInit {
     const stored = localStorage.getItem('user');
     if (!stored) {
       this.loading = false;
-      this.error = 'กรุณาเข้าสู่ระบบก่อนดูคำสั่งซื้อ';
+      this.error = 'กรุณาเข้าสู่ระบบก่อนดูที่อยู่';
       return;
     }
 
@@ -57,36 +57,27 @@ export class Order implements OnInit {
       return;
     }
 
-    this.orderService.getOrders(customerId)
+    this.addressService.getAddresses(customerId)
       .pipe(finalize(() => {
         this.loading = false;
         this.cdr.detectChanges();
       }))
       .subscribe({
         next: (res) => {
-          this.orders = res.orders || [];
-          this.noData = !this.orders.length;
+          this.addresses = res.addresses || [];
+          this.noData = !this.addresses.length;
           if (this.noData) {
-            this.error = res?.message || 'ไม่มีคำสั่งซื้อในขณะนี้';
+            this.error = res?.message || 'ยังไม่มีที่อยู่ในระบบ';
           }
         },
         error: (err) => {
-          console.error('Failed to load orders', err);
-          this.error = err?.error?.message || 'ไม่สามารถโหลดคำสั่งซื้อได้';
+          console.error('Failed to load addresses', err);
+          this.error = err?.error?.message || 'ไม่สามารถโหลดที่อยู่ได้';
         },
       });
   }
 
-  formatPrice(value: number) {
-    return new Intl.NumberFormat('th-TH', {
-      style: 'currency',
-      currency: 'THB',
-      maximumFractionDigits: 0,
-    }).format(value);
-  }
-
-  getTotal(order: OrderData) {
-    return order.items.reduce((sum, item) => sum + item.price * item.qty, 0);
+  formatAddress(address: AddressData) {
+    return `${address.address_line}${address.province ? ', ' + address.province : ''}${address.zip_code ? ' ' + address.zip_code : ''}`;
   }
 }
-

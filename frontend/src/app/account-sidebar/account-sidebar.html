@@ -9,8 +9,21 @@
 
   <nav class="menu" aria-label="เมนูบัญชี">
     <ul>
-      <li *ngFor="let item of menuItems" [class.active]="item.active">
-        <button type="button" class="menu__item">
+      <li
+        *ngFor="let item of menuItems"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <a
+          *ngIf="item.route"
+          [routerLink]="item.route"
+          class="menu__item"
+          type="button"
+        >
+          <i class="bi" [ngClass]="item.icon" aria-hidden="true"></i>
+          <span class="menu__label">{{ item.label }}</span>
+        </a>
+        <button *ngIf="!item.route" type="button" class="menu__item" disabled>
           <i class="bi" [ngClass]="item.icon" aria-hidden="true"></i>
           <span class="menu__label">{{ item.label }}</span>
         </button>
@@ -19,7 +32,7 @@
   </nav>
 
   <footer class="logout">
-    <button type="button" class="logout__btn">
+    <button type="button" class="logout__btn" (click)="logout()">
       <i class="bi" [ngClass]="logoutItem.icon" aria-hidden="true"></i>
       <span>{{ logoutItem.label }}</span>
     </button>

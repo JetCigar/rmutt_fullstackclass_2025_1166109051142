@@ -1,0 +1,26 @@
+<section class="account">
+  <app-account-sidebar></app-account-sidebar>
+
+  <main class="account__content">
+    <header class="account__header">
+      <h1>ที่อยู่ของฉัน</h1>
+      <p class="account__subtitle">จัดการที่อยู่ส่งสินค้าที่บันทึกไว้</p>
+    </header>
+
+    <section class="addresses">
+      <div *ngIf="loading" class="address-loading">กำลังโหลดที่อยู่...</div>
+      <div *ngIf="!loading && noData" class="address-empty">ยังไม่มีที่อยู่ในระบบ</div>
+      <div *ngIf="!loading && error && !noData" class="address-error">{{ error }}</div>
+
+      <article class="address-card" *ngFor="let item of addresses">
+        <div class="address-card__header">
+          <div>
+            <div class="address-card__label">ที่อยู่</div>
+            <p class="address-card__line">{{ formatAddress(item) }}</p>
+          </div>
+          <span class="address-badge" [class.default]="item.is_default">{{ item.is_default ? 'ค่าเริ่มต้น' : 'เพิ่มเติม' }}</span>
+        </div>
+      </article>
+    </section>
+  </main>
+</section>

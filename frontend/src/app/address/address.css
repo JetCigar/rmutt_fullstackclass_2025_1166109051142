@@ -1,0 +1,105 @@
+.account {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: #f6f9fb;
+  min-height: calc(100vh - 240px);
+  justify-content: center;
+}
+
+.account__content {
+  flex: 1;
+  max-width: 1140px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  padding: 1.2rem;
+}
+
+.account__header h1 {
+  font-size: 1.7rem;
+  margin: 0;
+  color: #222;
+}
+
+.account__subtitle {
+  margin-top: 0.3rem;
+  color: #5f6b7a;
+  font-size: 1rem;
+}
+
+.addresses {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.address-card {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.address-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.address-card__label {
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 0.25rem;
+}
+
+.address-card__line {
+  margin: 0;
+  color: #475066;
+}
+
+.address-badge {
+  display: inline-block;
+  padding: 0.2rem 0.7rem;
+  background: #dee2ff;
+  color: #364fc7;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.address-badge.default {
+  background: #d3f9d8;
+  color: #2f9e44;
+}
+
+.address-loading,
+.address-error {
+  padding: 0.85rem;
+  font-weight: 600;
+}
+
+.address-error {
+  color: #d64541;
+}
+
+@media (max-width: 900px) {
+  .account {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 1.5rem 1rem;
+  }
+
+  .account-sidebar {
+    flex: 0 0 280px;
+  }
+
+  .account__content {
+    min-width: 340px;
+  }
+}
+
+.address-empty { padding: 1rem; color: #555; font-weight: 600; }
+

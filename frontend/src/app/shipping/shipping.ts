@@ -4,32 +4,32 @@ import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { AccountSidebar } from '../account-sidebar/account-sidebar';
-import { OrderService, OrderData } from '../services/order.service';
+import { ShippingService, ShippingData } from '../services/shipping.service';
 
 @Component({
-  selector: 'app-order',
+  selector: 'app-shipping',
   standalone: true,
   imports: [CommonModule, HttpClientModule, AccountSidebar],
-  templateUrl: './order.html',
-  styleUrls: ['./order.css'],
+  templateUrl: './shipping.html',
+  styleUrl: './shipping.css',
 })
-export class Order implements OnInit {
-  orders: OrderData[] = [];
+export class Shipping implements OnInit {
+  shippings: ShippingData[] = [];
   loading = false;
   noData = false;
   error = '';
 
   constructor(
-    private orderService: OrderService,
+    private shippingService: ShippingService,
     private router: Router,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
-    this.loadOrders();
+    this.loadShippings();
   }
 
-  loadOrders() {
+  loadShippings() {
     this.error = '';
     this.noData = false;
     this.loading = true;
@@ -37,7 +37,7 @@ export class Order implements OnInit {
     const stored = localStorage.getItem('user');
     if (!stored) {
       this.loading = false;
-      this.error = 'กรุณาเข้าสู่ระบบก่อนดูคำสั่งซื้อ';
+      this.error = 'กรุณาเข้าสู่ระบบก่อนดูสถานะจัดส่ง';
       return;
     }
 
@@ -57,36 +57,36 @@ export class Order implements OnInit {
       return;
     }
 
-    this.orderService.getOrders(customerId)
+    this.shippingService.getShippings(customerId)
       .pipe(finalize(() => {
         this.loading = false;
         this.cdr.detectChanges();
       }))
       .subscribe({
         next: (res) => {
-          this.orders = res.orders || [];
-          this.noData = !this.orders.length;
+          this.shippings = res.shippings || [];
+          this.noData = !this.shippings.length;
           if (this.noData) {
-            this.error = res?.message || 'ไม่มีคำสั่งซื้อในขณะนี้';
+            this.error = res?.message || 'ยังไม่มีข้อมูลการจัดส่ง';
           }
         },
         error: (err) => {
-          console.error('Failed to load orders', err);
-          this.error = err?.error?.message || 'ไม่สามารถโหลดคำสั่งซื้อได้';
+          console.error('Failed to load shippings', err);
+          this.error = err?.error?.message || 'ไม่สามารถโหลดสถานะการจัดส่งได้';
         },
       });
   }
 
-  formatPrice(value: number) {
-    return new Intl.NumberFormat('th-TH', {
-      style: 'currency',
-      currency: 'THB',
-      maximumFractionDigits: 0,
-    }).format(value);
-  }
-
-  getTotal(order: OrderData) {
-    return order.items.reduce((sum, item) => sum + item.price * item.qty, 0);
+  statusColor(status: string): string {
+    const map: Record<string, string> = {
+      pending: '#ffa502',
+      preparing: '#1fbc52',
+      shipped: '#1fbc52',
+      delivered: '#0f7965',
+      cancelled: '#d64541',
+      'รอดำเนินการ': '#ffa502',
+    };
+    return map[status.toLowerCase()] || '#868e96';
   }
 }
 

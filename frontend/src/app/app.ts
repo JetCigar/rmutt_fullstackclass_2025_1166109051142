@@ -1,6 +1,5 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Category } from './category/category';
 import { CommonModule } from '@angular/common';
 
 import { HeaderComponent } from './header/header';
@@ -12,7 +11,6 @@ import { FooterComponent } from './footer/footer';
   standalone: true,
   imports: [
     RouterOutlet,
-    Category,
     CommonModule,
     HeaderComponent,
     NavbarComponent,
