@@ -20,7 +20,34 @@ const getProducts = async (req, res) => {
     });
   }
 };
+/* ================= SEARCH ================= */
 
+const searchProducts = async (req, res) => {
+
+  const q = req.query.q;
+
+  try {
+
+    const products = await prisma.product.findMany({
+      where: {
+        name: {
+          contains: q,
+          mode: 'insensitive'
+        }
+      }
+    });
+
+    res.json(products);
+
+  } catch (error) {
+
+    res.status(500).json({
+      error: error.message
+    });
+
+  }
+
+};
 // ส่งออกไปให้ Routes เรียกใช้
 module.exports = {
   getProducts

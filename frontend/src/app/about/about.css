@@ -1,70 +1,87 @@
+/* ===================== MAIN PAGE ===================== */
+
+/* กล่องหลักของหน้า About */
 .about-page{
-  max-width:1100px;
-  margin:60px auto;
-  padding:20px;
+  max-width:1100px;      /* กำหนดความกว้างสูงสุดของหน้า */
+  margin:60px auto;      /* เว้นระยะบน-ล่าง 60px และจัดกลาง (auto ซ้าย-ขวา) */
+  padding:20px;          /* ระยะห่างด้านในกล่อง */
 }
 
+/* หัวข้อหลัก (About Us) */
 .about-page h1{
-  text-align:center;
-  color:#2f5d1a;
-  margin-bottom:40px;
+  text-align:center;     /* จัดข้อความให้อยู่ตรงกลาง */
+  color:#2f5d1a;         /* สีเขียวเข้ม */
+  margin-bottom:40px;    /* เว้นระยะด้านล่าง */
 }
+
+
+/* ===================== SECTION (ส่วนเนื้อหา) ===================== */
 
 .about-section{
-  display:flex;
-  gap:40px;
-  align-items:center;
-  margin-bottom:50px;
+  display:flex;          /* ใช้ Flexbox จัด layout */
+  gap:40px;              /* ระยะห่างระหว่าง element */
+  align-items:center;    /* จัดให้อยู่กึ่งกลางแนวตั้ง */
+  margin-bottom:50px;    /* เว้นระยะด้านล่าง */
 }
 
+/* กล่องข้อความ */
 .about-text{
-  flex:1;
+  flex:1;                /* ให้ขยายเต็มพื้นที่ที่เหลือ */
 }
 
+/* หัวข้อย่อย */
 .about-text h2{
-  color:#2f5d1a;
-  margin-bottom:15px;
+  color:#2f5d1a;         /* สีเขียว */
+  margin-bottom:15px;    /* เว้นระยะด้านล่าง */
 }
 
+/* เนื้อหาข้อความ */
 .about-text p{
-  line-height:1.7;
-  color:#444;
+  line-height:1.7;       /* ระยะห่างบรรทัด (อ่านง่ายขึ้น) */
+  color:#444;            /* สีเทาเข้ม */
 }
 
-/* FEATURE */
 
+/* ===================== FEATURE (จุดเด่น) ===================== */
+
+/* กล่องรวม feature ทั้งหมด */
 .about-features{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:20px;
+  display:grid;                         /* ใช้ Grid layout */
+  grid-template-columns:repeat(3,1fr);  /* แบ่ง 3 คอลัมน์เท่ากัน */
+  gap:20px;                             /* ระยะห่างแต่ละช่อง */
 }
 
+/* การ์ดแต่ละอัน */
 .feature-card{
-  background:#f6fbf4;
-  padding:30px;
-  border-radius:14px;
-  text-align:center;
-  border:1px solid #e3f0dc;
-  transition:.25s;
+  background:#f6fbf4;        /* สีพื้นหลังอ่อน */
+  padding:30px;              /* ระยะห่างด้านใน */
+  border-radius:14px;        /* มุมโค้ง */
+  text-align:center;         /* จัดข้อความตรงกลาง */
+  border:1px solid #e3f0dc;  /* เส้นขอบ */
+  transition:.25s;           /* ทำให้ animation นุ่มขึ้น */
 }
 
+/* เอฟเฟกต์ตอนเอาเมาส์ไปชี้ */
 .feature-card:hover{
-  transform:translateY(-5px);
-  box-shadow:0 8px 18px rgba(0,0,0,0.08);
+  transform:translateY(-5px);                 /* ยกการ์ดขึ้น */
+  box-shadow:0 8px 18px rgba(0,0,0,0.08);    /* เงา */
 }
 
+/* ไอคอน */
 .feature-card i{
-  font-size:30px;
-  color:#2f5d1a;
-  margin-bottom:10px;
+  font-size:30px;        /* ขนาดไอคอน */
+  color:#2f5d1a;         /* สีเขียว */
+  margin-bottom:10px;    /* เว้นด้านล่าง */
 }
 
+/* หัวข้อในการ์ด */
 .feature-card h3{
-  margin-bottom:8px;
-  color:#2f5d1a;
+  margin-bottom:8px;     /* เว้นระยะ */
+  color:#2f5d1a;         /* สีเขียว */
 }
 
+/* ข้อความในการ์ด */
 .feature-card p{
-  font-size:14px;
-  color:#666;
+  font-size:14px;        /* ขนาดตัวอักษรเล็ก */
+  color:#666;            /* สีเทา */
 }

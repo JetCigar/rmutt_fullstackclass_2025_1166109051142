@@ -1,198 +1,358 @@
 /* ===================== NAVBAR STYLES ===================== */
 
+/* กล่อง navbar หลัก */
 .navbar {
-  width: 100%;
-  background-color: #1d2128;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
+  width: 100%; 
+  /* ความกว้างเต็มหน้าจอ */
+
+  background-color: #1d2128; 
+  /* สีพื้นหลัง (สีเข้ม) */
+
+  font-family: 'Helvetica Neue', Arial, sans-serif; 
+  /* ฟอนต์ตัวอักษร */
 }
 
+
+/* กล่องด้านใน navbar */
 .navbar__inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 24px;
-  max-width: 1200px;
-  margin: 0 auto;
-  margin-left: 125px;
-  
+  display: flex; 
+  /* ใช้ flex layout */
+
+  align-items: center; 
+  /* จัดให้อยู่กึ่งกลางแนวตั้ง */
+
+  padding: 0 24px; 
+  /* ระยะห่างซ้าย-ขวา */
+
+  max-width: 1200px; 
+  /* กำหนดความกว้างสูงสุด */
+
+  margin: 0 auto; 
+  /* จัดให้อยู่ตรงกลาง */
 }
 
-/* ---------- Nav List ---------- */
+
+/* ===================== NAV LIST ===================== */
+
+/* list เมนู */
 .navbar__list {
-  display: flex;
+  display: flex; 
   align-items: center;
-  list-style: none;
+
+  list-style: none; 
+  /* เอาจุดหน้าลิสต์ออก */
+
   margin: 0;
   padding: 0;
-  gap: 2px;
+
+  gap: 8px; 
+  /* ระยะห่างระหว่างเมนู */
+
+  margin-left: -50px; 
+  /* ขยับเมนูไปทางซ้าย */
 }
 
+
+/* item ของเมนู */
 .navbar__item {
-  position: relative;
+  position: relative; 
+  /* ใช้สำหรับจัดตำแหน่ง element ภายใน */
 }
 
+
+/* ลิงก์เมนู */
 .navbar__link {
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 16px 14px;
+
+  gap: 4px; 
+  /* ระยะห่างระหว่าง text กับ icon */
+
+  padding: 16px 14px; 
+  /* ขนาดพื้นที่คลิก */
+
   font-size: 14px;
   font-weight: 400;
-  color: #b0b5c3;
-  text-decoration: none;
+
+  color: #b0b5c3; 
+  /* สีตัวอักษรปกติ */
+
+  text-decoration: none; 
+  /* เอาเส้นใต้ลิงก์ออก */
+
   letter-spacing: 0.1px;
-  white-space: nowrap;
-  transition: color 0.2s;
+
+  white-space: nowrap; 
+  /* ไม่ให้ขึ้นบรรทัดใหม่ */
+
+  transition: color 0.2s; 
+  /* ทำให้ hover ลื่น */
 }
 
+
+/* hover เมนู */
 .navbar__link:hover {
-  color: #ffffff;
+  color: #ffffff; 
+  /* เปลี่ยนเป็นสีขาว */
 }
 
-.navbar__item--active .navbar__link {
+
+/* เมนูที่ active (หน้าปัจจุบัน) */
+.navbar__link--active {
   color: #ffffff;
-  font-weight: 600;
+  font-weight: 600; 
+  /* ตัวหนา */
 }
 
+
+/* ลูกศร dropdown */
 .navbar__arrow {
   margin-top: 1px;
-  transition: transform 0.2s;
-  flex-shrink: 0;
+
+  transition: transform 0.2s; 
+  /* หมุนแบบ smooth */
 }
 
+
+/* hover แล้วหมุนลูกศร */
 .navbar__link:hover .navbar__arrow {
-  transform: rotate(180deg);
+  transform: rotate(180deg); 
 }
 
-/* ---------- Phone ---------- */
-.navbar__phone {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-  margin-right: 900px;
+
+/* ===================== RIGHT SIDE ===================== */
+
+/* กลุ่ม phone + user */
+.navbar__phone{
+  display:flex;
+  align-items:center;
+  gap:9px;
+
+  margin-left:auto; 
+  /* ดันไปขวาสุด */
 }
 
+
+/* ===================== PHONE ===================== */
+
+/* ไอคอนโทรศัพท์ */
 .navbar__phone-icon {
   width: 32px;
   height: 32px;
-  border-radius: 50%;
+
+  border-radius: 50%; 
+  /* ทำให้เป็นวงกลม */
+
   border: 1.5px solid #3a3f4e;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
+
   transition: border-color 0.2s;
 }
 
+
+/* hover แล้วเปลี่ยนสี */
 .navbar__phone:hover .navbar__phone-icon {
-  border-color: #22c55e;
+  border-color: #22c55e; 
+  /* สีเขียว */
 }
 
-.navbar__phone-number {
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.3px;
-  text-decoration: none;
-  transition: color 0.2s;
+
+/* เบอร์โทร */
+.navbar__phone-number{
+  color:#ffffff;
+
+  font-size:14px;
+  font-weight:500;
+
+  letter-spacing:0.3px;
+
+  text-decoration:none;
+
+  transition:color 0.2s;
+
+  white-space:nowrap;
 }
 
+
+/* hover เบอร์ */
 .navbar__phone-number:hover {
-  color: #22c55e;
-}
-/* ---------- Breadcrumb ---------- */
-
-.navbar__breadcrumb {
-  width: 100%;
-  background: #ffffff;
-  border-top: 1px solid #e5e7eb;
+  color: #22c55e; 
 }
 
-.navbar__breadcrumb-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 12px 24px;
-  font-size: 14px;
-  color: #6b7280;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
 
-.navbar__breadcrumb a {
-  color: #6b7280;
-  text-decoration: none;
-}
+/* ===================== USER MENU ===================== */
 
-.breadcrumb__separator {
-  color: #9ca3af;
-}
-
-.breadcrumb__item {
-  color: #111827;
-  font-weight: 500;
-}
-/* ---------- USER MENU ---------- */
-
+/* กลุ่ม user */
 .navbar__user{
   display:flex;
   align-items:center;
+
   gap:12px;
-  margin-left:auto;
+
+  margin-left:450px; 
+  /* ขยับไปทางขวา (fix position แบบ manual) */
 }
 
-.navbar__login,
-.navbar__register{
-  color:#ffffff;
-  font-size:14px;
-  text-decoration:none;
-  transition:color 0.2s;
-}
 
-.navbar__login:hover,
-.navbar__register:hover{
-  color:#22c55e;
-}
-
+/* โปรไฟล์ user */
 .navbar__profile{
   display:flex;
   align-items:center;
+
   gap:8px;
+
   color:white;
-  cursor:pointer;
+
+  cursor:pointer; 
+  /* ให้เมาส์เป็น pointer */
 }
 
-/* วงกลมของไอคอน */
-.navbar__profile svg{
-  width:22px;
-  height:22px;
-  padding:4px;
-  border-radius:50%;
-  border:1px solid #3a3f4e;
+
+/* ===================== วงกลมไอคอน USER ===================== */
+
+/* ไอคอน SVG */
+.navbar__profile svg {
+  width: 36px;
+  height: 36px;
+
+  padding: 6px;
+
+  border-radius: 50%; 
+  /* ทำให้เป็นวงกลม */
+
+  background: transparent; 
+  /* ปกติไม่แสดงสี */
+
+  border: 1.5px solid #3a3f4e;
+
+  box-sizing: border-box;
+
+  transition: all 0.2s ease; 
 }
 
-.navbar__profile:hover svg{
-  border-color:#22c55e;
+
+/* hover แล้วพื้นหลังเป็นสีเขียว */
+.navbar__profile:hover svg {
+  background: #22c55e;
+  border-color: #22c55e;
 }
 
-.navbar__logout{
-  background:none;
-  border:none;
-  color:white;
-  cursor:pointer;
-  font-size:14px;
-  transition:color 0.2s;
+
+/* เปลี่ยนสีเส้นใน SVG เป็นสีขาว */
+.navbar__profile:hover svg path,
+.navbar__profile:hover svg circle {
+  stroke: #ffffff;
 }
 
-.navbar__logout:hover{
-  color:#22c55e;
-}
+
+/* ชื่อ user */
 .navbar__profile span{
   font-size:13px;
   color:white;
 }
+
+
+/* ปุ่ม logout */
 .navbar__logout{
+  background:none;
+  border:none;
+
+  color:white;
+
+  cursor:pointer;
+
   font-size:13px;
+
   margin-left:8px;
+
+  transition:color 0.2s;
+}
+
+
+/* hover logout */
+.navbar__logout:hover{
+  color:#22c55e;
+}
+
+
+/* ===================== BREADCRUMB ===================== */
+
+/* แถบ breadcrumb */
+.navbar__breadcrumb {
+  width: 100%;
+
+  background: #ffffff;
+
+  border-top: 1px solid #e5e7eb;
+}
+
+
+/* กล่องด้านใน breadcrumb */
+.navbar__breadcrumb-inner {
+  max-width: 1200px;
+
+  margin: 0 auto;
+
+  padding: 12px 24px;
+
+  font-size: 14px;
+
+  color: #6b7280;
+
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+}
+
+
+/* ลิงก์ breadcrumb */
+.navbar__breadcrumb a {
+  color: #6b7280;
+
+  text-decoration: none;
+}
+
+
+/* เครื่องหมาย > */
+.breadcrumb__separator {
+  color: #9ca3af;
+}
+
+
+/* หน้าปัจจุบัน */
+.breadcrumb__item {
+  color: #111827;
+
+  font-weight: 500;
+}
+
+
+/* ===================== MOBILE ===================== */
+
+/* เมื่อหน้าจอเล็กกว่า 768px */
+@media (max-width: 768px){
+
+  .navbar__inner{
+    flex-wrap:wrap; 
+    /* ให้ขึ้นบรรทัดใหม่ได้ */
+
+    gap:10px;
+  }
+
+  .navbar__list{
+    width:100%;
+
+    flex-wrap:wrap; 
+    /* เมนูขึ้นหลายแถว */
+  }
+
+  .navbar__phone{
+    margin-left:0; 
+    /* reset ไม่ให้ดันขวา */
+  }
+
 }

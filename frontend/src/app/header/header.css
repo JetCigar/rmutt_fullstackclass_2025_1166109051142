@@ -1,62 +1,74 @@
 /* ===================== HEADER STYLES ===================== */
 
+/* กล่องหลักของ Header */
 .header {
-  width: 100%;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  background: #fff;
+  width: 100%; /* กว้างเต็มหน้าจอ */
+  font-family: 'Helvetica Neue', Arial, sans-serif; /* ฟอนต์ */
+  background: #fff; /* พื้นหลังสีขาว */
 }
 
-/* ---------- Top Bar ---------- */
+
+
+/* ===================== TOP BAR ===================== */
+
 .header__topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 24px;
-  border-bottom: 1px solid #e5e7eb;
-  font-size: 13px;
-  color: #6b7280;
+  display: flex; /* ใช้ Flex จัด layout */
+  align-items: center; /* จัดให้อยู่กึ่งกลางแนวตั้ง */
+  justify-content: space-between; /* ซ้าย-ขวา */
+  padding: 8px 24px; /* ระยะด้านใน */
+  border-bottom: 1px solid #e5e7eb; /* เส้นคั่น */
+  font-size: 13px; /* ขนาดตัวอักษร */
+  color: #6b7280; /* สีเทา */
 }
 
+/* ฝั่งซ้าย */
 .header__topbar-left {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 6px; /* ระยะห่าง */
 }
 
+/* ฝั่งขวา */
 .header__topbar-right {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
+/* dropdown เช่น ภาษา / เงิน */
 .header__topbar-select {
   display: flex;
   align-items: center;
   gap: 3px;
-  cursor: pointer;
-  transition: color 0.2s;
+  cursor: pointer; /* เมาส์เป็นมือ */
+  transition: color 0.2s; /* animation */
 }
 
 .header__topbar-select:hover {
-  color: #374151;
+  color: #374151; /* hover เปลี่ยนสี */
 }
 
+/* เส้นคั่น */
 .header__topbar-divider {
   color: #d1d5db;
   margin: 0 2px;
 }
 
+/* ลิงก์ */
 .header__topbar-link {
   color: #6b7280;
-  text-decoration: none;
+  text-decoration: none; /* เอาขีดเส้นออก */
   transition: color 0.2s;
 }
 
 .header__topbar-link:hover {
-  color: #22c55e;
+  color: #22c55e; /* hover สีเขียว */
 }
 
-/* ---------- Main Header ---------- */
+
+
+/* ===================== MAIN HEADER ===================== */
+
 .header__main {
   display: flex;
   align-items: center;
@@ -65,7 +77,10 @@
   border-bottom: 1px solid #f3f4f6;
 }
 
-/* ---------- Logo ---------- */
+
+
+/* ===================== LOGO ===================== */
+
 .header__logo{
   display:flex;
   align-items:center;
@@ -86,17 +101,21 @@
 }
 
 .logo-dark{
-  color:#111;
+  color:#111; /* สีดำ */
 }
 
 .logo-green{
-  color:#16a34a;
+  color:#16a34a; /* สีเขียว */
 }
 
-/* ---------- Search ---------- */
+
+
+/* ===================== SEARCH ===================== */
+
 .header__search {
-  flex: 0 0 420px;
+  flex: 0 0 420px; /* กำหนดความกว้างคงที่ */
   max-width: 420px;
+  position: relative; /* สำคัญสำหรับ dropdown */
 }
 
 .header__search-box {
@@ -107,8 +126,10 @@
   overflow: hidden;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
   transition: border-color 0.2s, box-shadow 0.2s;
+  background: white;
 }
 
+/* ตอน focus input */
 .header__search-box:focus-within {
   border-color: #22c55e;
   box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12);
@@ -117,16 +138,14 @@
 .header__search-icon {
   padding: 0 12px;
   color: #9ca3af;
-  flex-shrink: 0;
 }
 
 .header__search-input {
   flex: 1;
   padding: 11px 8px;
   font-size: 14px;
-  color: #374151;
   border: none;
-  outline: none;
+  outline: none; /* เอาขอบตอน focus */
   background: transparent;
 }
 
@@ -138,53 +157,75 @@
   padding: 11px 24px;
   background-color: #22c55e;
   color: #fff;
-  font-size: 14px;
   font-weight: 600;
-  letter-spacing: 0.3px;
   border: none;
   cursor: pointer;
-  transition: background-color 0.2s;
-  white-space: nowrap;
 }
 
 .header__search-btn:hover {
   background-color: #16a34a;
 }
 
-/* ---------- Icons ---------- */
+
+
+/* ===================== SEARCH DROPDOWN ===================== */
+
+.search-result{
+  position:absolute; /* ซ้อนทับ */
+  top:48px;
+  left:0;
+  width:100%;
+  background:white;
+  border:1px solid #e5e7eb;
+  border-radius:6px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+  z-index:1000; /* ให้อยู่บนสุด */
+}
+
+.search-item{
+  padding:12px 14px;
+  cursor:pointer;
+}
+
+.search-item:hover{
+  background:#f3f4f6;
+}
+
+
+
+/* ===================== ICON ===================== */
+
 .header__icons {
   display: flex;
   align-items: center;
   gap: 20px;
-  flex-shrink: 0;
 }
 
 .header__icon-btn {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.2s;
 }
 
 .header__icon-btn:hover {
   opacity: 0.7;
 }
 
+
+
+/* ===================== CART ===================== */
+
 .header__cart {
   display: flex;
   align-items: center;
   gap: 10px;
-  cursor: pointer;
 }
 
 .header__cart-icon-wrap {
   position: relative;
 }
 
+/* badge ตัวเลข */
 .header__cart-badge {
   position: absolute;
   top: -7px;
@@ -195,7 +236,6 @@
   width: 17px;
   height: 17px;
   font-size: 10px;
-  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -204,7 +244,6 @@
 .header__cart-info {
   display: flex;
   flex-direction: column;
-  line-height: 1.3;
 }
 
 .header__cart-label {
@@ -213,10 +252,14 @@
 }
 
 .header__cart-price {
-  font-size: 14px;
   font-weight: 700;
-  color: #111827;
 }
+
+
+
+/* ===================== GOOGLE TRANSLATE HIDE ===================== */
+
+/* ซ่อนแถบ Google Translate */
 .goog-te-banner-frame {
   display: none !important;
 }
@@ -232,8 +275,49 @@ body {
 .goog-te-gadget {
   font-size: 0px;
 }
+
+
+
+/* ===================== CONTAINER ===================== */
+
 .header__container{
   max-width:1200px;
   margin:0 auto;
   padding:0 24px;
+}
+
+
+
+/* ===================== LOGIN / REGISTER ===================== */
+
+.auth-links {
+  display: flex;
+  align-items: center;
+}
+
+.auth-links .header__topbar-link {
+  margin: 0 4px;
+}
+
+.auth-links .slash {
+  margin: 0 4px;
+  color: #9ca3af;
+}
+
+/* บังคับสีลิงก์ */
+.header__topbar-right a {
+  color: #6b7280 !important;
+  text-decoration: none !important;
+}
+
+.header__topbar-right a:hover {
+  color: #22c55e !important;
+}
+
+/* กัน browser เปลี่ยนสีลิงก์ */
+a:link,
+a:visited,
+a:active {
+  color: inherit;
+  text-decoration: none;
 }

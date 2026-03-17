@@ -7,6 +7,7 @@ import { ContactComponent } from './contact/contact';
 import { AboutComponent } from './about/about';
 import { Review } from './review/review';
 import { CartComponent } from './cart/cart';
+import { HeaderSearchComponent } from './header-search/header-search';
 
 export const routes: Routes = [
   {
@@ -46,5 +47,9 @@ export const routes: Routes = [
    {
     path: 'cart',
     component: CartComponent
-  }
+  },
+  {
+  path: 'search',
+  component: HeaderSearchComponent
+}
 ];
