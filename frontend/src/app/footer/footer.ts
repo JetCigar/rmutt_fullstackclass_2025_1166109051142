@@ -25,7 +25,7 @@ export class FooterComponent {
     {
       title: 'บัญชีของฉัน',
       links: [
-        { label: 'บัญชีของฉัน',    href: '/account'  },
+        { label: 'บัญชีของฉัน',    href: '/order'  },
         { label: 'ประวัติการสั่งซื้อ', href: '/orders'   },
         { label: 'ตะกร้าสินค้า',  href: '/cart'     },
         { label: 'รายการโปรด',      href: '/wishlist' },

@@ -1,76 +1,39 @@
-<section class="review-section">
+<section class="account">
+  <app-account-sidebar></app-account-sidebar>
 
-    <h2>รีวิวจากลูกค้า</h2>
-    <p class="subtitle">เสียงจากเกษตรกรที่ไว้วางใจเรา</p>
-  
-    <div class="review-container">
-  
-      <div class="review-card">
-        <p class="quote">ใช้งานดีมากครับ เครื่องแรง ตัดหญ้าเนียนกริ๊บเลย แนะนำครับ!</p>
-  
-        <div class="stars">★★★★★</div>
-  
-        <div class="user">
-          <div class="avatar">ส</div>
-          <div>
-            <h4>สมชาย ใ.</h4>
-            <span>เกษตรกร</span>
+  <main class="account__content">
+    <header class="account__header">
+      <h1>รีวิวของฉัน</h1>
+    </header>
+
+    <section class="reviews">
+      @if (loading) {
+        <div class="review-loading">กำลังโหลดรีวิว...</div>
+      }
+      @if (!loading && error) {
+        <div class="review-error">{{ error }}</div>
+      }
+
+      @for (review of reviews; track review.review_id) {
+        <article class="review-card">
+          <div class="review-card__row">
+            <div class="review-card__title">{{ review.product_name }}</div>
+            <div class="review-card__date">{{ review.created_at }}</div>
           </div>
-        </div>
-      </div>
-  
-      <div class="review-card">
-        <p class="quote">น้ำแรงดีครับ ส่งไวมาก แต่สายไฟสั้นไปนิดนึง โดยรวมถือว่าคุ้มราคา</p>
-  
-        <div class="stars">★★★★☆</div>
-  
-        <div class="user">
-          <div class="avatar">ป</div>
-          <div>
-            <h4>ประเสริฐ ฟ.</h4>
-            <span>เกษตรกร</span>
+
+          <div class="review-card__stars">
+            @for (filled of stars(review.rating); track $index) {
+              <i class="bi" [class.bi-star-fill]="filled" [class.bi-star]="!filled" aria-hidden="true"></i>
+            }
           </div>
-        </div>
-      </div>
-  
-      <div class="review-card">
-        <p class="quote">พ่นยาสะดวกมากค่ะ แบตอึด ชาร์จทีเดียวพ่นได้ทั้งสวน</p>
-  
-        <div class="stars">★★★★★</div>
-  
-        <div class="user">
-          <div class="avatar">ส</div>
-          <div>
-            <h4>สมศรี ข.</h4>
-            <span>เกษตรกร</span>
-          </div>
-        </div>
-      </div>
-  
-    </div>
-  
-    <div class="stats">
-  
-      <div class="stat-box">
-        <h3>15+</h3>
-        <p>ปีแห่งประสบการณ์</p>
-      </div>
-  
-      <div class="stat-box">
-        <h3>10,000+</h3>
-        <p>ลูกค้าที่พึงพอใจ</p>
-      </div>
-  
-      <div class="stat-box">
-        <h3>500+</h3>
-        <p>สินค้าคุณภาพ</p>
-      </div>
-  
-      <div class="stat-box">
-        <h3>2,000+</h3>
-        <p>ออเดอร์ต่อเดือน</p>
-      </div>
-  
-    </div>
-  
-  </section>
+
+          <p class="review-card__comment">{{ review.comment || 'ไม่มีข้อความรีวิว' }}</p>
+        </article>
+      } @empty {
+        @if (!loading) {
+          <div class="review-empty">ยังไม่มีรีวิว</div>
+        }
+      }
+    </section>
+  </main>
+</section>

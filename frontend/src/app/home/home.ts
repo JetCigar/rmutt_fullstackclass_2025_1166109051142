@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { CategoryService } from '../../services/category.service';
 import { ProductService, ProductData } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
@@ -27,14 +27,27 @@ export class HomeComponent implements OnInit, OnDestroy {
     private categoryService: CategoryService,
     private productService: ProductService,
     private cartService: CartService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.loadCategories();
     this.loadProducts();
     this.startCountdown();
-    // โหลด Cart เริ่มต้นเพื่อให้ Header แสดงผลได้ถูกต้อง
-    this.cartService.getCart(1).subscribe();
+    
+    // ดึงข้อมูลตะกร้าเฉพาะเมื่อล็อกอินแล้ว
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      try {
+        const user = JSON.parse(storedUser);
+        const customerId = user.customer_id || user.id;
+        if (customerId) {
+          this.cartService.getCart(customerId).subscribe();
+        }
+      } catch (e) {
+        console.error('Error parsing user from localStorage', e);
+      }
+    }
   }
 
   ngOnDestroy(): void {
@@ -126,23 +139,45 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   // เพิ่มสินค้าลงตะกร้า
   addToCart(product: ProductData) {
-    // สมมติว่า customer_id = 1 (ควรจะมีจาก authentication)
-    const cartData = {
-      customer_id: 1,
-      product_id: product.product_id,
-      quantity: 1,
-    };
+    const storedUser = localStorage.getItem('user');
 
-    this.cartService.addToCart(cartData).subscribe({
-      next: (response) => {
-        console.log('Product added to cart:', response);
-        // เมื่อเพิ่มเสร็จ ให้ดึงข้อมูลตะกร้าใหม่มาอัปเดต Signal ส่วนกลาง
-        this.cartService.getCart(1).subscribe();
-        alert('เพิ่มสินค้าลงตะกร้าแล้ว!');
-      },
-      error: (err) => {
-        console.error('Error adding to cart:', err?.error || err);
-      },
-    });
+    if (!storedUser) {
+      alert('กรุณาเข้าสู่ระบบก่อนเพิ่มสินค้าลงตะกร้า');
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    try {
+      const user = JSON.parse(storedUser);
+      const customerId = user.customer_id || user.id;
+
+      if (!customerId) {
+        alert('พบข้อผิดพลาดเกี่ยวกับข้อมูลผู้ใช้ กรุณาเข้าสู่ระบบใหม่อีกครั้ง');
+        this.router.navigate(['/login']);
+        return;
+      }
+
+      const cartData = {
+        customer_id: customerId,
+        product_id: product.product_id,
+        quantity: 1,
+      };
+
+      this.cartService.addToCart(cartData).subscribe({
+        next: (response) => {
+          console.log('Product added to cart:', response);
+          // เมื่อเพิ่มเสร็จ ให้ดึงข้อมูลตะกร้าใหม่มาอัปเดต Signal ส่วนกลาง
+          this.cartService.getCart(customerId).subscribe();
+          alert('เพิ่มสินค้าลงตะกร้าแล้ว!');
+        },
+        error: (err) => {
+          console.error('Error adding to cart:', err?.error || err);
+          alert('ไม่สามารถเพิ่มสินค้าลงตะกร้าได้ในขณะนี้');
+        },
+      });
+    } catch (e) {
+      console.error('Error parsing user from localStorage', e);
+      this.router.navigate(['/login']);
+    }
   }
 }

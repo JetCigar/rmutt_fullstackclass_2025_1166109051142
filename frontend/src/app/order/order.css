@@ -1,0 +1,145 @@
+:host {
+  display: block;
+}
+
+.account {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: #f6f9fb;
+  min-height: calc(100vh - 240px);
+  justify-content: center;
+}
+
+.account__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 1140px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  padding: 1.2rem;
+}
+
+.account__header h1 {
+  font-size: 1.6rem;
+  margin: 0;
+  color: #11181e;
+}
+
+.account__subtitle {
+  margin: 0.3rem 0 0;
+  color: #5f6b7a;
+  font-size: 0.95rem;
+}
+
+.orders {
+  display: grid;
+  gap: 1rem;
+}
+
+.order-card {
+  background: white;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 1.15rem 1.25rem;
+}
+
+.order-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.order-card__title {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #0f1a1b;
+}
+
+.order-card__date {
+  font-size: 0.85rem;
+  color: #5f6b7a;
+  margin-top: 0.2rem;
+}
+
+.order-card__status {
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  background: rgba(31, 188, 82, 0.12);
+  color: #1fbc52;
+  align-self: flex-start;
+}
+
+.order-card__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.order-card__item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+}
+
+.order-card__item-name {
+  color: #1b1f23;
+  font-size: 0.95rem;
+}
+
+.order-card__item-price {
+  color: #1b1f23;
+  font-weight: 700;
+}
+
+.order-card__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.order-card__total {
+  font-size: 0.95rem;
+  color: #5f6b7a;
+  font-weight: 600;
+}
+
+.order-card__total-amount {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #11181e;
+}
+
+@media (max-width: 900px) {
+  .account {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 1.5rem 1rem;
+  }
+
+  .account-sidebar {
+    flex: 0 0 280px;
+  }
+
+  .account__content {
+    min-width: 340px;
+  }
+}
+
+.order-empty { display: flex; justify-content: center; padding: 2rem; text-align: center; color: #888; font-weight: 500; font-style: italic; width: 100%; }

@@ -1,0 +1,70 @@
+<section class="account">
+  <app-account-sidebar></app-account-sidebar>
+
+  <main class="account__content">
+    <header class="account__header">
+      <h1>ที่อยู่ของฉัน</h1>
+    </header>
+
+    <section class="addresses">
+      @if (!showAddForm) {
+        @if (loading) {
+          <div class="address-loading">กำลังโหลดที่อยู่...</div>
+        }
+        @if (!loading && error) {
+          <div class="address-error">{{ error }}</div>
+        }
+
+        @for (item of addresses; track item.address_id) {
+          <article class="address-card">
+            <div class="address-card__header">
+              <div>
+                <div class="address-card__label">ที่อยู่</div>
+                <p class="address-card__line">{{ formatAddress(item) }}</p>
+              </div>
+              <div style="display: flex; gap: 8px; align-items: center;">
+                <span class="address-badge" [class.default]="item.is_default">{{ item.is_default ? 'ค่าเริ่มต้น' : 'เพิ่มเติม' }}</span>
+                <button type="button" class="btn btn-ghost" style="color: #dc3545; padding: 4px 8px; font-size: 0.9rem;" (click)="deleteAddress(item.address_id)">ลบ</button>
+              </div>
+            </div>
+          </article>
+        }
+
+        @if (!loading && !error && addresses.length === 0) {
+          <div class="address-empty">ยังไม่มีที่อยู่ในระบบ</div>
+        }
+
+        <button type="button" class="btn-add-address" (click)="toggleAddForm()">
+          + เพิ่มที่อยู่ใหม่
+        </button>
+      } @else {
+        <article class="address-form-card">
+          <div class="address-form-card__header">เพิ่มที่อยู่ใหม่</div>
+          
+          <div class="address-form-card__body">
+            <input type="text" class="input-address" placeholder="บ้านเลขที่, หมู่, ถนน, ซอย *" [(ngModel)]="newAddressLine" [disabled]="saving">
+            
+            <div class="form-grid">
+              <input type="text" class="input-address" placeholder="จังหวัด / เขต" [(ngModel)]="newProvince" [disabled]="saving">
+              <input type="text" class="input-address" placeholder="รหัสไปรษณีย์" [(ngModel)]="newZipCode" [disabled]="saving">
+            </div>
+
+            <label class="checkbox-container">
+              <input type="checkbox" [(ngModel)]="newIsDefault" [disabled]="saving">
+              ตั้งเป็นที่อยู่เริ่มต้น
+            </label>
+            
+            <div class="form-actions">
+              <button type="button" class="btn btn-primary" (click)="saveNewAddress()" [disabled]="saving">
+                บันทึก
+              </button>
+              <button type="button" class="btn btn-ghost" (click)="toggleAddForm()" [disabled]="saving">
+                ยกเลิก
+              </button>
+            </div>
+          </div>
+        </article>
+      }
+    </section>
+  </main>
+</section>
