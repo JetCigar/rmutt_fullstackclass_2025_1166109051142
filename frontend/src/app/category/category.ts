@@ -13,6 +13,8 @@ export class Category implements OnInit {
   allProducts: any[] = []; // เพิ่มตัวแปรสำหรับเก็บสินค้าทั้งหมดเพื่อแสดงฝั่งขวา
   filteredProducts: any[] = []; // ตัวแปรสำหรับเก็บสินค้าที่ถูกกรองตามหมวดหมู่ที่เลือกเอาไป for loop เพื่อ เเสดง 
   selectedCategoryIds: number[] = []; // ตัวแปรสำหรับเก็บหมวดหมู่ที่ถูกเลือก
+  imageUrl: string [] = []; // URL image ของสินค้า
+
 
 
 
@@ -36,6 +38,7 @@ export class Category implements OnInit {
       // ฟังก์ชันกรองสินค้าเพื่อแสดงผล
       console.log('หมวดหมู่:', this.categories);
       console.log('สินค้าทั้งหมด:', this.allProducts);
+      console.log('รูปภาพ:', this.allProducts.map((p: any) => p.images[0]?.image_url));
 
       this.cdr.detectChanges();
     });
@@ -77,5 +80,10 @@ export class Category implements OnInit {
         return acc;
       }, []);
     }
+  }
+
+  clearFilter() {
+    this.filteredProducts = [...this.allProducts]; // คืนค่าสินค้าทั้งหมดให้กลับมาแสดงเหมือนเดิม
+    this.selectedCategoryIds = []; // เคลียร์การเลือกหมวดหมู่ทั้งหมด (ถ้ามีการใช้ตัวแปรนี้ใน HTML เพื่อเช็คสถานะการติ๊ก ก็จะทำให้ Checkbox กลับมาเป็นไม่ติ๊กทั้งหมดด้วย)
   }
 }

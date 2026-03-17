@@ -7,7 +7,18 @@ const getTestCategory = async (req, res) => {
   try {
     const categories = await prisma.category.findMany({
       include: {
-        products: true, // รวมข้อมูลสินค้าที่อยู่ในหมวดหมู่นี้ด้วย
+        products: {
+          include: {
+            images: {
+              select: { 
+                image_url: true // <--- สั่งให้เลือกมาแค่คอลัมน์นี้
+              },
+              where: {
+                is_primary: true // ดึงเฉพาะรูปหลัก (ถ้าต้องการ)
+              }
+            }
+          }
+        },
         _count: {
           select: { products: true }
         }
@@ -18,7 +29,7 @@ const getTestCategory = async (req, res) => {
       ...cat,
       product_count: cat._count.products
     }));
-
+    
     res.json({ 
       categories: result
     });

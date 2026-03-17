@@ -6,7 +6,8 @@ export interface CategoryData {
   category_id: number;
   name: string;
   description: string;
-  
+  image_url: string;
+  is_primary: boolean;
 }
 
 

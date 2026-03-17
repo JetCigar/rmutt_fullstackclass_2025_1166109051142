@@ -15,12 +15,16 @@
             @for (item of categories; track item.category_id) {
               <div class="d-flex justify-content-between align-items-center">
                 <div class="form-check mb-0">
-                  <input class="form-check-input shadow-none" type="checkbox" [id]="'category-' + item.category_id" (change)="onCategoryChange($event, item.category_id)">
+                    <!-- คำสั่ง [checked]="selectedCategoryIds.includes(item.category_id)" เป็นการตั้งคำถามกับ Angular ว่า "ID ของหมวดหมู่บรรทัดนี้ มีอยู่ในตะกร้า selectedCategoryIds ไหม?"
+                      ถ้า มี (ผลลัพธ์เป็น true) -> Angular จะแสดงเครื่องหมายติ๊กถูกให้
+                      ถ้า ไม่มี (ผลลัพธ์เป็น false) -> Angular จะเอาเครื่องหมายติ๊กถูกออกให้
+                      ดังนั้น พอคุณกดปุ่ม "ล้างตัวกรอง" แล้วเราสั่ง this.selectedCategoryIds = []; (ล้างตะกร้าจนว่างเปล่า) พอ Angular กลับมาถามคำถามเดิม มันก็จะตอบ false รวดเดียวทุกหมวดหมู่ Checkbox ทุกตัวบนหน้าจอจึงโดนล้างออกพร้อมกันทันทีครับ! -->
+                  <input class="form-check-input shadow-none" type="checkbox" [checked]="selectedCategoryIds.includes(item.category_id)" [id]="'category-' + item.category_id" (change)="onCategoryChange($event, item.category_id)">
                   <label class="form-check-label" [for]="'category-' + item.category_id">
                     {{ item.name }}
                   </label>
                 </div>
-                <span class="text-muted small">({{ item.products?.length || 0 }})</span>
+                <span class="text-muted small">({{ item.products?.length}})</span>
               </div>
             } @empty {
               <div class="text-muted small text-center py-2">ไม่พบข้อมูลหมวดหมู่</div>
@@ -33,10 +37,10 @@
           <input type="range" class="form-range" min="0" max="6000" id="priceRange">
           <div class="d-flex justify-content-between text-muted mt-2 small">
             <span>฿0</span>
-            <span>฿6,000</span>
+            <span>฿1000000</span>
           </div>
         </div>
-        <button class="btn btn-light border w-100 py-2 shadow-sm">ล้างตัวกรอง</button>
+        <button class="btn btn-light border w-100 py-2 shadow-sm" (click)="clearFilter()">ล้างตัวกรอง</button>
       </div>
     </div>
 
@@ -60,7 +64,7 @@
         @for (product of filteredProducts; track product.id) {
           <div class="col">
             <div class="card h-100 border-0 shadow-sm">
-              <img [src]="product.image_url || 'https://via.placeholder.com/300x300?text=No+Image'" class="card-img-top p-3" alt="product image" style="object-fit: contain; height: 200px;">
+              <img [src]="product.images[0]?.image_url" class="card-img-top p-3" alt="product image" style="object-fit: contain; height: 200px;">
               
               <div class="card-body d-flex flex-column">
                 <h6 class="card-title text-truncate">{{ product.name }}</h6>
