@@ -1,161 +1,134 @@
+<<<<<<< HEAD
 /* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Kanit:wght@300;400;500;600;700&display=swap'); */
+=======
+/* ===================== HOME COMPONENT STYLES (v0 Style) =====================
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Kanit:wght@300;400;500;600;700&display=swap'); */
+>>>>>>> e296b4e8e7a9d19f9ecb7dc8efd2d3f4526906ee
 
 :host {
   font-family: 'Inter', 'Kanit', sans-serif;
-  --primary-green: #22c55e;
-  --dark-green: #15803d;
-  --light-bg: #f9fafb;
+  --v0-green: #22c55e;
+  --v0-dark: #1f2937;
+  --v0-muted: #6b7280;
 }
 
 .home-container {
-  background: #fff;
-}
-
-/* +++ Features Bar V2 +++ */
-.features-bar-v2 {
-  border-bottom: 1px solid #f1f5f9;
-}
-
-.icon-circle-v2 {
-  background: #f0fdf4 !important;
-  color: #22c55e !important;
-  transition: transform 0.3s ease;
-}
-
-.feature-item-v2:hover .icon-circle-v2 {
-  transform: translateY(-5px);
-}
-
-/* +++ Promo Grid V2 +++ */
-.promo-card-v2 {
-  height: 280px;
-  transition: transform 0.3s ease;
-}
-
-.promo-card-v2:hover {
-  transform: translateY(-8px);
-}
-
-.card-countdown-bg {
-  background: url('https://images.unsplash.com/photo-1599420186946-7b6fb4e297f0?auto=format&fit=crop&q=80&w=800') center/cover;
-}
-
-.card-overlay-dark {
-  background: rgba(0, 0, 0, 0.4);
-}
-
-.card-green-solid {
-  background-color: #15803d;
-}
-
-.card-orange-soft {
-  background-color: #ffedd5;
+  color: var(--v0-dark);
 }
 
 /* +++ Hero Section +++ */
-.main-hero-banner {
+.hero-main {
   height: 500px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+  background-color: #1a202c;
 }
 
-.hero-man-bg {
-  background: url('https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&q=80&w=1200') center/cover;
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.6;
 }
 
-.banner-overlay-green-v3 {
-  background: linear-gradient(90deg, rgba(21, 128, 61, 0.8) 0%, rgba(21, 128, 61, 0.4) 100%);
-  color: white;
+.hero-overlay {
+  max-width: 800px;
 }
 
-.discount-pill {
-  background: #f97316 !important;
-  box-shadow: 0 4px 10px rgba(249, 115, 22, 0.3);
+.side-card {
+  transition: all 0.3s ease;
 }
 
-.btn-action-green-v2 {
-  background-color: #22c55e !important;
+.side-card:hover {
+  transform: translateY(-5px);
+}
+
+.promo-orange-soft {
+  background-color: #ffedd5 !important;
+}
+
+.features-bar {
+  border: 1px solid #f1f5f9;
+}
+
+.feature-icon {
+  transition: transform 0.3s ease;
+}
+
+.features-bar .col-6:hover .feature-icon {
+  transform: translateY(-5px);
+}
+
+.promo-card {
+  transition: transform 0.3s ease;
+}
+
+.promo-card:hover {
+  transform: translateY(-5px);
+}
+
+.btn-shop-v0 {
+  background-color: var(--v0-green) !important;
   border: none !important;
   transition: all 0.3s ease !important;
 }
 
-.btn-action-green-v2:hover {
+.btn-shop-v0:hover {
   background-color: #16a34a !important;
-  transform: translateX(5px);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(34, 197, 94, 0.4);
 }
 
-/* Side Promos in Hero */
-.side-card {
+/* +++ Cards common transition +++ */
+.transition-up {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.transition-up:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* +++ Product Cards (v0 Style) +++ */
+.product-card {
+  background: white;
+}
+
+.product-img-wrap {
+  background-color: #f8fafc !important;
+  border: 1px solid #f1f5f9;
+}
+
+.product-title {
+  color: #111827;
+  line-height: 1.4;
+}
+
+.x-small {
+  font-size: 0.75rem;
+}
+
+/* +++ Category Cards +++ */
+.category-card {
+  cursor: pointer;
+}
+
+.cat-img {
   transition: transform 0.3s ease;
 }
 
-.side-card:hover { transform: translateY(-5px); }
-
-.promo-orange-soft { background-color: #ffedd5 !important; }
-.promo-white-clean { background-color: #fff !important; border: 1px solid #f3f4f6 !important; }
-
-/* +++ Sections Styling +++ */
-.home-section {
-  margin-bottom: 80px;
+.category-card:hover .cat-img {
+  transform: scale(1.1);
 }
 
-.link-view-all { 
-  color: var(--primary-green) !important; 
-  transition: all 0.2s ease;
-}
-.link-view-all:hover { padding-right: 5px; }
-
-/* Category Premium Card */
-.category-item-card {
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.category-item-card:hover { 
-  border-color: var(--primary-green) !important; 
-  transform: translateY(-8px);
-  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.05), 0 10px 10px -5px rgba(0,0,0,0.04);
-}
-
-.cat-img-box {
-  background: #f8fafc;
-  border-radius: 50%;
-  border: 4px solid #fff;
-  box-shadow: 0 0 0 1px #f1f5f9;
-}
-
-/* Product Premium Card */
-.product-premium-card {
-  transition: all 0.3s ease;
-}
-
-.product-premium-card:hover { 
-  transform: translateY(-5px);
-  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
-}
-
-.text-truncate-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.min-w-60 {
-  min-width: 60px;
-}
-
-/* Responsive adjustments for fixed heights */
+/* Responsive adjustments */
 @media (max-width: 992px) {
-  .main-hero-banner {
-    height: 400px;
-  }
+  .hero-main { height: 400px; }
 }
 
 @media (max-width: 768px) {
-  .main-hero-banner {
-    height: 350px;
-  }
-  .banner-main-title {
-    font-size: 2.5rem !important;
-  }
+  .hero-main { height: auto; min-height: 350px; }
+  .display-3 { font-size: 2.5rem; }
 }
+
 
