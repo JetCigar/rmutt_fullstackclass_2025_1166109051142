@@ -78,18 +78,18 @@
   </div>
 
   <!-- RIGHT : SUMMARY -->
-
+  
   <div class="cart-right">
 
     <div class="summary-box">
 
       <h3>สรุปคำสั่งซื้อ</h3>
 
-      <p>{{ totalItems() }} ชิ้น · {{ cartItems().length }} รายการ</p>
+      <p>{{ selectedQuantity() }} ชิ้น · {{ selectedCount() }} รายการ</p>
 
       <div class="summary-row">
         <span>ราคาสินค้า</span>
-        <span>฿{{ totalPrice() | number:'1.0-0' }}</span>
+        <span>฿{{ selectedTotal() | number:'1.0-0' }}</span>
       </div>
 
       <div class="summary-row">

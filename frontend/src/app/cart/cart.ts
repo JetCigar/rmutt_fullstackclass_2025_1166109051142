@@ -49,6 +49,16 @@ selectedTotal = computed(() => {
   }, 0);
 });
 
+selectedCount = computed(() => {
+  return this.selectedItems().length; // จำนวนรายการที่เลือก
+});
+
+selectedQuantity = computed(() => {
+  return this.selectedItems().reduce((sum, item) => {
+    return sum + item.quantity; // จำนวนชิ้นรวม
+  }, 0);
+});
+
 selectedItems = signal<any[]>([]);
 
 updateSelected() {
