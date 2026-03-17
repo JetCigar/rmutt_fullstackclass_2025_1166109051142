@@ -14,7 +14,7 @@ export class CartComponent implements OnInit {
   cartItems: any;
   totalPrice: any;
   totalItems: any;
-  customerId: number = 1;
+  customerId: number = 0;
 
   constructor(
     private cartService: CartService,
@@ -25,8 +25,26 @@ export class CartComponent implements OnInit {
     this.totalItems = this.cartService.cartCount;
   }
 
+  ngOnInit(): void {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      try {
+        const user = JSON.parse(storedUser);
+        this.customerId = user.customer_id || user.id || 0;
+      } catch (e) {
+        console.error('Error parsing user from localStorage', e);
+      }
+    }
+    
+    if (this.customerId) {
+        this.loadCart();
+    } else {
+        // Handle unauthenticated state or default
+    }
+  }
+
   goCheckout(){
-    this.router.navigate(['/checkout/address'])
+    this.router.navigate(['/order'])
   }
 
   showCheckout = false;
@@ -39,9 +57,6 @@ export class CartComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 
-  ngOnInit(): void {
-    this.loadCart();
-  }
 
 
 

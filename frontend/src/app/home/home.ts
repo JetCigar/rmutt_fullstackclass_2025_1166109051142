@@ -139,7 +139,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   // เพิ่มสินค้าลงตะกร้า
   addToCart(product: ProductData) {
+    console.log('HomeComponent: addToCart clicked', product);
     const storedUser = localStorage.getItem('user');
+    console.log('HomeComponent: storedUser', storedUser);
 
     if (!storedUser) {
       alert('กรุณาเข้าสู่ระบบก่อนเพิ่มสินค้าลงตะกร้า');
@@ -162,15 +164,28 @@ export class HomeComponent implements OnInit, OnDestroy {
         product_id: product.product_id,
         quantity: 1,
       };
+      console.log('HomeComponent: Sending to cart:', cartData);
 
       this.cartService.addToCart(cartData).subscribe({
         next: (response) => {
           console.log('Product added to cart:', response);
-          // เมื่อเพิ่มเสร็จ ให้ดึงข้อมูลตะกร้าใหม่มาอัปเดต Signal ส่วนกลาง
-          this.cartService.getCart(customerId).subscribe();
+          // อัปเดต Signal ตะกร้าแบบ Optimistic (ไม่ต้องรอ API ช้า)
+          const currentItems = this.cartService.cartItems();
+          const existing = currentItems.find(
+            (i: any) => i.product_id === product.product_id
+          );
+          if (existing) {
+            existing.quantity += 1;
+            this.cartService.cartItems.set([...currentItems]);
+          } else {
+            this.cartService.cartItems.set([
+              ...currentItems,
+              { ...response, product }
+            ]);
+          }
           alert('เพิ่มสินค้าลงตะกร้าแล้ว!');
         },
-        error: (err) => {
+        error: (err: any) => {
           console.error('Error adding to cart:', err?.error || err);
           alert('ไม่สามารถเพิ่มสินค้าลงตะกร้าได้ในขณะนี้');
         },
