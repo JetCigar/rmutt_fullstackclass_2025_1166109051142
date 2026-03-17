@@ -65,24 +65,41 @@ export class CheckoutComponent implements OnInit {
 
         // Load existing addresses
         const customerId = user.customer_id || user.id || user.customerId;
-        console.log('FRONTEND: Found customerId:', customerId, 'from user:', user);
         
         if (customerId) {
           this.addressService.getAddresses(customerId).subscribe({
-            next: (res) => {
-              console.log('FRONTEND: Loaded addresses:', res.addresses);
-              this.savedAddresses = res.addresses || [];
-              if (this.savedAddresses.length > 0) {
-                // Default to the first saved address
-                this.selectedAddressId = this.savedAddresses[0].address_id;
-                this.showNewAddressForm = false;
-              } else {
-                this.showNewAddressForm = true; 
+            next: (res: any) => {
+              const raw = res.addresses || [];
+              
+              // Deduplicate by content
+              const unique: AddressData[] = [];
+              const seen = new Set();
+              for (const a of raw) {
+                const key = `${a.address_line}-${a.province}-${a.zip_code}`;
+                if (!seen.has(key)) {
+                  unique.push(a);
+                  seen.add(key);
+                } else if (a.is_default) {
+                  const idx = unique.findIndex(u => `${u.address_line}-${u.province}-${u.zip_code}` === key);
+                  if (idx !== -1) unique[idx] = a;
+                }
               }
-              this.cdr.detectChanges(); // Force refresh to show addresses immediately
+              this.savedAddresses = unique;
+              
+              this.showNewAddressForm = false;
+
+              if (this.savedAddresses.length > 0) {
+                this.savedAddresses.sort((a, b) => (b.is_default ? 1 : 0) - (a.is_default ? 1 : 0));
+                this.selectedAddressId = this.savedAddresses[0].address_id;
+              } else {
+                this.selectedAddressId = null;
+                this.showNewAddressForm = true; // Fallback to form if no addresses
+              }
+              this.cdr.detectChanges(); 
             },
             error: (err) => {
               console.error('Failed to load addresses', err);
+              this.showNewAddressForm = true;
               this.cdr.detectChanges();
             }
           });

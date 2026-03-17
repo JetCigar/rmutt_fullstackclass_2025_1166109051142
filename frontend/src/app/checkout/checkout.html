@@ -40,9 +40,9 @@
           <div class="step-content">
             <p class="section-label">📍 เลือกที่อยู่จัดส่ง</p>
             
-            <!-- Saved Addresses List -->
-            @if (savedAddresses.length > 0) {
-              <div class="address-list">
+            <div class="address-list mb-4">
+              <!-- Saved Addresses (Previously Filled in Checkout) - Default will be at the top -->
+              @if (savedAddresses.length > 0) {
                 @for (addr of savedAddresses; track addr.address_id) {
                   <label class="address-card" 
                          [class.selected]="selectedAddressId === addr.address_id && !showNewAddressForm"
@@ -50,19 +50,19 @@
                     <input type="radio" name="addressSelect" [checked]="selectedAddressId === addr.address_id && !showNewAddressForm">
                     <div class="addr-info">
                       <div class="addr-header">
-                        <strong>{{ getAddressNameDisplay(addr) }}</strong>
+                        <strong>ที่อยู่ที่เคยกรอก: {{ getAddressNameDisplay(addr) }}</strong>
                         @if (addr.is_default) {
                           <span class="default-badge">ค่าเริ่มต้น</span>
                         }
                       </div>
                       <p>{{ getAddressStreetDisplay(addr) }}</p>
                       <p>{{ addr.province }} {{ addr.zip_code }}</p>
-                      <p>{{ getAddressPhoneDisplay(addr) }}</p>
+                      <p>📞 {{ getAddressPhoneDisplay(addr) }}</p>
                     </div>
                   </label>
                 }
-              </div>
-            }
+              }
+            </div>
 
             <!-- Toggle Button for New Address -->
             @if (!showNewAddressForm) {
@@ -128,19 +128,19 @@
             <div class="payment-grid">
               <button class="pay-btn" [class.selected]="paymentMethod === 'card'" (click)="selectPayment('card')">
                 <span class="pay-icon">💳</span>
-                <span>บัตรเครดิต</span>
+                <span>บัตร<br>เครดิต</span>
               </button>
               <button class="pay-btn" [class.selected]="paymentMethod === 'qr'" (click)="selectPayment('qr')">
-                <span class="pay-icon">📱</span>
-                <span>QR พร้อมเพย์</span>
+                <span class="pay-icon">📲</span>
+                <span>QR<br>พร้อมเพย์</span>
               </button>
               <button class="pay-btn" [class.selected]="paymentMethod === 'transfer'" (click)="selectPayment('transfer')">
-                <span class="pay-icon">🏦</span>
-                <span>โอนเงิน</span>
+                <span class="pay-icon">⚡</span>
+                <span>โอนเงิน<br>ทันใจ</span>
               </button>
               <button class="pay-btn" [class.selected]="paymentMethod === 'cod'" (click)="selectPayment('cod')">
-                <span class="pay-icon">💵</span>
-                <span>เก็บปลายทาง</span>
+                <span class="pay-icon">📦</span>
+                <span>เก็บเงิน<br>ปลายทาง</span>
               </button>
             </div>
 
@@ -222,10 +222,25 @@
             <div class="confirm-summary">
               <div class="summary-section">
                 <p class="summary-label">📍 ที่อยู่จัดส่ง</p>
-                <div class="summary-card">
-                  <strong>{{ getSelectedAddress().name }}</strong>
-                  <p>{{ getSelectedAddress().street }} {{ getSelectedAddress().province }} {{ getSelectedAddress().zip }}</p>
-                  <p>📞 {{ getSelectedAddress().phone }}</p>
+                <div class="summary-card bg-white border">
+                  <div class="d-flex align-items-center mb-3">
+                    <span class="fs-3 me-3">👤</span>
+                    <div>
+                      <strong class="mb-0">{{ getSelectedAddress().name }}</strong>
+                      <span class="badge bg-success-subtle text-success border border-success-subtle small py-1 px-2">ข้อมูลครบถ้วน</span>
+                    </div>
+                  </div>
+                  
+                  @if (getSelectedAddress().street && getSelectedAddress().street !== '(ยังไม่ได้ระบุที่อยู่จัดส่ง - ใช้ข้อมูลบัญชี)') {
+                    <p><span class="fs-5">🏠</span> <span>{{ getSelectedAddress().street }}</span></p>
+                    @if (getSelectedAddress().province) {
+                      <p class="ms-5 text-muted small">{{ getSelectedAddress().province }} {{ getSelectedAddress().zip }}</p>
+                    }
+                  } @else {
+                    <p class="text-danger small italic"><span class="fs-5">⚠️</span> ยังไม่ได้ระบุที่อยู่จัดส่ง (กรุณากด 'ย้อนกลับ' เพื่อเพิ่มที่อยู่ใหม่)</p>
+                  }
+                  
+                  <p class="fw-bold text-dark mt-2"><span class="fs-5">📞</span> {{ getSelectedAddress().phone }}</p>
                 </div>
               </div>
 
@@ -241,12 +256,26 @@
                 </div>
               </div>
 
-              <div class="summary-total-box">
-                <div class="total-row">
+              <div class="summary-total-box shadow-sm">
+                <div class="price-breakdown mb-2 opacity-75 small">
+                  <div class="d-flex justify-content-between">
+                    <span>ราคาสินค้า</span>
+                    <span>฿{{ total | number:'1.0-0' }}</span>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <span>ค่าจัดส่ง</span>
+                    <span class="text-white fw-bold">ฟรี</span>
+                  </div>
+                </div>
+                <div class="total-row border-top pt-2">
                   <span>ยอดชำระทั้งสิ้น</span>
                   <strong>฿{{ total | number:'1.0-0' }}</strong>
                 </div>
-                <div class="method-tag">ชำระโดย: {{ paymentMethod === 'card' ? 'บัตรเครดิต' : paymentMethod === 'qr' ? 'QR พร้อมเพย์' : paymentMethod === 'transfer' ? 'โอนเงิน' : 'เก็บปลายทาง' }}</div>
+                <div class="method-tag mt-2">
+                  <span class="badge bg-white text-success px-3">
+                    ช่องทาง: {{ paymentMethod === 'card' ? 'บัตรเครดิต' : paymentMethod === 'qr' ? 'QR พร้อมเพย์' : paymentMethod === 'transfer' ? 'โอนเงิน' : 'เก็บปลายทาง' }}
+                  </span>
+                </div>
               </div>
             </div>
           </div>

@@ -1,13 +1,11 @@
 <div class="home-container container-fluid py-4 px-md-5 bg-light min-vh-100">
 
-  <!-- +++ Hero Section (v0 Style with Side Cards) +++ -->
+  <!-- 1. ส่วนแบนเนอร์ (Hero Section) -->
   <section class="hero-section mb-5">
     <div class="row g-4">
       <div class="col-lg-8">
         <div class="card border-0 rounded-4 overflow-hidden position-relative hero-main shadow-sm h-100">
-          <div class="hero-bg"
-            style="background: url('https://www.esrith.com/wp-content/uploads/2022/11/Web_CL_Agri.jpg') center/cover;">
-          </div>
+          <div class="hero-bg" style="background: url('https://www.esrith.com/wp-content/uploads/2022/11/Web_CL_Agri.jpg') center/cover;"></div>
           <div class="hero-overlay p-4 p-md-5 d-flex flex-column justify-content-center h-100 position-relative z-1">
             <span class="text-white fw-bold mb-2">ยินดีต้อนรับสู่ KASETTHAI</span>
             <h1 class="display-4 fw-bold text-white mb-4">อุปกรณ์การเกษตร<br>คุณภาพสูง</h1>
@@ -15,8 +13,7 @@
               <span class="fs-5 fw-bold me-3">ลดสูงสุด 30%</span>
               <span class="small opacity-75 d-none d-md-inline">จัดส่งฟรีเมื่อสั่งซื้อครบ 2,000 บาท</span>
             </div>
-            <button class="btn btn-success btn-lg rounded-pill px-5 fw-bold btn-shop-v0 align-self-start"
-              [routerLink]="['/category']">
+            <button class="btn btn-success btn-lg rounded-pill px-5 fw-bold btn-shop-v0 align-self-start" [routerLink]="['/category']">
               เลือกซื้อสินค้า <i class="bi bi-arrow-right ms-2"></i>
             </button>
           </div>
@@ -24,8 +21,7 @@
       </div>
       <div class="col-lg-4">
         <div class="d-flex flex-column gap-4 h-100">
-          <div
-            class="side-card promo-orange-soft p-4 rounded-4 shadow-sm border-0 d-flex align-items-center flex-grow-1">
+          <div class="side-card promo-orange-soft p-4 rounded-4 shadow-sm border-0 d-flex align-items-center flex-grow-1">
             <div>
               <span class="badge bg-white text-warning mb-2">โปรโมชั่นพิเศษ</span>
               <h3 class="fw-bold mb-2">ลด 75%</h3>
@@ -46,7 +42,7 @@
     </div>
   </section>
 
-  <!-- +++ Features Bar (Missing Section) +++ -->
+  <!-- 2. ส่วนข้อมูลจุดเด่น (Features Bar) -->
   <section class="features-bar mb-5 py-4 bg-white rounded-4 shadow-sm">
     <div class="row g-4 text-center">
       <div class="col-6 col-md-3">
@@ -80,30 +76,26 @@
     </div>
   </section>
 
-  <!-- +++ Promo Grid (Missing Section) +++ -->
+  <!-- 3. ส่วนโปรโมชั่นและตัวนับเวลา (Promo & Countdown) -->
   <section class="secondary-promos mb-5">
     <div class="row g-4">
       <div class="col-md-4">
-        <div
-          class="promo-card card-countdown rounded-4 p-4 text-center d-flex flex-column justify-content-center h-100 shadow-sm border-0 bg-dark text-white overflow-hidden position-relative"
-          style="min-height: 250px;">
-          <div class="position-absolute w-100 h-100 top-0 start-0 opacity-50"
-            style="background: url('https://idofragrance.com/wp-content/uploads/2017/10/field-smell-02.jpg') center/cover;">
-          </div>
+        <div class="promo-card card-countdown rounded-4 p-4 text-center d-flex flex-column justify-content-center h-100 shadow-sm border-0 bg-dark text-white overflow-hidden position-relative" style="min-height: 250px;">
+          <div class="position-absolute w-100 h-100 top-0 start-0 opacity-50" style="background: url('https://idofragrance.com/wp-content/uploads/2017/10/field-smell-02.jpg') center/cover;"></div>
           <div class="position-relative z-1">
             <span class="badge bg-warning text-dark mb-3">โปรโมชั่นเดือนนี้</span>
             <h3 class="fw-bold mb-3">ลดทั้งร้าน</h3>
             <div class="d-flex justify-content-center gap-2 mb-4">
               <div class="bg-white text-dark rounded px-2 py-1">
-                <div class="fw-bold">{{hours()}}</div>
+                <div class="fw-bold">{{hours}}</div>
                 <div class="x-small">ชม.</div>
               </div>
               <div class="bg-white text-dark rounded px-2 py-1">
-                <div class="fw-bold">{{minutes()}}</div>
+                <div class="fw-bold">{{minutes}}</div>
                 <div class="x-small">นาที</div>
               </div>
               <div class="bg-white text-dark rounded px-2 py-1">
-                <div class="fw-bold">{{seconds()}}</div>
+                <div class="fw-bold">{{seconds}}</div>
                 <div class="x-small">วินาที</div>
               </div>
             </div>
@@ -112,48 +104,40 @@
         </div>
       </div>
       <div class="col-md-4">
-        <div
-          class="promo-card bg-success text-white rounded-4 p-4 text-center d-flex flex-column justify-content-center h-100 shadow-sm border-0"
-          style="min-height: 250px;">
+        <div class="promo-card bg-success text-white rounded-4 p-4 text-center d-flex flex-column justify-content-center h-100 shadow-sm border-0" style="min-height: 250px;">
           <span class="badge bg-light text-success mb-3 align-self-center">ราคาพิเศษ</span>
           <h3 class="fw-bold mb-2">ปั๊มน้ำราคาประหยัด</h3>
           <p class="fs-4 fw-bold mb-4">เริ่มต้น ฿3,200</p>
-          <button class="btn btn-white text-success rounded-pill px-4 align-self-center bg-white border-0 fw-bold"
-            [routerLink]="['/category']">หารายละเอียด</button>
+          <button class="btn btn-white text-success rounded-pill px-4 align-self-center bg-white border-0 fw-bold" [routerLink]="['/category']">หารายละเอียด</button>
         </div>
       </div>
       <div class="col-md-4">
-        <div
-          class="promo-card promo-orange-soft text-dark rounded-4 p-4 text-center d-flex flex-column justify-content-center h-100 shadow-sm border-0"
-          style="min-height: 250px;">
+        <div class="promo-card promo-orange-soft text-dark rounded-4 p-4 text-center d-flex flex-column justify-content-center h-100 shadow-sm border-0" style="min-height: 250px;">
           <span class="badge bg-warning text-dark mb-3 align-self-center">จัดส่งฟรี</span>
           <h3 class="fw-bold mb-2">สินค้าใหม่ล่าสุด</h3>
           <p class="mb-4">ลดสูงสุด <span class="badge bg-danger fs-6">64%</span></p>
-          <button class="btn btn-success rounded-pill px-4 align-self-center fw-bold"
-            [routerLink]="['/category']">ซื้อเลย &rarr;</button>
+          <button class="btn btn-success rounded-pill px-4 align-self-center fw-bold" [routerLink]="['/category']">ซื้อเลย &rarr;</button>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- +++ Popular Categories +++ -->
+  <!-- 4. ส่วนหมวดหมู่ยอดนิยม (Popular Categories) -->
   <section class="mb-5">
     <div class="d-flex justify-content-between align-items-end mb-4">
       <div>
         <span class="text-success fw-bold small text-uppercase">หมวดหมู่</span>
         <h2 class="fw-bold mb-0">หมวดหมู่ยอดนิยม</h2>
       </div>
-      <a [routerLink]="['/category']" class="text-success text-decoration-none fw-bold">ดูทั้งหมด <i
-          class="bi bi-arrow-right"></i></a>
+      <a [routerLink]="['/category']" class="text-success text-decoration-none fw-bold">ดูทั้งหมด <i class="bi bi-arrow-right"></i></a>
     </div>
 
     <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-3">
-      @for (category of categories(); track category.category_id) {
+      @for (category of categories; track category.category_id) {
       <div class="col">
         <div class="category-card text-center p-3 rounded-4 bg-white border-0 shadow-sm h-100 transition-up">
           <div class="cat-img mb-3 p-2 bg-light rounded-circle mx-auto" style="width: 80px; height: 80px;">
-            <img [src]="category.image || 'https://cdn-icons-png.flaticon.com/512/1865/1865231.png'"
-              [alt]="category.name" class="img-fluid h-100 object-fit-contain">
+            <img [src]="category.image" [alt]="category.name" class="img-fluid h-100 object-fit-contain">
           </div>
           <h6 class="fw-bold mb-1 text-truncate">{{category.name}}</h6>
           <small class="text-muted">{{category.product_count || 0}} สินค้า</small>
@@ -163,60 +147,42 @@
     </div>
   </section>
 
-  <!-- +++ Recommended Products +++ -->
+  <!-- 5. ส่วนสินค้าแนะนำ (Recommended Products) -->
   <section class="mb-5">
     <div class="d-flex justify-content-between align-items-end mb-4">
       <div>
         <span class="text-success fw-bold small text-uppercase">คัดสรรเพื่อคุณ</span>
         <h2 class="fw-bold mb-0">สินค้าแนะนำ</h2>
       </div>
-      <a [routerLink]="['/category']" class="text-success text-decoration-none fw-bold">ดูทั้งหมด <i
-          class="bi bi-arrow-right"></i></a>
+      <a [routerLink]="['/category']" class="text-success text-decoration-none fw-bold">ดูทั้งหมด <i class="bi bi-arrow-right"></i></a>
     </div>
 
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-      @for (product of products(); track product.product_id) {
+      @for (product of products; track product.product_id) {
       <div class="col">
         <div class="product-card card h-100 border-0 rounded-4 shadow-sm overflow-hidden transition-up">
-          <!-- Discount Badge -->
           <div class="position-absolute top-0 start-0 m-3 z-2">
             <span class="badge bg-danger rounded-pill px-3 shadow-sm">ลด 15%</span>
           </div>
-
-          <!-- Product Image Wrapper -->
-          <div class="product-img-wrap bg-light m-3 rounded-4 d-flex align-items-center justify-content-center p-4"
-            style="height: 200px;">
-            <img [src]="product.images[0]?.image_url || 'https://via.placeholder.com/300x200?text=Product'"
-              [alt]="product.name" class="img-fluid h-100 object-fit-contain">
+          <div class="product-img-wrap bg-light m-3 rounded-4 d-flex align-items-center justify-content-center p-4" style="height: 200px;">
+            <img [src]="product.images[0]?.image_url || 'https://via.placeholder.com/300x200?text=Product'" [alt]="product.name" class="img-fluid h-100 object-fit-contain">
           </div>
-
           <div class="card-body px-4 pb-4 pt-0">
-            <!-- Stars -->
             <div class="text-warning mb-2 small">
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill"></i>
-              <i class="bi bi-star-fill text-secondary opacity-50"></i>
+              <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill text-secondary opacity-50"></i>
               <span class="text-muted ms-1">(12)</span>
             </div>
-
-            <h6 class="product-title fw-bold mb-3 overflow-hidden"
-              style="height: 2.5rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
+            <h6 class="product-title fw-bold mb-1 overflow-hidden" style="height: 2.5rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">
               {{product.name}}
             </h6>
-
+            <p class="text-muted small mb-3 text-truncate">{{product.description}}</p>
             <div class="d-flex justify-content-between align-items-center mb-3">
               <div>
                 <span class="text-success fw-bold fs-5">฿{{product.price | number:'1.0-0'}}</span>
-                <span class="text-muted text-decoration-line-through x-small ms-2">฿{{product.price * 1.2 |
-                  number:'1.0-0'}}</span>
+                <span class="text-muted text-decoration-line-through x-small ms-2">฿{{product.price * 1.2 | number:'1.0-0'}}</span>
               </div>
             </div>
-
-            <button
-              class="btn btn-outline-success rounded-pill fw-bold w-100 py-2 d-flex align-items-center justify-content-center"
-              (click)="addToCart(product)">
+            <button class="btn btn-outline-success rounded-pill fw-bold w-100 py-2" (click)="addToCart(product)">
               <i class="bi bi-cart-plus me-2"></i> เพิ่มลงตะกร้า
             </button>
           </div>
