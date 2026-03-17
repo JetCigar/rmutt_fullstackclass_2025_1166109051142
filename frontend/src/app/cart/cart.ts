@@ -2,11 +2,11 @@ import { Component, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../services/cart.service';
 import { Router } from '@angular/router';
-
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './cart.html',
   styleUrls: ['./cart.scss']
 })
@@ -43,9 +43,49 @@ export class CartComponent implements OnInit {
     }
   }
 
+selectedTotal = computed(() => {
+  return this.selectedItems().reduce((sum, item) => {
+    return sum + item.quantity * item.product.price;
+  }, 0);
+});
+
+selectedItems = signal<any[]>([]);
+
+updateSelected() {
+  const selected = this.cartItems().filter((item: any) => item.selected);
+  this.selectedItems.set(selected);
+}
+
+isAllSelected = computed(() => {
+  const items = this.cartItems();
+  return items.length > 0 && items.every((item: any) => item.selected);
+});
+
+//  ฟังก์ชันเลือกทั้งหมด
+toggleSelectAll() {
+  const isAll = this.isAllSelected();
+
+  const updated = this.cartItems().map((item: any) => ({
+    ...item,
+    selected: !isAll
+  }));
+
+  this.cartItems.set(updated);
+  this.updateSelected();
+}
+
   goCheckout(){
-    this.router.navigate(['/order'])
+  const selected = this.selectedItems();
+
+  if (selected.length === 0) {
+    alert("กรุณาเลือกสินค้า");
+    return;
   }
+
+  this.router.navigate(['/order'], {
+    state: { items: selected }   // 🔥 ส่งไปหน้า order
+  });
+}
 
   showCheckout = false;
 
@@ -57,15 +97,19 @@ export class CartComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 
-
-
-
-
   // โหลด cart
   loadCart() {
     this.cartService.getCart(this.customerId).subscribe({
       next: () => {
-        // ค่าใน Signal cartItems จะถูกอัปเดตจาก service แล้ว
+
+        const items = this.cartItems().map((item: any) => ({
+          ...item,
+          selected: item.selected ?? false // 🔥 เพิ่ม
+        }));
+
+        this.cartItems.set(items);
+        this.updateSelected();
+
       },
       error: (err: any) => {
         console.error("โหลด cart ไม่สำเร็จ", err);
@@ -88,7 +132,9 @@ export class CartComponent implements OnInit {
 
         item.quantity = newQty;
         // บังคับให้ signal trigger การเปลี่ยนค่า
+        
         this.cartItems.set([...this.cartItems()]);
+        this.updateSelected();
       });
   }
 

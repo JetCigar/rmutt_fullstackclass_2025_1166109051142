@@ -80,7 +80,6 @@ exports.getCart = async (req, res) => {
   }
 }
 
-
 /*
 อัปเดตจำนวนสินค้า
 PUT /cart/:cart_item_id

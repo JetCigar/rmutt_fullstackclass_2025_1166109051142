@@ -16,6 +16,36 @@
   flex:2;
 }
 
+.select-checkbox {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.product-img {
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.cart-header {
+  display: flex;
+  align-items: center;
+  gap: 300px; 
+}
+
+.cart-header h2 {
+  margin: 0;
+}
+
+.select-all {
+  display: flex;
+  align-items: center;
+   gap: 8px;
+}
+
 .cart-card{
   display:flex;
   align-items:center;
