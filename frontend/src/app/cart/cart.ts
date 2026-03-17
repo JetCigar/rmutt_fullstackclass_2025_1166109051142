@@ -2,11 +2,12 @@ import { Component, OnInit, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../services/cart.service';
 import { Router } from '@angular/router';
+import { CheckoutComponent } from '../checkout/checkout';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CheckoutComponent],
   templateUrl: './cart.html',
   styleUrls: ['./cart.scss']
 })
@@ -43,11 +44,15 @@ export class CartComponent implements OnInit {
     }
   }
 
-  goCheckout(){
-    this.router.navigate(['/order'])
-  }
-
   showCheckout = false;
+
+  goCheckout(){
+    if (this.cartItems().length === 0) {
+      alert('ไม่มีสินค้าในตะกร้า');
+      return;
+    }
+    this.showCheckout = true;
+  }
 
   openCheckout(){
     this.showCheckout = true;

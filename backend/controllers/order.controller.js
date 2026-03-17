@@ -64,3 +64,60 @@ exports.getOrdersByCustomer = async (req, res) => {
     res.status(500).json({ message: 'Failed to load orders', error: error.message });
   }
 };
+
+// POST /auth/orders/create
+exports.createOrder = async (req, res) => {
+  try {
+    const { customerId, address, paymentMethod, totalAmount, items } = req.body;
+    
+    // Create new address
+    const newAddress = await prisma.address.create({
+      data: {
+        customer_id: Number(customerId),
+        address_line: `${address.name} ${address.phone} | ${address.street}`,
+        province: address.province,
+        zip_code: address.zip
+      }
+    });
+
+    // Create Order with nested writes
+    const newOrder = await prisma.order.create({
+      data: {
+        customer_id: Number(customerId),
+        total_amount: Number(totalAmount),
+        status: 'pending',
+        order_items: {
+          create: items.map(item => ({
+            product_id: Number(item.product_id),
+            quantity: Number(item.quantity),
+            price_at_purchase: Number(item.price)
+          }))
+        },
+        payment: {
+          create: {
+            amount: Number(totalAmount),
+            payment_method: paymentMethod,
+            status: paymentMethod === 'cod' ? 'pending' : 'paid',
+            paid_at: paymentMethod === 'cod' ? null : new Date()
+          }
+        },
+        shipping: {
+          create: {
+            address_id: newAddress.address_id,
+            status: 'preparing'
+          }
+        }
+      }
+    });
+
+    // Clear cart
+    await prisma.cartItem.deleteMany({
+      where: { customer_id: Number(customerId) }
+    });
+
+    res.status(201).json({ success: true, orderId: newOrder.order_id, message: 'บันทึกคำสั่งซื้อสำเร็จ' });
+  } catch (error) {
+    console.error('Failed to create order', error);
+    res.status(500).json({ message: 'Failed to create order', error: error.message });
+  }
+};

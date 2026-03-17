@@ -13,6 +13,7 @@ app.use(cors())
 app.use(express.json())
  
 const allRoutes = require('../routes/index');
+console.log('Attaching allRoutes to Express app');
 app.use(allRoutes);
  
 app.get('/test-db', async (req, res) => {

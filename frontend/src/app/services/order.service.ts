@@ -29,4 +29,8 @@ export class OrderService {
   getOrders(customerId: number): Observable<{ orders: OrderData[]; message?: string }> {
     return this.http.get<{ orders: OrderData[]; message?: string }>(`${this.apiBase}/orders/${customerId}`);
   }
+
+  createOrder(payload: any): Observable<any> {
+    return this.http.post(`${this.apiBase}/orders/create`, payload);
+  }
 }
