@@ -2,19 +2,27 @@
 
   <!-- LEFT : CART ITEMS -->
   <div class="cart-left">
+
     <div class="cart-header">
       <h2>🛒 ตะกร้าสินค้า ({{cartItems().length}} รายการ)</h2>
-      
+    </div>
+
+    <div class="cart-top-bar">
       <div class="select-all">
         <input type="checkbox"
-        [checked]="isAllSelected()"
-        [indeterminate]="selectedItems().length > 0 && !isAllSelected()"
-        (change)="toggleSelectAll()" />
-
-        <span>  เลือกทั้งหมด</span>
+          [checked]="isAllSelected()"
+          [indeterminate]="selectedItems().length > 0 && !isAllSelected()"
+          (change)="toggleSelectAll()" />
+        <span>เลือกทั้งหมด</span>
       </div>
-    </div>
-    <br>
+
+        <button class="delete-btn"
+        [disabled]="selectedItems().length === 0"
+        (click)="deleteSelected()">
+        ล้างตะกร้า
+        </button>
+      </div>
+    
 
     <div class="cart-card" *ngFor="let item of cartItems()">
 

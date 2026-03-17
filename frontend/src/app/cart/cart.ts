@@ -61,6 +61,11 @@ selectedQuantity = computed(() => {
 
 selectedItems = signal<any[]>([]);
 
+deleteSelected() {
+  const selected = this.cartItems().filter((i: { selected: any; }) => i.selected);
+  selected.forEach((i: any) => this.remove(i));
+}
+
 updateSelected() {
   const selected = this.cartItems().filter((item: any) => item.selected);
   this.selectedItems.set(selected);
