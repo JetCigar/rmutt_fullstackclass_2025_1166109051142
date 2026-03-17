@@ -3,38 +3,38 @@ import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { AccountSidebar } from '../account-sidebar/account-sidebar';
-import { ReviewService, ReviewData } from '../services/review.service';
+import { OrderService, OrderData } from '../services/order.service';
 
 @Component({
-  selector: 'app-review',
+  selector: 'app-order',
   standalone: true,
   imports: [HttpClientModule, AccountSidebar],
-  templateUrl: './review.html',
-  styleUrl: './review.css',
+  templateUrl: './order.html',
+  styleUrls: ['./order.css'],
 })
-export class Review implements OnInit {
-  reviews: ReviewData[] = [];
+export class Order implements OnInit {
+  orders: OrderData[] = [];
   loading = false;
   error = '';
 
   constructor(
-    private reviewService: ReviewService,
+    private orderService: OrderService,
     private router: Router,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
-    this.loadReviews();
+    this.loadOrders();
   }
 
-  loadReviews() {
+  loadOrders() {
     this.error = '';
     this.loading = true;
 
     const stored = localStorage.getItem('user');
     if (!stored) {
       this.loading = false;
-      this.error = 'กรุณาเข้าสู่ระบบก่อนดูรีวิว';
+      this.error = 'กรุณาเข้าสู่ระบบก่อนดูคำสั่งซื้อ';
       return;
     }
 
@@ -54,23 +54,32 @@ export class Review implements OnInit {
       return;
     }
 
-    this.reviewService.getReviews(customerId)
+    this.orderService.getOrders(customerId)
       .pipe(finalize(() => {
         this.loading = false;
         this.cdr.detectChanges();
       }))
       .subscribe({
         next: (res) => {
-          this.reviews = res.reviews || [];
+          this.orders = res.orders || [];
         },
         error: (err) => {
-          console.error('Failed to load reviews', err);
-          this.error = err?.error?.message || 'ไม่สามารถโหลดรีวิวได้';
+          console.error('Failed to load orders', err);
+          this.error = err?.error?.message || 'ไม่สามารถโหลดคำสั่งซื้อได้';
         },
       });
   }
 
-  stars(rating: number): number[] {
-    return Array.from({ length: 5 }, (_, i) => i < rating ? 1 : 0);
+  formatPrice(value: number) {
+    return new Intl.NumberFormat('th-TH', {
+      style: 'currency',
+      currency: 'THB',
+      maximumFractionDigits: 0,
+    }).format(value);
+  }
+
+  getTotal(order: OrderData) {
+    return order.items.reduce((sum, item) => sum + item.price * item.qty, 0);
   }
 }
+

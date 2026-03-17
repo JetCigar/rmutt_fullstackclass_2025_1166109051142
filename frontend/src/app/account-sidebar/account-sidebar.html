@@ -1,0 +1,36 @@
+<section class="account-sidebar">
+  <header class="profile">
+    <div class="avatar" aria-hidden="true">{{ profile.initial }}</div>
+    <div class="profile__info">
+      <div class="profile__name">{{ profile.name }}</div>
+      <div class="profile__email">{{ profile.email }}</div>
+    </div>
+  </header>
+
+  <nav class="menu" aria-label="เมนูบัญชี">
+    <ul>
+      @for (item of menuItems; track item.label) {
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          @if (item.route) {
+            <a [routerLink]="item.route" class="menu__item" type="button">
+              <i class="bi" [ngClass]="item.icon" aria-hidden="true"></i>
+              <span class="menu__label">{{ item.label }}</span>
+            </a>
+          } @else {
+            <button type="button" class="menu__item" disabled>
+              <i class="bi" [ngClass]="item.icon" aria-hidden="true"></i>
+              <span class="menu__label">{{ item.label }}</span>
+            </button>
+          }
+        </li>
+      }
+    </ul>
+  </nav>
+
+  <footer class="logout">
+    <button type="button" class="logout__btn" (click)="logout()">
+      <i class="bi" [ngClass]="logoutItem.icon" aria-hidden="true"></i>
+      <span>{{ logoutItem.label }}</span>
+    </button>
+  </footer>
+</section>

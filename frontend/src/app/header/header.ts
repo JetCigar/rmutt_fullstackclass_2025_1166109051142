@@ -1,29 +1,25 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule, Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, FormsModule,RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './header.html',
   styleUrls: ['./header.css']
 })
 export class HeaderComponent {
-
-  cartCount: number = 0;
-  cartTotal: number = 0;
   searchQuery: string = '';
+  selectedLang: string = 'TH';
+  selectedCurrency: string = 'THB';
 
   constructor(
     private router: Router,
-    public cartService: CartService  // ฉีด CartService เพื่อดึง count, total แบบ Signal
+    public cartService: CartService
   ) {}
-
-  selectedLang: string = 'TH';
-  selectedCurrency: string = 'THB';
   
   toggleLang() {
     this.selectedLang = this.selectedLang === 'TH' ? 'EN' : 'TH';
@@ -50,7 +46,7 @@ export class HeaderComponent {
   }
 
   onWishlistClick(): void {
-    console.log('[Header] Wishlist clicked');
+    this.router.navigate(['/order']);
   }
 
   onCartClick(): void {

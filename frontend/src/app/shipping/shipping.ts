@@ -3,38 +3,40 @@ import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { AccountSidebar } from '../account-sidebar/account-sidebar';
-import { ReviewService, ReviewData } from '../services/review.service';
+import { ShippingService, ShippingData } from '../services/shipping.service';
+
+import { NgStyle } from '@angular/common';
 
 @Component({
-  selector: 'app-review',
+  selector: 'app-shipping',
   standalone: true,
-  imports: [HttpClientModule, AccountSidebar],
-  templateUrl: './review.html',
-  styleUrl: './review.css',
+  imports: [NgStyle, HttpClientModule, AccountSidebar],
+  templateUrl: './shipping.html',
+  styleUrl: './shipping.css',
 })
-export class Review implements OnInit {
-  reviews: ReviewData[] = [];
+export class Shipping implements OnInit {
+  shippings: ShippingData[] = [];
   loading = false;
   error = '';
 
   constructor(
-    private reviewService: ReviewService,
+    private shippingService: ShippingService,
     private router: Router,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
-    this.loadReviews();
+    this.loadShippings();
   }
 
-  loadReviews() {
+  loadShippings() {
     this.error = '';
     this.loading = true;
 
     const stored = localStorage.getItem('user');
     if (!stored) {
       this.loading = false;
-      this.error = 'กรุณาเข้าสู่ระบบก่อนดูรีวิว';
+      this.error = 'กรุณาเข้าสู่ระบบก่อนดูสถานะจัดส่ง';
       return;
     }
 
@@ -54,23 +56,32 @@ export class Review implements OnInit {
       return;
     }
 
-    this.reviewService.getReviews(customerId)
+    this.shippingService.getShippings(customerId)
       .pipe(finalize(() => {
         this.loading = false;
         this.cdr.detectChanges();
       }))
       .subscribe({
         next: (res) => {
-          this.reviews = res.reviews || [];
+          this.shippings = res.shippings || [];
         },
         error: (err) => {
-          console.error('Failed to load reviews', err);
-          this.error = err?.error?.message || 'ไม่สามารถโหลดรีวิวได้';
+          console.error('Failed to load shippings', err);
+          this.error = err?.error?.message || 'ไม่สามารถโหลดสถานะการจัดส่งได้';
         },
       });
   }
 
-  stars(rating: number): number[] {
-    return Array.from({ length: 5 }, (_, i) => i < rating ? 1 : 0);
+  statusColor(status: string): string {
+    const map: Record<string, string> = {
+      pending: '#ffa502',
+      preparing: '#1fbc52',
+      shipped: '#1fbc52',
+      delivered: '#0f7965',
+      cancelled: '#d64541',
+      'รอดำเนินการ': '#ffa502',
+    };
+    return map[status.toLowerCase()] || '#868e96';
   }
 }
+

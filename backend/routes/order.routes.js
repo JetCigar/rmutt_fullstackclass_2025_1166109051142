@@ -1,0 +1,9 @@
+const express = require('express');
+const router = express.Router();
+
+const orderController = require('../controllers/order.controller');
+
+// ดึงคำสั่งซื้อของลูกค้าตาม customer_id
+router.get('/:customerId', orderController.getOrdersByCustomer);
+
+module.exports = router;

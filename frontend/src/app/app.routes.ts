@@ -5,6 +5,10 @@ import { Category } from './category/category';
 import { HomeComponent } from './home/home';
 import { ContactComponent } from './contact/contact';
 import { AboutComponent } from './about/about';
+import { Order } from './order/order';
+import { Shipping } from './shipping/shipping';
+import { Address } from './address/address';
+import { SettingPage } from './setting-page/setting-page';
 import { Review } from './review/review';
 import { CartComponent } from './cart/cart';
 
@@ -30,11 +34,22 @@ export const routes: Routes = [
     path: 'category',
     component: Category
   },
-  { path: 'contact', component: ContactComponent }
-  ,
+  { path: 'contact', component: ContactComponent },
   {
     path: 'about',
     component: AboutComponent
+  },
+  {
+    path: 'order',
+    component: Order
+  },
+  {
+    path: 'shipping',
+    component: Shipping
+  },
+  {
+    path: 'address',
+    component: Address
   },
   {
     path: 'review',
@@ -43,5 +58,9 @@ export const routes: Routes = [
   {
     path: 'cart',
     component: CartComponent
+  },
+  {
+    path: 'settings',
+    component: SettingPage
   }
 ];

@@ -1,0 +1,48 @@
+<section class="account">
+  <app-account-sidebar></app-account-sidebar>
+
+  <main class="account__content">
+    <header class="account__header">
+      <h1>คำสั่งซื้อของฉัน</h1>
+    </header>
+
+    <section class="orders">
+      @if (loading) {
+        <div class="order-loading">กำลังโหลดคำสั่งซื้อ...</div>
+      }
+      @if (!loading && error) {
+        <div class="order-error">{{ error }}</div>
+      }
+      
+      @for (order of orders; track order.id) {
+        <article class="order-card">
+          <div class="order-card__header">
+            <div>
+              <div class="order-card__title">คำสั่งซื้อ #{{ order.id }}</div>
+              <div class="order-card__date">{{ order.date }}</div>
+            </div>
+            <div class="order-card__status">{{ order.status }}</div>
+          </div>
+
+          <ul class="order-card__items">
+            @for (item of order.items; track item.name) {
+              <li class="order-card__item">
+                <div class="order-card__item-name">{{ item.name }} x{{ item.qty }}</div>
+                <div class="order-card__item-price">{{ formatPrice(item.price) }}</div>
+              </li>
+            }
+          </ul>
+
+          <div class="order-card__footer">
+            <div class="order-card__total">รวมทั้งหมด</div>
+            <div class="order-card__total-amount">{{ formatPrice(getTotal(order)) }}</div>
+          </div>
+        </article>
+      } @empty {
+        @if (!loading) {
+          <div class="order-empty">ยังไม่มีคำสั่งซื้อในขณะนี้</div>
+        }
+      }
+    </section>
+  </main>
+</section>
