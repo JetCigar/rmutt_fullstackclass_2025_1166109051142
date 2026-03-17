@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express")
 const cors = require("cors")
 const { PrismaClient } = require("@prisma/client")
@@ -13,8 +14,15 @@ app.use(cors())
 app.use(express.json())
  
 const allRoutes = require('../routes/index');
-console.log('Attaching allRoutes to Express app');
 app.use(allRoutes);
+
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', message: 'Backend is running' });
+});
+
+app.get('/auth/orders/test', (req, res) => {
+  res.json({ status: 'ok', message: 'Order routing is working' });
+});
  
 app.get('/test-db', async (req, res) => {
   try {

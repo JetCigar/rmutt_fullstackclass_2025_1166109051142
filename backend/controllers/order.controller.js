@@ -65,20 +65,37 @@ exports.getOrdersByCustomer = async (req, res) => {
   }
 };
 
-// POST /auth/orders/create
 exports.createOrder = async (req, res) => {
+  const { customerId, address, addressId, paymentMethod, totalAmount, items } = req.body;
+  
   try {
-    const { customerId, address, paymentMethod, totalAmount, items } = req.body;
-    
-    // Create new address
-    const newAddress = await prisma.address.create({
-      data: {
-        customer_id: Number(customerId),
-        address_line: `${address.name} ${address.phone} | ${address.street}`,
-        province: address.province,
-        zip_code: address.zip
+    let finalAddressId = addressId;
+
+    // Robust check: truthy and not 'new' string
+    if (!finalAddressId || finalAddressId === 'new') {
+      const existingAddress = await prisma.address.findFirst({
+        where: {
+          customer_id: Number(customerId),
+          address_line: `${address.name} ${address.phone} | ${address.street}`,
+          province: address.province,
+          zip_code: address.zip
+        }
+      });
+
+      if (existingAddress) {
+        finalAddressId = existingAddress.address_id;
+      } else {
+        const newAddress = await prisma.address.create({
+          data: {
+            customer_id: Number(customerId),
+            address_line: `${address.name} ${address.phone} | ${address.street}`,
+            province: address.province,
+            zip_code: address.zip
+          }
+        });
+        finalAddressId = newAddress.address_id;
       }
-    });
+    }
 
     // Create Order with nested writes
     const newOrder = await prisma.order.create({
@@ -103,7 +120,7 @@ exports.createOrder = async (req, res) => {
         },
         shipping: {
           create: {
-            address_id: newAddress.address_id,
+            address_id: Number(finalAddressId),
             status: 'preparing'
           }
         }

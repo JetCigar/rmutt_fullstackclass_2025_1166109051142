@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -16,11 +16,12 @@ import { AddressService, AddressData } from '../services/address.service';
 export class CheckoutComponent implements OnInit {
   @Output() closeModal = new EventEmitter<void>();
 
-  step = 1; // 1=ที่อยู่, 2=ชำระเงิน, 3=ยืนยัน
+  step = 1; // 1=ที่อยู่, 2=วิธีชำระเงิน, 3=ยืนยัน
 
   // Address
   savedAddresses: AddressData[] = [];
-  selectedAddressId: number | 'new' = 'new';
+  showNewAddressForm = false;
+  selectedAddressId: any = null;
   address = {
     name: '',
     phone: '',
@@ -45,7 +46,8 @@ export class CheckoutComponent implements OnInit {
     public cartService: CartService,
     private orderService: OrderService,
     private addressService: AddressService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -59,18 +61,30 @@ export class CheckoutComponent implements OnInit {
         this.address.lastName = user.last_name || nameParts[1] || '';
         this.address.phone = user.phone || '';
 
+        this.card.holder = (this.address.firstName + ' ' + this.address.lastName).toUpperCase();
+
         // Load existing addresses
-        const customerId = user.customer_id || user.id;
+        const customerId = user.customer_id || user.id || user.customerId;
+        console.log('FRONTEND: Found customerId:', customerId, 'from user:', user);
+        
         if (customerId) {
           this.addressService.getAddresses(customerId).subscribe({
             next: (res) => {
+              console.log('FRONTEND: Loaded addresses:', res.addresses);
               this.savedAddresses = res.addresses || [];
               if (this.savedAddresses.length > 0) {
                 // Default to the first saved address
                 this.selectedAddressId = this.savedAddresses[0].address_id;
+                this.showNewAddressForm = false;
+              } else {
+                this.showNewAddressForm = true; 
               }
+              this.cdr.detectChanges(); // Force refresh to show addresses immediately
             },
-            error: (err) => console.error('Failed to load addresses', err)
+            error: (err) => {
+              console.error('Failed to load addresses', err);
+              this.cdr.detectChanges();
+            }
           });
         }
       } catch {}
@@ -78,11 +92,45 @@ export class CheckoutComponent implements OnInit {
   }
 
   nextStep() {
+    if (this.step === 1) {
+      if (!this.selectedAddressId && !this.showNewAddressForm) {
+        alert('กรุณาเลือกหรือเพิ่มที่อยู่จัดส่ง');
+        return;
+      }
+      
+      if (this.showNewAddressForm) {
+        if (!this.address.firstName || !this.address.street || !this.address.province || !this.address.zip) {
+          alert('กรุณากรอกข้อมูลที่อยู่ใหม่ให้ครบถ้วน');
+          return;
+        }
+      }
+    }
+    
+    if (this.step === 2) {
+      if (!this.paymentMethod) {
+        alert('กรุณาเลือกวิธีการชำระเงิน');
+        return;
+      }
+      if (this.paymentMethod === 'card') {
+        if (!this.card.number || !this.card.expiry || !this.card.cvv) {
+          alert('กรุณากรอกข้อมูลบัตรให้ครบถ้วน');
+          return;
+        }
+      }
+    }
+    
     if (this.step < 3) this.step++;
   }
 
   prevStep() {
     if (this.step > 1) this.step--;
+  }
+
+  cancelNewAddress() {
+    this.showNewAddressForm = false;
+    if (this.savedAddresses.length > 0) {
+      this.selectedAddressId = this.savedAddresses[0].address_id;
+    }
   }
 
   selectPayment(method: 'card' | 'qr' | 'transfer' | 'cod') {
@@ -113,7 +161,7 @@ export class CheckoutComponent implements OnInit {
     }
 
     let finalAddress;
-    if (this.selectedAddressId === 'new') {
+    if (this.showNewAddressForm) {
       finalAddress = {
         name: `${this.address.firstName} ${this.address.lastName}`.trim(),
         phone: this.address.phone,
@@ -124,9 +172,9 @@ export class CheckoutComponent implements OnInit {
     } else {
       const selected = this.savedAddresses.find(a => a.address_id === this.selectedAddressId);
       finalAddress = {
-        name: this.address.name || `${this.address.firstName} ${this.address.lastName}`.trim(),
-        phone: this.address.phone,
-        street: selected?.address_line || '',
+        name: this.getAddressNameDisplay(selected),
+        phone: this.getAddressPhoneDisplay(selected),
+        street: this.getAddressStreetDisplay(selected),
         province: selected?.province || '',
         zip: selected?.zip_code || ''
       };
@@ -134,6 +182,7 @@ export class CheckoutComponent implements OnInit {
 
     const payload = {
       customerId,
+      addressId: this.showNewAddressForm ? null : this.selectedAddressId,
       address: finalAddress,
       paymentMethod: this.paymentMethod,
       totalAmount: this.total,
@@ -143,6 +192,8 @@ export class CheckoutComponent implements OnInit {
         price: item.product.price
       }))
     };
+
+    console.log('FRONTEND: Sending order payload with addressId:', payload.addressId);
 
     this.orderService.createOrder(payload).subscribe({
       next: (res: any) => {
@@ -167,6 +218,32 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
+  getAddressNameDisplay(addr: any) {
+    if (addr?.address_line && addr.address_line.includes('|')) {
+      const parts = addr.address_line.split('|');
+      return parts[0].replace(/\d{2,}-\d{3,}-\d{4,}/, '').trim() || this.address.name;
+    }
+    return this.address.name;
+  }
+
+  getAddressStreetDisplay(addr: any) {
+    if (addr?.address_line && addr.address_line.includes('|')) {
+      const parts = addr.address_line.split('|');
+      return parts[1].trim();
+    }
+    return addr?.address_line || '';
+  }
+
+  getAddressPhoneDisplay(addr: any) {
+    if (addr?.phone) return addr.phone;
+    if (addr?.address_line && addr.address_line.includes('|')) {
+      const parts = addr.address_line.split('|');
+      const phoneMatch = parts[0].match(/\d{2,}-\d{3,}-\d{4,}/);
+      return phoneMatch ? phoneMatch[0] : this.address.phone;
+    }
+    return this.address.phone;
+  }
+
   get total() {
     return this.cartService.cartTotal();
   }
@@ -176,7 +253,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   getSelectedAddress() {
-    if (this.selectedAddressId === 'new') {
+    if (this.showNewAddressForm) {
       return {
         name: `${this.address.firstName} ${this.address.lastName}`.trim(),
         phone: this.address.phone,
@@ -186,12 +263,15 @@ export class CheckoutComponent implements OnInit {
       };
     } else {
       const selected = this.savedAddresses.find(a => a.address_id === this.selectedAddressId);
+      if (!selected) {
+        return { name: this.address.name, phone: this.address.phone, street: '', province: '', zip: '' };
+      }
       return {
-        name: this.address.name || `${this.address.firstName} ${this.address.lastName}`.trim(),
-        phone: this.address.phone,
-        street: selected?.address_line || '',
-        province: selected?.province || '',
-        zip: selected?.zip_code || ''
+        name: this.getAddressNameDisplay(selected),
+        phone: this.getAddressPhoneDisplay(selected),
+        street: this.getAddressStreetDisplay(selected),
+        province: selected.province || '',
+        zip: selected.zip_code || ''
       };
     }
   }

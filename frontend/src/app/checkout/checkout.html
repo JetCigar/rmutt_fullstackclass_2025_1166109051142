@@ -4,240 +4,268 @@
     <!-- Header -->
     <div class="checkout-header">
       <div class="checkout-title">
-        <span class="flag-icon">🇹🇭</span>
+        <span class="flag-icon">💳</span>
         <div>
           <strong>ชำระเงิน</strong>
           <div class="step-label">
-            @if (step === 1) { ขั้นตอนที่ 1: ที่อยู่ผู้รับ }
-            @if (step === 2) { ขั้นตอนที่ 2: วิธีชำระเงิน }
-            @if (step === 3 && !orderSuccess) { ขั้นตอนที่ 3: ยืนยันคำสั่งซื้อ }
-            @if (orderSuccess) { ขั้นตอนที่ 3: ยืนยันคำสั่งซื้อ }
+            ขั้นตอนที่ {{ step }}: {{ step === 1 ? 'ที่อยู่จัดส่ง' : (step === 2 ? 'วิธีชำระเงิน' : 'ยืนยัน') }}
           </div>
         </div>
       </div>
       <button class="close-btn" (click)="close()">✕</button>
     </div>
 
-    <!-- Stepper -->
+    <!-- Stepper (3 Steps) -->
     @if (!orderSuccess) {
       <div class="stepper">
-        <div class="step-item" [class.active]="step >= 1" [class.done]="step > 1">
+        <div class="step-item" [class.active]="step === 1" [class.done]="step > 1">
           <div class="step-circle">1</div>
           <div class="step-name">ที่อยู่</div>
         </div>
-        <div class="step-line" [class.active]="step >= 2"></div>
-        <div class="step-item" [class.active]="step >= 2" [class.done]="step > 2">
+        <div class="step-line" [class.active]="step > 1"></div>
+        <div class="step-item" [class.active]="step === 2" [class.done]="step > 2">
           <div class="step-circle">2</div>
           <div class="step-name">ชำระเงิน</div>
         </div>
-        <div class="step-line" [class.active]="step >= 3"></div>
-        <div class="step-item" [class.active]="step >= 3">
+        <div class="step-line" [class.active]="step > 2"></div>
+        <div class="step-item" [class.active]="step === 3">
           <div class="step-circle">3</div>
           <div class="step-name">ยืนยัน</div>
         </div>
       </div>
 
-      <!-- STEP 1: Address -->
-      @if (step === 1) {
-        <div class="step-content">
-          @if (savedAddresses.length > 0) {
-            <p class="section-label">เลือกที่อยู่จัดส่ง</p>
-            <div class="address-list">
-              @for (addr of savedAddresses; track addr.address_id) {
-                <label class="address-card" [class.selected]="selectedAddressId === addr.address_id">
-                  <input type="radio" name="addressSelect" [(ngModel)]="selectedAddressId" [value]="addr.address_id">
-                  <div class="addr-info">
-                    <strong>{{ address.name || address.firstName + ' ' + address.lastName }}</strong>
-                    <p>{{ addr.address_line }} {{ addr.province }} {{ addr.zip_code }}</p>
-                    <p>{{ address.phone }}</p>
+      <div class="modal-body-scroll">
+        <!-- STEP 1: Address Selection + New Address Form -->
+        @if (step === 1) {
+          <div class="step-content">
+            <p class="section-label">📍 เลือกที่อยู่จัดส่ง</p>
+            
+            <!-- Saved Addresses List -->
+            @if (savedAddresses.length > 0) {
+              <div class="address-list">
+                @for (addr of savedAddresses; track addr.address_id) {
+                  <label class="address-card" 
+                         [class.selected]="selectedAddressId === addr.address_id && !showNewAddressForm"
+                         (click)="selectedAddressId = addr.address_id; showNewAddressForm = false">
+                    <input type="radio" name="addressSelect" [checked]="selectedAddressId === addr.address_id && !showNewAddressForm">
+                    <div class="addr-info">
+                      <div class="addr-header">
+                        <strong>{{ getAddressNameDisplay(addr) }}</strong>
+                        @if (addr.is_default) {
+                          <span class="default-badge">ค่าเริ่มต้น</span>
+                        }
+                      </div>
+                      <p>{{ getAddressStreetDisplay(addr) }}</p>
+                      <p>{{ addr.province }} {{ addr.zip_code }}</p>
+                      <p>{{ getAddressPhoneDisplay(addr) }}</p>
+                    </div>
+                  </label>
+                }
+              </div>
+            }
+
+            <!-- Toggle Button for New Address -->
+            @if (!showNewAddressForm) {
+              <button class="btn-toggle-new-addr" (click)="selectedAddressId = null; showNewAddressForm = true">
+                <span class="plus-icon">+</span> เพิ่มที่อยู่จัดส่งใหม่
+              </button>
+            } @else {
+              <div class="form-header-row">
+                <p class="section-label sub-label">กรอกที่อยู่ใหม่</p>
+                <button class="btn-cancel-new" (click)="cancelNewAddress()">ยกเลิก</button>
+              </div>
+              
+              <!-- New Address Form (Inside Toggle) -->
+              <div class="address-form-inline animate-in">
+                <div class="form-group">
+                  <label>ที่อยู่ / บ้านเลขที่</label>
+                  <input type="text" [(ngModel)]="address.street" 
+                         placeholder="123 ถนน... แขวง... เขต...">
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>จังหวัด</label>
+                    <select [(ngModel)]="address.province">
+                      <option value="">เลือกจังหวัด</option>
+                      <option>กรุงเทพมหานคร</option>
+                      <option>นนทบุรี</option>
+                      <option>ปทุมธานี</option>
+                      <option>สมุทรปราการ</option>
+                      <option>นครปฐม</option>
+                    </select>
                   </div>
-                </label>
-              }
-              <label class="address-card" [class.selected]="selectedAddressId === 'new'">
-                <input type="radio" name="addressSelect" [(ngModel)]="selectedAddressId" value="new">
-                <div class="addr-info">
-                  <strong>+ เพิ่มที่อยู่ใหม่</strong>
+                  <div class="form-group">
+                    <label>รหัสไปรษณีย์</label>
+                    <input type="text" [(ngModel)]="address.zip" placeholder="10xxx" maxlength="5">
+                  </div>
                 </div>
-              </label>
-            </div>
-          }
-
-          @if (selectedAddressId === 'new') {
-            <p class="section-label" style="margin-top: 16px;">กรอกที่อยู่ใหม่</p>
-            <div class="form-group">
-              <label>ชื่อ</label>
-              <input type="text" [(ngModel)]="address.firstName" placeholder="ชื่อ">
-            </div>
-            <div class="form-group">
-              <label>นามสกุล</label>
-              <input type="text" [(ngModel)]="address.lastName" placeholder="นามสกุล">
-            </div>
-            <div class="form-group">
-              <label>ที่อยู่ / บ้านเลขที่</label>
-              <input type="text" [(ngModel)]="address.street" placeholder="123 ถนน... แขวง... เขต...">
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label>จังหวัด</label>
-                <select [(ngModel)]="address.province">
-                  <option value="">เลือกจังหวัด</option>
-                  <option>กรุงเทพมหานคร</option>
-                  <option>นนทบุรี</option>
-                  <option>ปทุมธานี</option>
-                  <option>สมุทรปราการ</option>
-                  <option>เชียงใหม่</option>
-                  <option>ขอนแก่น</option>
-                  <option>สงขลา</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>รหัสไปรษณีย์</label>
-                <input type="text" [(ngModel)]="address.zip" placeholder="10xxx" maxlength="5">
-              </div>
-            </div>
-            <div class="form-group">
-              <label>เบอร์โทรศัพท์</label>
-              <input type="text" [(ngModel)]="address.phone" placeholder="08x-xxx-xxxx">
-            </div>
-          }
-        </div>
-        <div class="step-footer">
-          <button class="btn-next" (click)="nextStep()">ถัดไป →</button>
-        </div>
-      }
-
-      <!-- STEP 2: Payment -->
-      @if (step === 2) {
-        <div class="step-content">
-          <p class="section-label">เลือกวิธีชำระเงิน</p>
-          <div class="payment-methods">
-            <button class="method-btn" [class.selected]="paymentMethod === 'card'" (click)="selectPayment('card')">
-              <span class="method-icon">💳</span>
-              <span>บัตรเครดิต</span>
-            </button>
-            <button class="method-btn" [class.selected]="paymentMethod === 'qr'" (click)="selectPayment('qr')">
-              <span class="method-icon">📲</span>
-              <span>QR พร้อมเพย์</span>
-            </button>
-            <button class="method-btn" [class.selected]="paymentMethod === 'transfer'" (click)="selectPayment('transfer')">
-              <span class="method-icon">🏦</span>
-              <span>โอนเงิน</span>
-            </button>
-            <button class="method-btn" [class.selected]="paymentMethod === 'cod'" (click)="selectPayment('cod')">
-              <span class="method-icon">🎁</span>
-              <span>เก็บปลายทาง</span>
-            </button>
-          </div>
-
-          <!-- Credit Card -->
-          @if (paymentMethod === 'card') {
-            <div class="payment-form">
-              <div class="form-group">
-                <label>หมายเลขบัตร</label>
-                <input type="text" [(ngModel)]="card.number" placeholder="XXXX XXXX XXXX XXXX" maxlength="19">
-              </div>
-              <div class="form-row">
-                <div class="form-group">
-                  <label>วันหมดอายุ</label>
-                  <input type="text" [(ngModel)]="card.expiry" placeholder="MM/YY" maxlength="5">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>ชื่อ</label>
+                    <input type="text" [(ngModel)]="address.firstName" placeholder="สมชาย">
+                  </div>
+                  <div class="form-group">
+                    <label>นามสกุล</label>
+                    <input type="text" [(ngModel)]="address.lastName" placeholder="ใจดี">
+                  </div>
                 </div>
                 <div class="form-group">
-                  <label>CVV</label>
-                  <input type="password" [(ngModel)]="card.cvv" placeholder="***" maxlength="4">
+                  <label>เบอร์โทรศัพท์</label>
+                  <input type="text" [(ngModel)]="address.phone" placeholder="08x-xxx-xxxx">
                 </div>
-              </div>
-              <div class="form-group">
-                <label>ชื่อบนบัตร</label>
-                <input type="text" [(ngModel)]="card.holder" placeholder="FIRSTNAME LASTNAME">
-              </div>
-            </div>
-          }
-
-          <!-- QR Promptpay -->
-          @if (paymentMethod === 'qr') {
-            <div class="qr-box">
-              <div class="qr-image">
-                <div class="qr-placeholder">▩</div>
-              </div>
-              <p>สแกน QR Code เพื่อชำระเงินผ่านแอปธนาคาร</p>
-              <div class="qr-amount">฿{{ total | number:'1.0-0' }}</div>
-            </div>
-          }
-
-          <!-- Bank Transfer -->
-          @if (paymentMethod === 'transfer') {
-            <div class="transfer-box">
-              <p class="bank-info-label">ข้อมูลบัญชีธนาคาร</p>
-              <div class="bank-detail">
-                <p>ธนาคารกสิกรไทย (KBank)</p>
-                <p class="account-no">123-4-56789-0</p>
-                <p>ชื่อบัญชี: บริษัท KasetThai จำกัด</p>
-              </div>
-              <div class="form-group" style="margin-top:16px">
-                <label>แนบสลิปการโอน</label>
-                <input type="file" accept="image/*" (change)="onSlipChange($event)">
-              </div>
-            </div>
-          }
-
-          <!-- COD -->
-          @if (paymentMethod === 'cod') {
-            <div class="cod-box">
-              <div class="cod-icon">🚚</div>
-              <p class="cod-title">ชำระเงินปลายทาง</p>
-              <p class="cod-desc">ชำระเงินสดกับพนักงานจัดส่งของเมื่อได้รับสินค้า</p>
-            </div>
-          }
-        </div>
-        <div class="step-footer two-btn">
-          <button class="btn-back" (click)="prevStep()">← ย้อนกลับ</button>
-          <button class="btn-next" (click)="nextStep()">ถัดไป →</button>
-        </div>
-      }
-
-      <!-- STEP 3: Confirm -->
-      @if (step === 3) {
-        <div class="step-content">
-          <div class="confirm-section">
-            <p class="confirm-label">📍 ที่อยู่จัดส่ง</p>
-            <p>{{ getSelectedAddress().name }}</p>
-            <p>{{ getSelectedAddress().street }} {{ getSelectedAddress().province }} {{ getSelectedAddress().zip }}</p>
-            <p>📞 {{ getSelectedAddress().phone }}</p>
-          </div>
-          <div class="confirm-section">
-            <p class="confirm-label">📋 รายการสินค้า</p>
-            @for (item of items; track item.cart_item_id) {
-              <div class="confirm-item">
-                <span>{{ item.product.name }}</span>
-                <span>×{{ item.quantity }}</span>
-                <span>฿{{ (item.product.price * item.quantity) | number:'1.0-0' }}</span>
               </div>
             }
           </div>
-          <div class="confirm-total">
-            <span>ยอดชำระ</span>
-            <div>
-              <strong>฿{{ total | number:'1.0-0' }}</strong>
-              <div class="payment-tag">วิธีชำระ: {{ paymentMethod === 'card' ? 'บัตรเครดิต' : paymentMethod === 'qr' ? 'QR พร้อมเพย์' : paymentMethod === 'transfer' ? 'โอนเงิน' : 'เก็บปลายทาง' }}</div>
+          <div class="step-footer">
+            <button class="btn-next-full" (click)="nextStep()">ถัดไป →</button>
+          </div>
+        }
+
+        <!-- STEP 2: Payment Method Selection + Card Info -->
+        @if (step === 2) {
+          <div class="step-content">
+            <p class="section-label">เลือกวิธีชำระเงิน</p>
+            <div class="payment-grid">
+              <button class="pay-btn" [class.selected]="paymentMethod === 'card'" (click)="selectPayment('card')">
+                <span class="pay-icon">💳</span>
+                <span>บัตรเครดิต</span>
+              </button>
+              <button class="pay-btn" [class.selected]="paymentMethod === 'qr'" (click)="selectPayment('qr')">
+                <span class="pay-icon">📱</span>
+                <span>QR พร้อมเพย์</span>
+              </button>
+              <button class="pay-btn" [class.selected]="paymentMethod === 'transfer'" (click)="selectPayment('transfer')">
+                <span class="pay-icon">🏦</span>
+                <span>โอนเงิน</span>
+              </button>
+              <button class="pay-btn" [class.selected]="paymentMethod === 'cod'" (click)="selectPayment('cod')">
+                <span class="pay-icon">💵</span>
+                <span>เก็บปลายทาง</span>
+              </button>
+            </div>
+
+            @if (paymentMethod === 'card') {
+              <div class="card-form animate-in">
+                <div class="form-group">
+                  <label>หมายเลขบัตร</label>
+                  <input type="text" [(ngModel)]="card.number" placeholder="xxxx xxxx xxxx xxxx" maxlength="19">
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>วันหมดอายุ</label>
+                    <input type="text" [(ngModel)]="card.expiry" placeholder="MM/YY" maxlength="5">
+                  </div>
+                  <div class="form-group">
+                    <label>CVV</label>
+                    <input type="password" [(ngModel)]="card.cvv" placeholder="•••" maxlength="3">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>ชื่อบนบัตร</label>
+                  <input type="text" [(ngModel)]="card.holder" placeholder="SOMCHAI JAIDEE">
+                </div>
+              </div>
+            }
+
+            @if (paymentMethod === 'qr') {
+              <div class="qr-payment-box animate-in">
+                <div class="qr-placeholder-img">▩</div>
+                <p>สแกน QR เพื่อชำระเงิน</p>
+                <div class="qr-amount">฿{{ total | number:'1.0-0' }}</div>
+              </div>
+            }
+
+            @if (paymentMethod === 'transfer') {
+              <div class="transfer-payment-box animate-in">
+                <div class="bank-info-card">
+                  <p class="bank-title">ข้อมูลบัญชีธนาคาร</p>
+                  <p class="bank-name">ธนาคารกสิกรไทย (KBank)</p>
+                  <div class="bank-number">123-4-56789-0</div>
+                  <p class="account-name">ชื่อบัญชี: บริษัท ShopPE จำกัด</p>
+                </div>
+                
+                <div class="slip-upload-sec">
+                  <label class="section-label sub-label">แนบสลิปการโอน</label>
+                  <div class="file-input-wrapper">
+                    <input type="file" (change)="onSlipChange($event)" id="slip-file" hidden>
+                    <label for="slip-file" class="file-custom-label">
+                      @if (slipFileName) {
+                        <span>📄 {{ slipFileName }}</span>
+                      } @else {
+                        <span>📁 Choose File (No file chosen)</span>
+                      }
+                    </label>
+                  </div>
+                </div>
+              </div>
+            }
+
+            @if (paymentMethod === 'cod') {
+              <div class="cod-payment-box animate-in">
+                <div class="cod-card">
+                  <div class="truck-icon">🚚</div>
+                  <p class="cod-title">ชำระเงินปลายทาง</p>
+                  <p class="cod-desc">ชำระเงินสดให้กับพนักงานส่งของเมื่อได้รับสินค้า</p>
+                </div>
+              </div>
+            }
+          </div>
+          <div class="step-footer two-btn">
+            <button class="btn-back-outline" (click)="prevStep()">← ย้อนกลับ</button>
+            <button class="btn-next-full" (click)="nextStep()">ถัดไป →</button>
+          </div>
+        }
+
+        <!-- STEP 3: Confirm -->
+        @if (step === 3) {
+          <div class="step-content">
+            <div class="confirm-summary">
+              <div class="summary-section">
+                <p class="summary-label">📍 ที่อยู่จัดส่ง</p>
+                <div class="summary-card">
+                  <strong>{{ getSelectedAddress().name }}</strong>
+                  <p>{{ getSelectedAddress().street }} {{ getSelectedAddress().province }} {{ getSelectedAddress().zip }}</p>
+                  <p>📞 {{ getSelectedAddress().phone }}</p>
+                </div>
+              </div>
+
+              <div class="summary-section">
+                <p class="summary-label">📋 รายการสินค้า</p>
+                <div class="summary-items">
+                  @for (item of items; track item.cart_item_id) {
+                    <div class="item-row">
+                      <span>{{ item.product.name }} (x{{ item.quantity }})</span>
+                      <strong>฿{{ (item.product.price * item.quantity) | number:'1.0-0' }}</strong>
+                    </div>
+                  }
+                </div>
+              </div>
+
+              <div class="summary-total-box">
+                <div class="total-row">
+                  <span>ยอดชำระทั้งสิ้น</span>
+                  <strong>฿{{ total | number:'1.0-0' }}</strong>
+                </div>
+                <div class="method-tag">ชำระโดย: {{ paymentMethod === 'card' ? 'บัตรเครดิต' : paymentMethod === 'qr' ? 'QR พร้อมเพย์' : paymentMethod === 'transfer' ? 'โอนเงิน' : 'เก็บปลายทาง' }}</div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="step-footer two-btn">
-          <button class="btn-back" (click)="prevStep()">← ย้อนกลับ</button>
-          <button class="btn-confirm" (click)="confirmOrder()">✓ ยืนยันและชำระเงิน</button>
-        </div>
-      }
+          <div class="step-footer two-btn">
+            <button class="btn-back-outline" (click)="prevStep()">← ย้อนกลับ</button>
+            <button class="btn-confirm-final" (click)="confirmOrder()">✓ ยืนยันการสั่งซื้อ</button>
+          </div>
+        }
+      </div>
     }
 
     <!-- SUCCESS -->
     @if (orderSuccess) {
       <div class="success-box">
-        <div class="success-icon">✓</div>
+        <div class="success-icon-check">✓</div>
         <h2>ชำระเงินสำเร็จ!</h2>
-        <p>ขอบคุณสำหรับการสั่งซื้อ<br>เราจะดำเนินการจัดส่งสินค้าโดยเร็วที่สุด</p>
-        <div class="order-id-badge">หมายเลขคำสั่งซื้อ: {{ orderId }}</div>
-        <p class="email-note">ระบบได้ส่งอีเมลยืนยันไปยังที่อยู่ของท่านแล้ว</p>
-        <button class="btn-next" style="margin-top:20px" (click)="close()">กลับหน้าหลัก</button>
+        <p>ขอบคุณสำหรับการสั่งซื้อ ระบบได้รับคำสั่งซื้อของคุณแล้ว</p>
+        <div class="order-id-display">หมายเลขคำสั่งซื้อ: <strong>{{ orderId }}</strong></div>
+        <button class="btn-home-jump" (click)="close()">กลับหน้าหลัก</button>
       </div>
     }
 
