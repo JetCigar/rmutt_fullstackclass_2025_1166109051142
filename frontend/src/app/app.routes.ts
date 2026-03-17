@@ -22,12 +22,10 @@ export const routes: Routes = [
     path: 'login',
     component: LoginComponent
   },
-
   {
     path: 'register',
     component: RegisterComponent
   },
-
   {
     path: 'category',
     component: Category
@@ -42,8 +40,7 @@ export const routes: Routes = [
     path: 'review',
     component: Review
   },
-
-   {
+  {
     path: 'cart',
     component: CartComponent
   }
