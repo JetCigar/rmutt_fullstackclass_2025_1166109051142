@@ -9,17 +9,12 @@
 
     <div class="cart-top-bar">
       <div class="select-all">
-        <input type="checkbox"
-          [checked]="isAllSelected()"
-          [indeterminate]="selectedItems().length > 0 && !isAllSelected()"
-          (change)="toggleSelectAll()" />
+        <input type="checkbox" [checked]="isAllSelected()" [indeterminate]="selectedItems().length > 0 && !isAllSelected()" (change)="toggleSelectAll()" />
         <span>เลือกทั้งหมด</span>
       </div>
 
-        <button class="delete-btn"
-        [disabled]="selectedItems().length === 0"
-        (click)="deleteSelected()">
-        ล้างตะกร้า
+        <button class="delete-btn" [disabled]="selectedItems().length === 0"(click)="deleteSelected()">
+          ล้างตะกร้า
         </button>
       </div>
     
@@ -44,55 +39,41 @@
         </div>
 
         <h3>{{ item.product.name }}</h3>
-
         <p class="sku">SKU: {{ item.product.sku }}</p>
 
         <div class="qty-box">
-
           <button class="qty-btn minus" (click)="decrease(item)">
             -
           </button>
-        
           <span class="qty-number">
             {{ item.quantity }}
           </span>
-        
           <button class="qty-btn plus" (click)="increase(item)">
             +
           </button>
-        
         </div>
-
       </div>
 
       <div class="product-price">
-
         <div class="price">
           ฿{{ (item.quantity * item.product.price) | number:'1.0-0' }}
         </div>
-
         <small>
           ฿{{ item.product.price | number:'1.0-0' }} × {{ item.quantity }}
         </small>
-
       </div>
 
       <div class="remove">
         <button (click)="remove(item)">✕</button>
       </div>
-
     </div>
-
   </div>
 
   <!-- RIGHT : SUMMARY -->
   
   <div class="cart-right">
-
     <div class="summary-box">
-
       <h3>สรุปคำสั่งซื้อ</h3>
-
       <p>{{ selectedQuantity() }} ชิ้น · {{ selectedCount() }} รายการ</p>
 
       <div class="summary-row">
@@ -104,7 +85,6 @@
         <span>ค่าจัดส่ง</span>
         <span class="free">ฟรี</span>
       </div>
-
       <hr>
 
       <div class="summary-total">
@@ -119,10 +99,6 @@
       <button class="continue-btn" (click)="continueShopping()">
         ← ช้อปปิ้งต่อ
       </button>
-
     </div>
-
   </div>
-
-
 </div>
