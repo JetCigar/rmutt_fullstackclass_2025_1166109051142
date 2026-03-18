@@ -1,9 +1,16 @@
 import { Component, OnInit, OnDestroy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
-import { CategoryService } from '../../services/category.service';
+import { CategoryService, CategoryData } from '../../services/category.service';
 import { ProductService, ProductData } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
+import { switchMap } from 'rxjs';
+
+// Define a more specific type for the category data used in this component's template.
+interface HomeCategory extends CategoryData {
+  image?: string;
+  product_count?: number;
+}
 
 @Component({
   selector: 'app-home',
@@ -13,9 +20,12 @@ import { CartService } from '../../services/cart.service';
   imports: [RouterModule, CommonModule],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  // ใช้ Signals เพื่อรองรับ Zoneless Change Detection
-  categories = signal<any[]>([]);
+  // Signals สำหรับเก็บข้อมูลที่จะแสดงผล
+  categories = signal<HomeCategory[]>([]);
   products = signal<ProductData[]>([]);
+  // Signals สำหรับจัดการสถานะการโหลดข้อมูล
+  isLoadingCategories = signal(true);
+  isLoadingProducts = signal(true);
 
   days = signal('00');
   hours = signal('00');
@@ -86,22 +96,26 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     updateTimer();
     this.timer = setInterval(updateTimer, 1000);
-  }
+  }//Star Countdown
+
 
   loadCategories() {
+    this.isLoadingCategories.set(true);
     this.categoryService.getCategories().subscribe({
-      next: (data: any) => {
-        let cats = data.categories || data;
-        // แมปรูปภาพให้ตรงกับชื่อหมวดหมู่เพื่อความสวยงาม
-        cats = cats.map((cat: any) => ({
+      next: (data) => {
+        // จัดการกับ response ที่อาจมีโครงสร้างไม่แน่นอน
+        const cats: CategoryData[] = (data as any).categories || data;
+        // แมปรูปภาพให้ตรงกับชื่อหมวดหมู่
+        const catsWithImages: HomeCategory[] = cats.map((cat) => ({
           ...cat,
           image: this.getCategoryIcon(cat.name),
         }));
-        this.categories.set(cats);
-        console.log('HomeComponent: Categories loaded', this.categories());
+        this.categories.set(catsWithImages);
+        this.isLoadingCategories.set(false);
       },
       error: (err) => {
-        console.error('HomeComponent: Categories error', err);
+        console.error('เกิดข้อผิดพลาดในการโหลดหมวดหมู่:', err);
+        this.isLoadingCategories.set(false); // หยุดโหลดเมื่อเกิดข้อผิดพลาด
       },
     });
   }
@@ -125,14 +139,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   loadProducts() {
+    this.isLoadingProducts.set(true);
     this.productService.getProducts().subscribe({
       next: (data: any) => {
         const prods = data.products || data;
         this.products.set(prods);
-        console.log('HomeComponent: Products loaded', this.products());
+        this.isLoadingProducts.set(false);
       },
       error: (err) => {
-        console.error('HomeComponent: Products error', err);
+        console.error('เกิดข้อผิดพลาดในการโหลดสินค้า:', err);
+        this.isLoadingProducts.set(false); // หยุดโหลดเมื่อเกิดข้อผิดพลาด
       },
     });
   }

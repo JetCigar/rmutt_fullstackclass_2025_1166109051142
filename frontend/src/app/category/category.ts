@@ -1,10 +1,12 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CategoryService } from '../../services/category.service';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-category',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [CommonModule, RouterModule],
   templateUrl: './category.html',
   styleUrl: './category.css',
 })
@@ -20,7 +22,8 @@ export class Category implements OnInit {
 
   constructor(
     private categoryService: CategoryService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -34,8 +37,15 @@ export class Category implements OnInit {
         }
         return acc;
       }, []);
-      this.filteredProducts = [...this.allProducts]; // เริ่มต้นให้แสดงสินค้าทั้งหมดก่อน
-      // ฟังก์ชันกรองสินค้าเพื่อแสดงผล
+
+      // ตรวจสอบ query params จาก URL ว่ามี id ส่งมาหรือไม่
+      const categoryIdFromRoute = this.route.snapshot.queryParamMap.get('id');
+      if (categoryIdFromRoute) {
+        this.selectedCategoryIds = [Number(categoryIdFromRoute)];
+      }
+
+      this.applyFilter(); // กรองสินค้าตามหมวดหมู่ที่เลือก (ถ้ามี)
+
       console.log('หมวดหมู่:', this.categories);
       console.log('สินค้าทั้งหมด:', this.allProducts);
       console.log('รูปภาพ:', this.allProducts.map((p: any) => p.images[0]?.image_url));
