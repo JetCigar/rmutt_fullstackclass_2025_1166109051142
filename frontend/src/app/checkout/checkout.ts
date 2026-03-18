@@ -216,8 +216,18 @@ export class CheckoutComponent implements OnInit {
       next: (res: any) => {
         this.orderId = 'ORD-' + String(res.orderId).padStart(4, '0');
         this.orderSuccess = true;
-        // Refresh cart (which should now be empty)
-        this.cartService.getCart(customerId).subscribe();
+
+        // ลบสินค้าที่ชำระแล้วออกจาก backend และ cart signal
+        const paidItems = this.items; // selected items ที่เพิ่งสั่ง
+        paidItems.forEach((item: any) => {
+          this.cartService.removeItem(item.cart_item_id).subscribe();
+        });
+
+        // อัปเดต signal ทันที — เหลือแต่สินค้าที่ไม่ได้เลือก
+        const remaining = this.cartService.cartItems().filter(
+          (item: any) => !item.selected
+        );
+        this.cartService.cartItems.set(remaining);
       },
       error: (err: any) => {
         console.error('Failed to create order', err);

@@ -21,7 +21,9 @@ export class CartComponent implements OnInit {
   constructor(
     private cartService: CartService,
     private router: Router
-  ) {
+  ) 
+  {
+    //ผูก signal จาก service มาใช้
     this.cartItems = this.cartService.cartItems;
     this.totalPrice = this.cartService.cartTotal;
     this.totalItems = this.cartService.cartCount;
@@ -41,26 +43,28 @@ export class CartComponent implements OnInit {
     if (this.customerId) {
         this.loadCart();
     } else {
-        // Handle unauthenticated state or default
     }
   }
-
+//ราคารวมของสินค้าที่เลือก
 selectedTotal = computed(() => {
   return this.selectedItems().reduce((sum, item) => {
     return sum + item.quantity * item.product.price;
   }, 0);
 });
 
+ //จำนวนรายการที่เลือก
 selectedCount = computed(() => {
   return this.selectedItems().length; // จำนวนรายการที่เลือก
 });
 
+//จำนวนชิ้นรวม
 selectedQuantity = computed(() => {
   return this.selectedItems().reduce((sum, item) => {
     return sum + item.quantity; // จำนวนชิ้นรวม
   }, 0);
 });
 
+//แยกสินค้าที่เลือกออกจากสินค้าทั้งหมด
 selectedItems = signal<any[]>([]);
 
 deleteSelected() {
@@ -68,39 +72,47 @@ deleteSelected() {
   selected.forEach((i: any) => this.remove(i));
 }
 
+//อัปเดต selectedItemsจาก checkbox
 updateSelected() {
   const selected = this.cartItems().filter((item: any) => item.selected);
   this.selectedItems.set(selected);
 }
 
+//ใช้กับ checkboxเลือกทั้งหมด
 isAllSelected = computed(() => {
   const items = this.cartItems();
   return items.length > 0 && items.every((item: any) => item.selected);
 });
 
-//  ฟังก์ชันเลือกทั้งหมด
+//ฟังก์ชันเลือก/ยกเลิกทั้งหมด
 toggleSelectAll() {
   const isAll = this.isAllSelected();
-
   const updated = this.cartItems().map((item: any) => ({
     ...item,
     selected: !isAll
   }));
-
   this.cartItems.set(updated);
   this.updateSelected();
 }
   showCheckout = false;
 
   goCheckout(){
-    if (this.selectedItems().length === 0) {
-      alert('กรุณาเลือกสินค้าที่ต้องการชำระเงิน');
-      return;
-    }
-    this.showCheckout = true;
+  const selected = this.selectedItems();
+  if (selected.length === 0) {
+    alert("กรุณาเลือกสินค้า");
+    return;
   }
 
+  this.router.navigate(['/order'], {
+    state: { items: selected }   // ส่งไปหน้า order
+  });
+}
+
   openCheckout(){
+    if (this.selectedItems().length === 0) {
+      alert('กรุณาเลือกสินค้าก่อนดำเนินการชำระเงิน');
+      return;
+    }
     this.showCheckout = true;
   }
 
@@ -115,7 +127,7 @@ toggleSelectAll() {
 
         const items = this.cartItems().map((item: any) => ({
           ...item,
-          selected: item.selected ?? false // 🔥 เพิ่ม
+          selected: item.selected ?? false
         }));
 
         this.cartItems.set(items);
@@ -132,7 +144,7 @@ toggleSelectAll() {
   increase(item: any) {
 
     const newQty = item.quantity + 1;
-
+    //กันซื้อเกิน stock
     if (newQty > item.product.stock_quantity) {
       alert("สินค้าในสต็อกไม่พอ");
       return;
@@ -162,6 +174,8 @@ toggleSelectAll() {
         item.quantity = newQty;
         // บังคับให้ signal trigger การเปลี่ยนค่า
         this.cartItems.set([...this.cartItems()]);
+        
+        this.updateSelected();
       });
   }
 
