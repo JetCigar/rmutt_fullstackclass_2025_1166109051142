@@ -64,3 +64,81 @@ exports.getOrdersByCustomer = async (req, res) => {
     res.status(500).json({ message: 'Failed to load orders', error: error.message });
   }
 };
+
+exports.createOrder = async (req, res) => {
+  const { customerId, address, addressId, paymentMethod, totalAmount, items } = req.body;
+  
+  try {
+    let finalAddressId = addressId;
+
+    // Robust check: truthy and not 'new' string
+    if (!finalAddressId || finalAddressId === 'new') {
+      const existingAddress = await prisma.address.findFirst({
+        where: {
+          customer_id: Number(customerId),
+          address_line: `${address.name} ${address.phone} | ${address.street}`,
+          province: address.province,
+          zip_code: address.zip
+        }
+      });
+
+      if (existingAddress) {
+        finalAddressId = existingAddress.address_id;
+      } else {
+        const newAddress = await prisma.address.create({
+          data: {
+            customer_id: Number(customerId),
+            address_line: `${address.name} ${address.phone} | ${address.street}`,
+            province: address.province,
+            zip_code: address.zip
+          }
+        });
+        finalAddressId = newAddress.address_id;
+      }
+    }
+
+    // Create Order with nested writes
+    const newOrder = await prisma.order.create({
+      data: {
+        customer_id: Number(customerId),
+        total_amount: Number(totalAmount),
+        status: 'pending',
+        order_items: {
+          create: items.map(item => ({
+            product_id: Number(item.product_id),
+            quantity: Number(item.quantity),
+            price_at_purchase: Number(item.price)
+          }))
+        },
+        payment: {
+          create: {
+            amount: Number(totalAmount),
+            payment_method: paymentMethod,
+            status: paymentMethod === 'cod' ? 'pending' : 'paid',
+            paid_at: paymentMethod === 'cod' ? null : new Date()
+          }
+        },
+        shipping: {
+          create: {
+            address_id: Number(finalAddressId),
+            status: 'preparing'
+          }
+        }
+      }
+    });
+
+    // Clear only purchased items from cart
+    const purchasedProductIds = items.map(item => Number(item.product_id));
+    await prisma.cartItem.deleteMany({
+      where: { 
+        customer_id: Number(customerId),
+        product_id: { in: purchasedProductIds }
+      }
+    });
+
+    res.status(201).json({ success: true, orderId: newOrder.order_id, message: 'บันทึกคำสั่งซื้อสำเร็จ' });
+  } catch (error) {
+    console.error('Failed to create order', error);
+    res.status(500).json({ message: 'Failed to create order', error: error.message });
+  }
+};

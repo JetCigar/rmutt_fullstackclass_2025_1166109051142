@@ -9,6 +9,7 @@ export interface AddressData {
   province: string;
   zip_code: string;
   is_default: boolean;
+  phone?: string;
 }
 
 @Injectable({

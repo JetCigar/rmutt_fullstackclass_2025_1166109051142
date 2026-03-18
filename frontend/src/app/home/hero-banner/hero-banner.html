@@ -1,0 +1,43 @@
+<section class="hero-section mb-5">
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <div class="card border-0 rounded-4 overflow-hidden position-relative hero-main shadow-sm h-100">
+        <div class="hero-bg"
+          style="background: url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=1400&q=80') center/cover;">
+        </div>
+        <div class="hero-overlay p-4 p-md-5 d-flex flex-column justify-content-center h-100 position-relative z-1">
+          <span class="text-white fw-bold mb-2">ยินดีต้อนรับสู่ KASETTHAI</span>
+          <h1 class="display-4 fw-bold text-white mb-4">อุปกรณ์การเกษตร<br>คุณภาพสูง</h1>
+          <div class="d-flex align-items-center mb-4 text-white">
+            <span class="fs-5 fw-bold me-3">ลดสูงสุด 30%</span>
+            <span class="small opacity-75 d-none d-md-inline">จัดส่งฟรีเมื่อสั่งซื้อครบ 2,000 บาท</span>
+          </div>
+          <button class="btn btn-success btn-lg rounded-pill px-5 fw-bold btn-shop-v0 align-self-start"
+            [routerLink]="['/category']">
+            เลือกซื้อสินค้า <i class="bi bi-arrow-right ms-2"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="d-flex flex-column gap-4 h-100">
+        <div class="side-card promo-orange-soft p-4 rounded-4 shadow-sm border-0 d-flex align-items-center flex-grow-1">
+          <div>
+            <span class="badge bg-white text-warning mb-2">โปรโมชั่นพิเศษ</span>
+            <h3 class="fw-bold mb-2">ลด 75%</h3>
+            <p class="small mb-3">เฉพาะสินค้าเครื่องพ่นยา</p>
+            <a [routerLink]="['/category']" class="text-warning text-decoration-none fw-bold">ซื้อเลย &rarr;</a>
+          </div>
+        </div>
+        <div class="side-card bg-white p-4 rounded-4 shadow-sm border-0 d-flex align-items-center flex-grow-1">
+          <div>
+            <span class="badge bg-success mb-2 text-white">สินค้ายอดนิยม</span>
+            <h3 class="fw-bold mb-2">ดีลพิเศษประจำเดือน</h3>
+            <p class="small mb-3">อุปกรณ์ระบบน้ำ</p>
+            <a [routerLink]="['/category']" class="text-success text-decoration-none fw-bold">ซื้อเลย &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,67 +1,82 @@
 <nav class="navbar">
   <div class="navbar__inner">
 
-    <ul class="navbar__list">
-      @for (item of navItems; track item.label) {
-        <li class="navbar__item">
-          <a
-            [routerLink]="item.href"
-            routerLinkActive="navbar__link--active"
-            [routerLinkActiveOptions]="{ exact: item.href === '/' }"
-            class="navbar__link"
-          >
-            {{ item.label }}
+    <!-- Mobile Menu Button -->
+    <button class="navbar__toggler" (click)="toggleMenu()">
+      <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
 
-            @if (item.hasDropdown) {
-              <svg class="navbar__arrow" width="11" height="11" viewBox="0 0 24 24"
-                fill="none" stroke="currentColor" stroke-width="2.5">
-                <polyline points="6 9 12 15 18 9"/>
-              </svg>
-            }
+    <div class="navbar__collapse" [class.show]="isMenuOpen">
+      <div class="navbar__list-wrapper">
+        <ul class="navbar__list">
+          @for (item of navItems; track item.label) {
+            <li class="navbar__item">
+              <a
+                [routerLink]="item.href"
+                routerLinkActive="navbar__link--active"
+                [routerLinkActiveOptions]="{ exact: item.href === '/home' || item.href === '/' }"
+                class="navbar__link"
+              >
+                {{ item.label }}
 
-          </a>
-        </li>
-      }
-    </ul>
+                @if (item.hasDropdown) {
+                  <svg class="navbar__arrow" width="11" height="11" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="6 9 12 15 18 9"/>
+                  </svg>
+                }
 
-    <!-- Phone -->
-    <div class="navbar__phone">
-      <div class="navbar__phone-icon">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2">
-          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.22 1.18 2 2 0 012.22 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.56-.56a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/>
-        </svg>
-      </div>
-      <a href="tel:082-345-6789" class="navbar__phone-number">082 345-6789</a>
-    </div>
+              </a>
+            </li>
+          }
+        </ul>
 
-    <!-- USER MENU -->
-    <div class="navbar__user">
-
-      @if (isLoggedIn) {
-
-        <div class="navbar__profile">
-
-          <svg width="18" height="18" viewBox="0 0 24 24"
-            fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M20 21a8 8 0 10-16 0"/>
-            <circle cx="12" cy="7" r="4"/>
-          </svg>
-
-          <span style="margin-left:6px">{{ username }}</span>
-
+        <!-- Phone -->
+        <div class="navbar__phone">
+          <div class="navbar__phone-icon">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2">
+              <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.22 1.18 2 2 0 012.22 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.09a16 16 0 006 6l.56-.56a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/>
+            </svg>
+          </div>
+          <a href="tel:082-345-6789" class="navbar__phone-number">082 345-6789</a>
         </div>
+      </div>
 
-        <button (click)="logout()" class="navbar__logout">
-          Logout
-        </button>
+      <!-- USER MENU -->
+      <div class="navbar__user">
 
-      }
+        @if (isLoggedIn) {
 
+          <div class="navbar__profile" [routerLink]="['/settings']">
+
+            <svg width="18" height="18" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21a8 8 0 10-16 0"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+
+            <span style="margin-left:6px">{{ username }}</span>
+
+          </div>
+
+          <button (click)="logout()" class="navbar__logout">
+            Logout
+          </button>
+
+        } @else {
+          <!-- Optional: Show Login/Register when not logged in -->
+          <a routerLink="/login" class="navbar__link mx-2">เข้าสู่ระบบ</a>
+          <a routerLink="/register" class="navbar__link">สมัครสมาชิก</a>
+        }
+
+      </div>
     </div>
 
   </div>
-
-
 
 </nav>
 

@@ -1,42 +1,60 @@
 /* ===================== NAVBAR STYLES ===================== */
-
 .navbar {
   width: 100%;
   background-color: #1d2128;
   font-family: 'Helvetica Neue', Arial, sans-serif;
+  position: relative;
+  z-index: 1000;
 }
-
 .navbar__inner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding: 0 24px;
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  margin-left: 125px;
-  
+  position: relative;
+  min-height: 60px;
+}
+.navbar__toggler {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 12px 0;
+  margin-right: auto;
+}
+.navbar__collapse {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
 }
 
 /* ---------- Nav List ---------- */
+.navbar__list-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
 .navbar__list {
   display: flex;
   align-items: center;
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: 2px;
+  gap: 16px;
 }
-
 .navbar__item {
   position: relative;
 }
-
 .navbar__link {
   display: flex;
   align-items: center;
   gap: 4px;
-  padding: 16px 14px;
-  font-size: 14px;
+  padding: 16px 20px;
+  font-size: 15px;
   font-weight: 400;
   color: #b0b5c3;
   text-decoration: none;
@@ -44,35 +62,18 @@
   white-space: nowrap;
   transition: color 0.2s;
 }
-
-.navbar__link:hover {
-  color: #ffffff;
-}
-
-.navbar__item--active .navbar__link {
-  color: #ffffff;
-  font-weight: 600;
-}
-
-.navbar__arrow {
-  margin-top: 1px;
-  transition: transform 0.2s;
-  flex-shrink: 0;
-}
-
-.navbar__link:hover .navbar__arrow {
-  transform: rotate(180deg);
-}
+.navbar__link:hover { color: #ffffff; }
+.navbar__link--active { color: #ffffff; font-weight: 600; }
+.navbar__arrow { margin-top: 1px; transition: transform 0.2s; flex-shrink: 0; }
+.navbar__link:hover .navbar__arrow { transform: rotate(180deg); }
 
 /* ---------- Phone ---------- */
 .navbar__phone {
   display: flex;
   align-items: center;
   gap: 10px;
-  flex-shrink: 0;
-  margin-right: 900px;
+  margin-left: 0px;
 }
-
 .navbar__phone-icon {
   width: 32px;
   height: 32px;
@@ -81,118 +82,98 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
   transition: border-color 0.2s;
 }
-
-.navbar__phone:hover .navbar__phone-icon {
-  border-color: #22c55e;
-}
-
+.navbar__phone:hover .navbar__phone-icon { border-color: #22c55e; }
 .navbar__phone-number {
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.3px;
-  text-decoration: none;
-  transition: color 0.2s;
+  color: #ffffff; font-size: 14px; font-weight: 500;
+  text-decoration: none; transition: color 0.2s;
 }
+.navbar__phone-number:hover { color: #22c55e; }
 
-.navbar__phone-number:hover {
-  color: #22c55e;
-}
-/* ---------- Breadcrumb ---------- */
-
-.navbar__breadcrumb {
-  width: 100%;
-  background: #ffffff;
-  border-top: 1px solid #e5e7eb;
-}
-
-.navbar__breadcrumb-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 12px 24px;
-  font-size: 14px;
-  color: #6b7280;
+/* ---------- USER MENU ---------- */
+.navbar__user {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
+  margin-left: auto;
 }
+.navbar__profile {
+  display: flex; align-items: center; gap: 8px; color: white; cursor: pointer;
+}
+.navbar__profile svg {
+  width: 22px; height: 22px; padding: 4px; border-radius: 50%; border: 1px solid #3a3f4e;
+}
+.navbar__profile:hover svg { border-color: #22c55e; }
+.navbar__profile span { font-size: 13px; color: white; }
+.navbar__logout {
+  background: none; border: none; color: white; cursor: pointer;
+  font-size: 13px; margin-left: 8px; transition: color 0.2s;
+}
+.navbar__logout:hover { color: #22c55e; }
 
-.navbar__breadcrumb a {
-  color: #6b7280;
-  text-decoration: none;
+/* ---------- Breadcrumb ---------- */
+.navbar__breadcrumb {
+  width: 100%; background: #ffffff; border-top: 1px solid #e5e7eb;
 }
+.navbar__breadcrumb-inner {
+  padding: 12px 24px; font-size: 14px;
+  max-width: 1200px; margin: 0 auto;
+  color: #6b7280; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.navbar__breadcrumb a { color: #6b7280; text-decoration: none; }
+.breadcrumb__separator { color: #9ca3af; }
+.breadcrumb__item { color: #111827; font-weight: 500; }
 
-.breadcrumb__separator {
-  color: #9ca3af;
-}
-
-.breadcrumb__item {
-  color: #111827;
-  font-weight: 500;
-}
-/* ---------- USER MENU ---------- */
-
-.navbar__user{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin-left:auto;
-}
-
-.navbar__login,
-.navbar__register{
-  color:#ffffff;
-  font-size:14px;
-  text-decoration:none;
-  transition:color 0.2s;
-}
-
-.navbar__login:hover,
-.navbar__register:hover{
-  color:#22c55e;
-}
-
-.navbar__profile{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  color:white;
-  cursor:pointer;
-}
-
-/* วงกลมของไอคอน */
-.navbar__profile svg{
-  width:22px;
-  height:22px;
-  padding:4px;
-  border-radius:50%;
-  border:1px solid #3a3f4e;
-}
-
-.navbar__profile:hover svg{
-  border-color:#22c55e;
-}
-
-.navbar__logout{
-  background:none;
-  border:none;
-  color:white;
-  cursor:pointer;
-  font-size:14px;
-  transition:color 0.2s;
-}
-
-.navbar__logout:hover{
-  color:#22c55e;
-}
-.navbar__profile span{
-  font-size:13px;
-  color:white;
-}
-.navbar__logout{
-  font-size:13px;
-  margin-left:8px;
+/* ---------- MEDIA QUERIES FOR RESPONSIVENESS ---------- */
+@media (max-width: 991px) {
+  .navbar__inner {
+    flex-wrap: wrap;
+  }
+  .navbar__toggler { 
+    display: block; 
+  }
+  .navbar__collapse {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    background-color: #1d2128;
+    padding: 10px 24px 20px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+  }
+  .navbar__collapse.show { 
+    display: flex; 
+  }
+  .navbar__list-wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 0;
+  }
+  .navbar__list { 
+    flex-direction: column; width: 100%; align-items: flex-start; 
+  }
+  .navbar__item { width: 100%; border-bottom: 1px solid #3a3f4e; }
+  .navbar__link { width: 100%; padding: 12px 0; }
+  
+  .navbar__phone { 
+    margin-left: 0; 
+    margin-top: 16px; 
+    padding-bottom: 16px; 
+    width: 100%; 
+    border-bottom: 1px solid #3a3f4e; 
+  }
+  .navbar__user { 
+    margin-left: 0; 
+    margin-top: 16px; 
+    flex-direction: column; 
+    align-items: flex-start; 
+    gap: 16px; 
+    width: 100%; 
+  }
+  .navbar__logout {
+    margin-left: 0;
+  }
 }

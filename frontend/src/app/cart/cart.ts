@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { CartService } from '../../services/cart.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { CheckoutComponent } from '../checkout/checkout';
+
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, CheckoutComponent],
   templateUrl: './cart.html',
   styleUrls: ['./cart.scss']
 })
@@ -88,21 +90,15 @@ toggleSelectAll() {
   this.cartItems.set(updated);
   this.updateSelected();
 }
+  showCheckout = false;
 
   goCheckout(){
-  const selected = this.selectedItems();
-
-  if (selected.length === 0) {
-    alert("กรุณาเลือกสินค้า");
-    return;
+    if (this.selectedItems().length === 0) {
+      alert('กรุณาเลือกสินค้าที่ต้องการชำระเงิน');
+      return;
+    }
+    this.showCheckout = true;
   }
-
-  this.router.navigate(['/order'], {
-    state: { items: selected }   // 🔥 ส่งไปหน้า order
-  });
-}
-
-  showCheckout = false;
 
   openCheckout(){
     this.showCheckout = true;
