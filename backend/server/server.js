@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require("express")
 const cors = require("cors")
 const { PrismaClient } = require("@prisma/client")
- 
+
 const app = express();
 const prisma = new PrismaClient();
 app.use(cors()); // เปิด CORS ให้ทุกที่มาเข้าถึงได้
@@ -10,7 +10,8 @@ let test = "test-server "
  
 console.log(test);
  
-app.use(cors())
+
+
 app.use(express.json())
  
 const allRoutes = require('../routes/index');

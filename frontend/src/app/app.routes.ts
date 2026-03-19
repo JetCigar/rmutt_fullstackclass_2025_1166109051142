@@ -11,6 +11,7 @@ import { Address } from './address/address';
 import { SettingPage } from './setting-page/setting-page';
 import { Review } from './review/review';
 import { CartComponent } from './cart/cart';
+import { ProductInfo } from './product-info/product-info';
 import { CheckoutComponent } from './checkout/checkout';
 
 export const routes: Routes = [
@@ -67,5 +68,9 @@ export const routes: Routes = [
   {
     path: 'settings',
     component: SettingPage
-  }
+  },
+  {
+    path: 'product-info/:id',
+    component: ProductInfo // 2.
+  },
 ];

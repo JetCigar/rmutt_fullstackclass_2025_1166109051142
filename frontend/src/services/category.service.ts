@@ -17,18 +17,21 @@ export interface CategoryData {
 })
 export class CategoryService {
   private apiUrl = 'http://localhost:9999/api/categories';
+  
+
+  constructor(private http: HttpClient) { }
 
 
-   constructor(private http: HttpClient) {}
 
+  getCategories(): Observable<CategoryData[]> {
+    return this.http.get<CategoryData[]>(`${this.apiUrl}/test-category`);
+  }
 
-   getCategories(): Observable<CategoryData[]> {
-     return this.http.get<CategoryData[]>(`${this.apiUrl}/test-category`);
-   }
-
+  getProductById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/product/${id}`);
+  }
 
 
 }
 
-   
-    
+
