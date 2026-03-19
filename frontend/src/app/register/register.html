@@ -1,14 +1,11 @@
 <div class="login-wrapper">
   <div class="login-card">
-
     <!-- Logo -->
     <div class="logo">
       <i class="bi bi-leaf"></i>
       <span>Kaset<span class="green">Thai</span></span>
     </div>
-
     <h2>สมัครสมาชิก</h2>
-
     <form (ngSubmit)="register()">
 
       <!-- Name -->
@@ -18,7 +15,7 @@
           <label>ชื่อ</label>
           <input type="text" placeholder="ชื่อ" [(ngModel)]="firstname" name="firstname" required />
         </div>
-
+        
         <div class="field">
           <label>นามสกุล</label>
           <input type="text" placeholder="นามสกุล" [(ngModel)]="lastname" name="lastname" required />
