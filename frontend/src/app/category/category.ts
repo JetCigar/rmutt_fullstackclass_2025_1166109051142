@@ -2,13 +2,13 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CategoryService } from '../../services/category.service';
 import { CommonModule } from '@angular/common';
 // import { FormsModule } from '@angular/forms';
-import { ActivatedRoute,RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-category',
-  imports: [CommonModule, FormsModule,RouterModule,],
+  imports: [CommonModule, FormsModule, RouterModule,],
   templateUrl: './category.html',
   styleUrl: './category.css',
 })
@@ -20,13 +20,14 @@ export class Category implements OnInit {
   imageUrl: string[] = []; // URL image ของสินค้า
   currentPrice = 0;
   sortOrder: string = '';
+  searchKeyword: string = ''; // ตัวแปรสำหรับคำค้นหา
 
 
 
   constructor(
     private categoryService: CategoryService,
     private cdr: ChangeDetectorRef,
-    private router: Router ,// เพิ่มตัวนี้
+    private router: Router,// เพิ่มตัวนี้
     private route: ActivatedRoute,
   ) { }
 
@@ -49,19 +50,25 @@ export class Category implements OnInit {
         return acc;
       }, []);
 
-      // ตรวจสอบ query params จาก URL ว่ามี id ส่งมาหรือไม่
-      const categoryIdFromRoute = this.route.snapshot.queryParamMap.get('id');
-      if (categoryIdFromRoute) {
-        this.selectedCategoryIds = [Number(categoryIdFromRoute)];
-      }
+      // ตรวจสอบ query params จาก URL แบบ Subscribe ให้ทำงานทุกครั้งที่มีการเปลี่ยน URL เพื่อให้การค้นหาทำได้ต่อเนื่อง
+      this.route.queryParams.subscribe(params => {
+        const categoryIdFromRoute = params['id'];
+        this.searchKeyword = params['q'] || ''; //ดึง keyword ค้นหาจาก url query string
 
-      this.applyFilter(); // กรองสินค้าตามหมวดหมู่ที่เลือก (ถ้ามี)
+        if (categoryIdFromRoute) {
+          this.selectedCategoryIds = [Number(categoryIdFromRoute)];
+        } else if (this.searchKeyword) {
+           // กรณีมีการค้นหาจากหน้าอื่น จะรีเซ็ตหมวดหมู่เพื่อให้ค้นหาเจอทุกที่
+          this.selectedCategoryIds = [];
+        }
 
-      console.log('หมวดหมู่:', this.categories);
-      console.log('สินค้าทั้งหมด:', this.allProducts);
-      console.log('รูปภาพ:', this.allProducts.map((p: any) => p.images[0]?.image_url));
+        this.applyFilter(); // กรองสินค้าใหม่ทุกครั้งที่มีการเปลี่ยน URL (เช่นค้นหาใหม่)
 
-      this.cdr.detectChanges();
+        console.log('หมวดหมู่:', this.categories);
+        console.log('สินค้าทั้งหมด:', this.allProducts);
+        
+        this.cdr.detectChanges();
+      });
     });
   }
 
@@ -92,6 +99,15 @@ export class Category implements OnInit {
   applyFilter() {
     // 1. เริ่มต้นจากสินค้าทั้งหมดก่อนเสมอ
     let tempProducts = [...this.allProducts];
+
+    // กรองด้วยคำค้นหา (ถ้ามี)
+    if (this.searchKeyword) {
+      const keyword = this.searchKeyword.toLowerCase();
+      tempProducts = tempProducts.filter(product =>
+        product.name?.toLowerCase().includes(keyword) || 
+        product.description?.toLowerCase().includes(keyword)
+      );
+    }
 
     // 2. กรองตามหมวดหมู่ (ถ้ามีการเลือก)
     if (this.selectedCategoryIds.length > 0) {
