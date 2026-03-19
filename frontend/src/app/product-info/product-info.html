@@ -51,7 +51,7 @@
             <input type="number" value="{{ quantity }}" />
             <button type="button" (click)="increment()">+</button>
           </div>
-          <button class="btn-add-cart" [disabled]="product.stock_quantity <= 0">
+          <button class="btn-add-cart" [disabled]="product.stock_quantity <= 0" (click)="addToCart()">
             เพิ่มลงตะกร้า
           </button>
           <button class="btn-wishlist">♡</button>

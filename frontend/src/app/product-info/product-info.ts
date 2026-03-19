@@ -1,8 +1,9 @@
 import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductInfoService, ProductDetail} from '../../services/productInfo';
 import { DecimalPipe ,CommonModule } from '@angular/common';
 import { ReviewComponent } from'../product-review/product-review';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-product-info',
@@ -18,8 +19,9 @@ export class ProductInfo implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private productInfoService: ProductInfoService,
-    private cdr: ChangeDetectorRef
-    
+    private cdr: ChangeDetectorRef,
+    private router: Router,
+    private cartService: CartService
   ) {}
   // สร้างตัวแปรเก็บจำนวน (ค่าเริ่มต้นเป็น 1)
 quantity: number = 1;
@@ -54,5 +56,38 @@ ngOnInit(): void {
         }
       });
     }
+  }
+
+  // ฟังก์ชันเพิ่มสินค้าลงตะกร้า
+  addToCart() {
+    const userStr = localStorage.getItem('user');
+    if (!userStr) {
+      alert('กรุณาเข้าสู่ระบบก่อนเพิ่มสินค้าลงตะกร้า');
+      this.router.navigate(['/login']);
+      return;
+    }
+    
+    const user = JSON.parse(userStr);
+    const customerId = user.customer_id || user.id;
+
+    if (!this.product) return;
+
+    const payload = {
+      customer_id: customerId,
+      product_id: this.product.product_id,
+      quantity: this.quantity
+    };
+
+    this.cartService.addToCart(payload).subscribe({
+      next: (res) => {
+        alert('เพิ่มสินค้าลงตะกร้าเรียบร้อยแล้ว');
+        // ให้ Header อัปเดตตัวเลขจำนวนสินค้าแบบเรียลไทม์
+        this.cartService.getCart(customerId).subscribe();
+      },
+      error: (err) => {
+        console.error('Add to cart failed', err);
+        alert('เกิดข้อผิดพลาดในการเพิ่มสินค้าลงตะกร้า');
+      }
+    });
   }
 }

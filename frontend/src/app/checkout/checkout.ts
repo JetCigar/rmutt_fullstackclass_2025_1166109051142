@@ -42,6 +42,11 @@ export class CheckoutComponent implements OnInit {
   orderId = '';
   orderSuccess = false;
 
+  // Discount
+  discountCode = '';
+  discountError = '';
+  appliedDiscount: { id: number, code: string, amount: number } | null = null;
+
   constructor(
     public cartService: CartService,
     private orderService: OrderService,
@@ -203,6 +208,7 @@ export class CheckoutComponent implements OnInit {
       address: finalAddress,
       paymentMethod: this.paymentMethod,
       totalAmount: this.total,
+      discountId: this.appliedDiscount ? this.appliedDiscount.id : null,
       items: this.items.map(item => ({
         product_id: item.product_id,
         quantity: item.quantity,
@@ -272,11 +278,37 @@ export class CheckoutComponent implements OnInit {
   }
 
   get total() {
-    return this.items.reduce((sum: number, item: any) => sum + (item.product.price * item.quantity), 0);
+    let base = this.items.reduce((sum: number, item: any) => sum + (item.product.price * item.quantity), 0);
+    if (this.appliedDiscount) {
+      base -= this.appliedDiscount.amount;
+      if (base < 0) base = 0;
+    }
+    return base;
   }
 
   get formattedTotal() {
     return this.total.toLocaleString();
+  }
+
+  applyDiscount() {
+    if (!this.discountCode.trim()) {
+      this.discountError = 'กรุณากรอกโค้ดส่วนลด';
+      return;
+    }
+    this.discountError = '';
+    this.orderService.validateDiscount(this.discountCode).subscribe({
+      next: (res: any) => {
+        this.appliedDiscount = {
+          id: res.discount_id,
+          code: res.code,
+          amount: Number(res.discount_amount)
+        };
+      },
+      error: (err: any) => {
+        this.appliedDiscount = null;
+        this.discountError = err.error?.message || 'โค้ดส่วนลดไม่ถูกต้อง หรือหมดอายุ';
+      }
+    });
   }
 
   getSelectedAddress() {

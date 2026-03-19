@@ -23,6 +23,7 @@ export interface OrderData {
 })
 export class OrderService {
   private readonly apiBase = 'http://localhost:9999/auth';
+  private readonly discountApi = 'http://localhost:9999/api/discounts';
 
   constructor(private http: HttpClient) {}
 
@@ -32,5 +33,9 @@ export class OrderService {
 
   createOrder(payload: any): Observable<any> {
     return this.http.post(`${this.apiBase}/orders/create`, payload);
+  }
+
+  validateDiscount(code: string): Observable<any> {
+    return this.http.post(`${this.discountApi}/validate`, { code });
   }
 }

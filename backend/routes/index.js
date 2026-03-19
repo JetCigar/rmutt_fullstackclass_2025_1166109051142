@@ -23,6 +23,10 @@ router.use('/api/cart', cartRoutes);
 //product reveiw
 router.use('/api/review', productreview);
 
+// discount validation
+const discountRoutes = require('./discount.routes');
+router.use('/api/discounts', discountRoutes);
+
 // แยกการตั้งค่าบัญชี (profile/settings)
 const settingRoutes = require('./setting.routes');
 router.use('/auth/settings', settingRoutes);

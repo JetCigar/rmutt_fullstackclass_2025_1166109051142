@@ -259,20 +259,43 @@
           </div>
 
           <div class="summary-total-box shadow-sm">
+            <!-- ส่วนลด -->
+            <div class="discount-section mb-4 p-3 bg-light rounded shadow-sm border">
+              <label class="form-label small fw-bold text-dark"><i class="bi bi-tag-fill text-warning me-1"></i> โค้ดส่วนลด</label>
+              <div class="d-flex gap-2">
+                <input type="text" class="form-control shadow-none border-secondary" [(ngModel)]="discountCode" placeholder="กรอกโค้ดที่นี่">
+                <button class="btn btn-dark fw-bold px-4" (click)="applyDiscount()">ใช้โค้ด</button>
+              </div>
+              @if (discountError) {
+                <small class="text-danger mt-2 d-block fw-bold"><i class="bi bi-exclamation-circle me-1"></i> {{ discountError }}</small>
+              }
+              @if (appliedDiscount) {
+                <small class="text-success mt-2 d-block fw-bold"><i class="bi bi-check-circle-fill me-1"></i> ใช้งานโค้ด "{{ appliedDiscount.code }}" ลดไป ฿{{ appliedDiscount.amount | number }}</small>
+              }
+            </div>
+
             <div class="price-breakdown mb-2 opacity-75 small">
               <div class="d-flex justify-content-between">
-                <span>ราคาสินค้า</span>
-                <span>฿{{ total | number:'1.0-0' }}</span>
+                <span>ยอดรวมสินค้า</span>
+                <span>฿{{ (items.length > 0 ? (total + (appliedDiscount?.amount || 0)) : 0) | number:'1.0-0' }}</span>
               </div>
               <div class="d-flex justify-content-between">
                 <span>ค่าจัดส่ง</span>
                 <span class="text-white fw-bold">ฟรี</span>
               </div>
+              @if (appliedDiscount) {
+                <div class="d-flex justify-content-between text-success fw-bold">
+                  <span>ส่วนลด</span>
+                  <span>- ฿{{ appliedDiscount.amount | number:'1.0-0' }}</span>
+                </div>
+              }
             </div>
-            <div class="total-row border-top pt-2">
+
+            <div class="total-row border-top pt-2 d-flex justify-content-between align-items-center">
               <span>ยอดชำระทั้งสิ้น</span>
-              <strong>฿{{ total | number:'1.0-0' }}</strong>
+              <strong class="fs-4 text-success">฿{{ formattedTotal }}</strong>
             </div>
+
             <div class="method-tag mt-2">
               <span class="badge bg-white text-success px-3">
                 ช่องทาง: {{ paymentMethod === 'card' ? 'บัตรเครดิต' : paymentMethod === 'qr' ? 'QR พร้อมเพย์' :

@@ -66,7 +66,7 @@ exports.getOrdersByCustomer = async (req, res) => {
 };
 
 exports.createOrder = async (req, res) => {
-  const { customerId, address, addressId, paymentMethod, totalAmount, items } = req.body;
+  const { customerId, address, addressId, paymentMethod, totalAmount, items, discountId } = req.body;
 
   try {
     let finalAddressId = addressId;
@@ -103,6 +103,7 @@ exports.createOrder = async (req, res) => {
         customer_id: Number(customerId),
         total_amount: Number(totalAmount),
         status: 'pending',
+        discount_id: discountId ? Number(discountId) : null,
         order_items: {
           create: items.map(item => ({
             product_id: Number(item.product_id),

@@ -22,7 +22,9 @@
             <div class="position-absolute top-0 start-0 m-3 z-2">
               <span class="badge bg-danger rounded-pill px-3 shadow-sm">ลด 15%</span>
             </div>
-            <div class="product-img-wrap bg-light m-3 rounded-4 d-flex align-items-center justify-content-center p-4" style="height: 200px;">
+            <div class="product-img-wrap bg-light m-3 rounded-4 d-flex align-items-center justify-content-center p-4" 
+                 style="height: 200px; cursor: pointer;" 
+                 [routerLink]="['/product-info', product.product_id]">
               <img [src]="product.images[0]?.image_url || 'https://via.placeholder.com/300x200?text=Product'"
                 [alt]="product.name" class="img-fluid h-100 object-fit-contain">
             </div>
@@ -36,7 +38,8 @@
                 <span class="text-muted ms-1">(12)</span>
               </div>
               <h6 class="product-title fw-bold mb-3 overflow-hidden"
-                style="height: 2.5rem; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical;">
+                style="height: 2.5rem; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; cursor: pointer;"
+                [routerLink]="['/product-info', product.product_id]">
                 {{ product.name }}
               </h6>
               <div class="d-flex justify-content-between align-items-center mb-3">
