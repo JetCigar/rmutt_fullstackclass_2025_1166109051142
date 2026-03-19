@@ -3,12 +3,33 @@
   <!-- LEFT : CART ITEMS -->
   <div class="cart-left">
 
-    <h2>🛒 ตะกร้าสินค้า ({{cartItems().length}} รายการ)</h2>
+    <div class="cart-header">
+      <h2>🛒 ตะกร้าสินค้า ({{cartItems().length}} รายการ)</h2>
+    </div>
+
+    <div class="cart-top-bar">
+      <div class="select-all">
+        <input type="checkbox" [checked]="isAllSelected()" [indeterminate]="selectedItems().length > 0 && !isAllSelected()" (change)="toggleSelectAll()" />
+        <span>เลือกทั้งหมด</span>
+      </div>
+
+        <button class="delete-btn" [disabled]="selectedItems().length === 0"(click)="deleteSelected()">
+          ล้างตะกร้า
+        </button>
+      </div>
+    
 
     <div class="cart-card" *ngFor="let item of cartItems()">
 
       <div class="product-img">
-        📦
+        <input type="checkbox"
+        class="select-checkbox"
+        [(ngModel)]="item.selected"
+        (change)="updateSelected()" />
+
+        <img [src]="item.product.images?.[0]?.image_url || item.product.image_url || 'https://placehold.co/80x80?text=No+Img'" 
+             alt="{{ item.product.name }}"
+             (error)="$any($event.target).src='https://placehold.co/80x80?text=No+Img'">
       </div>
 
       <div class="product-info">
@@ -18,85 +39,71 @@
         </div>
 
         <h3>{{ item.product.name }}</h3>
-
         <p class="sku">SKU: {{ item.product.sku }}</p>
 
         <div class="qty-box">
-
           <button class="qty-btn minus" (click)="decrease(item)">
             -
           </button>
-        
           <span class="qty-number">
             {{ item.quantity }}
           </span>
-        
           <button class="qty-btn plus" (click)="increase(item)">
             +
           </button>
-        
         </div>
-
       </div>
 
       <div class="product-price">
-
         <div class="price">
-          ฿{{ item.quantity * item.product.price }}
+          ฿{{ (item.quantity * item.product.price) | number:'1.0-0' }}
         </div>
-
         <small>
-          ฿{{ item.product.price }} × {{ item.quantity }}
+          ฿{{ item.product.price | number:'1.0-0' }} × {{ item.quantity }}
         </small>
-
       </div>
 
       <div class="remove">
         <button (click)="remove(item)">✕</button>
       </div>
-
     </div>
-
   </div>
 
   <!-- RIGHT : SUMMARY -->
-
+  
   <div class="cart-right">
-
     <div class="summary-box">
-
       <h3>สรุปคำสั่งซื้อ</h3>
-
-      <p>{{ totalItems() }} ชิ้น · {{ cartItems().length }} รายการ</p>
+      <p>{{ selectedQuantity() }} ชิ้น · {{ selectedCount() }} รายการ</p>
 
       <div class="summary-row">
         <span>ราคาสินค้า</span>
-        <span>฿{{ totalPrice() }}</span>
+        <span>฿{{ selectedTotal() | number:'1.0-0' }}</span>
       </div>
 
       <div class="summary-row">
         <span>ค่าจัดส่ง</span>
         <span class="free">ฟรี</span>
       </div>
-
       <hr>
 
       <div class="summary-total">
         <span>รวมทั้งสิ้น</span>
-        <span>฿{{ totalPrice() }}</span>
+        <span>฿{{ selectedTotal() | number:'1.0-0' }}</span>
       </div>
 
-      <button class="checkout-btn" (click)="goCheckout()">
+      <button class="checkout-btn" (click)="openCheckout()">
         ดำเนินการชำระเงิน
       </button>
 
       <button class="continue-btn" (click)="continueShopping()">
         ← ช้อปปิ้งต่อ
       </button>
-
     </div>
-
   </div>
 
 
 </div>
+
+<!-- CHECKOUT MODAL -->
+<app-checkout *ngIf="showCheckout" (closeModal)="showCheckout = false"></app-checkout>

@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Kanit:wght@300;400;500;600;700&display=swap'); */
-=======
-/* ===================== HOME COMPONENT STYLES (v0 Style) =====================
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Kanit:wght@300;400;500;600;700&display=swap'); */
->>>>>>> e296b4e8e7a9d19f9ecb7dc8efd2d3f4526906ee
-=======
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Kanit:wght@300;400;500;600;700&display=swap');
->>>>>>> parent of 0a01151 (jet_categoryV2)
 
 :host {
   font-family: 'Inter', 'Kanit', sans-serif;

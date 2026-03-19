@@ -1,0 +1,44 @@
+<section class="secondary-promos mb-5">
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="promo-card card-countdown rounded-4 p-4 text-center d-flex flex-column justify-content-center h-100 shadow-sm border-0 bg-dark text-white overflow-hidden position-relative" style="min-height: 250px;">
+        <div class="position-absolute w-100 h-100 top-0 start-0 opacity-50" style="background: url('https://idofragrance.com/wp-content/uploads/2017/10/field-smell-02.jpg') center/cover;"></div>
+        <div class="position-relative z-1">
+          <span class="badge bg-warning text-dark mb-3">โปรโมชั่นเดือนนี้</span>
+          <h3 class="fw-bold mb-3">ลดทั้งร้าน</h3>
+          <div class="d-flex justify-content-center gap-2 mb-4">
+            <div class="bg-white text-dark rounded px-2 py-1">
+              <div class="fw-bold">{{ hours() }}</div>
+              <div class="x-small">ชม.</div>
+            </div>
+            <div class="bg-white text-dark rounded px-2 py-1">
+              <div class="fw-bold">{{ minutes() }}</div>
+              <div class="x-small">นาที</div>
+            </div>
+            <div class="bg-white text-dark rounded px-2 py-1">
+              <div class="fw-bold">{{ seconds() }}</div>
+              <div class="x-small">วินาที</div>
+            </div>
+          </div>
+          <button class="btn btn-success rounded-pill px-4" [routerLink]="['/category']">ซื้อเลย &rarr;</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="promo-card bg-success text-white rounded-4 p-4 text-center d-flex flex-column justify-content-center h-100 shadow-sm border-0" style="min-height: 250px;">
+        <span class="badge bg-light text-success mb-3 align-self-center">ราคาพิเศษ</span>
+        <h3 class="fw-bold mb-2">ปั๊มน้ำราคาประหยัด</h3>
+        <p class="fs-4 fw-bold mb-4">เริ่มต้น ฿3,200</p>
+        <button class="btn btn-white text-success rounded-pill px-4 align-self-center bg-white border-0 fw-bold" [routerLink]="['/category']">หารายละเอียด</button>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="promo-card promo-orange-soft text-dark rounded-4 p-4 text-center d-flex flex-column justify-content-center h-100 shadow-sm border-0" style="min-height: 250px;">
+        <span class="badge bg-warning text-dark mb-3 align-self-center">จัดส่งฟรี</span>
+        <h3 class="fw-bold mb-2">สินค้าใหม่ล่าสุด</h3>
+        <p class="mb-4">ลดสูงสุด <span class="badge bg-danger fs-6">64%</span></p>
+        <button class="btn btn-success rounded-pill px-4 align-self-center fw-bold" [routerLink]="['/category']">ซื้อเลย &rarr;</button>
+      </div>
+    </div>
+  </div>
+</section>

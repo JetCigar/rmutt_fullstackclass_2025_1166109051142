@@ -6,6 +6,7 @@ POST /cart
 */
 exports.addToCart = async (req, res) => {
   try {
+    console.log("CartController: addToCart receiving:", req.body);
     const { customer_id, product_id, quantity } = req.body
 
     const existingItem = await prisma.cartItem.findFirst({
@@ -61,7 +62,14 @@ exports.getCart = async (req, res) => {
         customer_id: parseInt(customer_id)
       },
       include: {
-        product: true
+        product: {
+          include: {
+            images: {
+              where: { is_primary: true },
+              take: 1
+            }
+          }
+        }
       }
     })
 
@@ -71,7 +79,6 @@ exports.getCart = async (req, res) => {
     res.status(500).json({ error: "Cannot get cart" })
   }
 }
-
 
 /*
 อัปเดตจำนวนสินค้า

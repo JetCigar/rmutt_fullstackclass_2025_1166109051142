@@ -1,9 +1,9 @@
 .cart-page{
   display:flex;
   gap:30px;
-  width:90%;
+  width:80%;
   margin:auto;
-  margin-top:120px;   /* เว้น nav */
+  margin-top:30px; 
 }
 
 .blur{
@@ -14,6 +14,73 @@
 
 .cart-left{
   flex:2;
+}
+
+.select-checkbox {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+.product-img {
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.cart-header {
+  display: flex;
+  align-items: center;
+  gap: 300px; 
+}
+
+.cart-header h2 {
+  margin: 0;
+}
+
+.cart-top-bar{
+  display:flex;
+  justify-content: space-between;
+  align-items:center;
+  background:#d9e2dd;
+  border:1px solid #eee;
+  border-radius:8px;
+  padding:12px 20px;
+  margin:15px 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.select-all{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:14px;
+}
+
+.select-all input{
+  width:18px;
+  height:18px;
+  cursor:pointer;
+}
+
+.delete-btn{
+  background:rgb(40, 28, 28);
+  color:white;
+  border:none;
+  padding:8px 20px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.delete-btn:hover{
+  opacity:0.85;
+}
+
+.delete-btn:disabled{
+  background:#695f5f;
+  cursor:not-allowed;
 }
 
 .cart-card{
@@ -27,17 +94,25 @@
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
-.product-img{
-  width:70px;
-  height:70px;
-  background:#eaeaea;
-  border-radius:10px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:30px;
-  margin-right:15px;
+.product-img {
+  width: 90px;
+  height: 90px;
+  min-width: 90px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-right: 15px;
+  flex-shrink: 0;
+  background: #f5f5f5;
+  border: 1px solid #eaeaea;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
 }
+
 
 .product-info{
   flex:1;
@@ -92,7 +167,7 @@
 /* RIGHT */
 
 .cart-right{
-  flex:1;
+  margin-top: 50px;
 }
 
 .summary-box{
@@ -131,6 +206,11 @@
   font-size:16px;
   border-radius:8px;
 }
+
+.checkout-btn:hover{
+  opacity:0.85;
+}
+
 
 .continue-btn{
   width:100%;

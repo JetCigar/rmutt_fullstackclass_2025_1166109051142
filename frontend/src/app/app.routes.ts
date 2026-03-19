@@ -12,6 +12,7 @@ import { SettingPage } from './setting-page/setting-page';
 import { Review } from './review/review';
 import { CartComponent } from './cart/cart';
 import { ProductInfo } from './product-info/product-info';
+import { CheckoutComponent } from './checkout/checkout';
 
 export const routes: Routes = [
   {
@@ -59,6 +60,10 @@ export const routes: Routes = [
   {
     path: 'cart',
     component: CartComponent
+  },
+  {
+    path: 'checkout',
+    component: CheckoutComponent
   },
   {
     path: 'settings',

@@ -33,6 +33,12 @@ export class NavbarComponent implements OnInit {
   // ⭐ เพิ่มตัวแปรเก็บชื่อผู้ใช้
   username: string = '';
 
+  isMenuOpen = false;
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
   breadcrumbMap: any = {
     '/login': 'เข้าสู่ระบบ',
     '/register': 'สมัครสมาชิก',
@@ -54,6 +60,7 @@ export class NavbarComponent implements OnInit {
       .subscribe(() => {
 
         this.checkLogin();
+        this.isMenuOpen = false; // ปิดเมนูเมื่อเปลี่ยนหน้า
 
         const url = this.router.url.split('?')[0];
         const path = '/' + url.split('/')[1];

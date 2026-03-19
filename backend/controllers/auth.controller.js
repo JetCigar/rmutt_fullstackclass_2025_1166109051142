@@ -8,7 +8,7 @@ require('dotenv').config({ path: '../../.env' });
 // REGISTER
 exports.register = async (req, res) => {
   try {
-    const { first_name, last_name, email, password } = req.body
+    const { first_name, last_name, email, phone, password } = req.body
 
     const existingUser = await prisma.customer.findUnique({
       where: { email }
@@ -25,6 +25,7 @@ exports.register = async (req, res) => {
         first_name,
         last_name,
         email,
+        phone: phone || null,
         password_hash: hashedPassword
       }
     })
