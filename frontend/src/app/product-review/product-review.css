@@ -1,17 +1,48 @@
 .review-container {
-  max-width: 500px;
+  max-width: 700px;
   margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #f9f9f9;
+  padding: 24px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background-color: #f9fafb;
 }
 
-h3 {
-  margin-top: 0;
-  color: #333;
+/* Review list item */
+.review-item {
+  border-left: 4px solid #28a745 !important;
+  transition: box-shadow 0.2s;
 }
 
+.review-item:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
+}
+
+.review-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1fbc52, #0a8f3e);
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.review-stars {
+  font-size: 0.9rem;
+  letter-spacing: -2px;
+}
+
+.review-comment {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-top: 0.4rem !important;
+}
+
+/* Write review form */
 .form-group {
   margin-bottom: 15px;
 }
@@ -20,6 +51,7 @@ label {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
+  color: #374151;
 }
 
 .form-control {
@@ -27,7 +59,7 @@ label {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  box-sizing: border-box; /* ไม่ให้กล่องล้นขอบ */
+  box-sizing: border-box;
 }
 
 .btn-submit {
@@ -35,13 +67,14 @@ label {
   color: white;
   border: none;
   padding: 10px 20px;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
   width: 100%;
   font-size: 16px;
   font-weight: bold;
+  transition: background-color 0.2s;
 }
 
 .btn-submit:hover {
   background-color: #218838;
-}
+}

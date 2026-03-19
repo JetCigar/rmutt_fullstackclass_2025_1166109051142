@@ -1,28 +1,72 @@
 <div class="review-container">
-  <h3>เขียนรีวิวให้สินค้านี้</h3>
 
-  <div class="form-group">
-    <label>ให้คะแนนความพึงพอใจ:</label>
-    <select [(ngModel)]="rating" class="form-control">
-      <option value="5">⭐⭐⭐⭐⭐ (5 - ดีมาก)</option>
-      <option value="4">⭐⭐⭐⭐ (4 - ดี)</option>
-      <option value="3">⭐⭐⭐ (3 - ปานกลาง)</option>
-      <option value="2">⭐⭐ (2 - พอใช้)</option>
-      <option value="1">⭐ (1 - แย่)</option>
-    </select>
+  <!-- รายการรีวิวจากผู้ซื้อ -->
+  <div class="review-list-section mb-4">
+    <h4 class="fw-bold mb-3">
+      <i class="bi bi-star-fill text-warning me-2"></i>รีวิวจากผู้ซื้อ
+      @if (!loadingReviews && reviews.length > 0) {
+        <span class="badge bg-success ms-2" style="font-size: 0.75rem;">
+          {{ avgRating | number:'1.1-1' }} / 5 ({{ reviews.length }} รีวิว)
+        </span>
+      }
+    </h4>
+
+    @if (loadingReviews) {
+      <p class="text-muted">กำลังโหลดรีวิว...</p>
+    } @else if (reviews.length === 0) {
+      <p class="text-muted fst-italic">ยังไม่มีรีวิวสำหรับสินค้าชิ้นนี้</p>
+    } @else {
+      @for (review of reviews; track review.review_id) {
+        <div class="review-item border rounded-3 p-3 mb-3 bg-white shadow-sm">
+          <div class="d-flex justify-content-between align-items-start mb-1">
+            <div class="d-flex align-items-center gap-2">
+              <div class="review-avatar">{{ review.customer?.first_name?.charAt(0) | uppercase }}</div>
+              <strong class="text-dark">{{ review.customer?.first_name }} {{ review.customer?.last_name }}</strong>
+            </div>
+            <div class="review-stars text-warning">
+              @for (s of getStars(review.rating); track $index) { ⭐ }
+              @for (s of getEmptyStars(review.rating); track $index) { <span class="text-secondary opacity-50">☆</span> }
+            </div>
+          </div>
+          @if (review.comment) {
+            <p class="review-comment mb-0 text-muted">{{ review.comment }}</p>
+          }
+          <small class="text-muted" style="font-size: 0.75rem;">{{ review.created_at | date:'d MMM yyyy' }}</small>
+        </div>
+      }
+    }
   </div>
 
-  <div class="form-group">
-    <label>ความคิดเห็นของคุณ:</label>
-    <textarea 
-      [(ngModel)]="comment" 
-      rows="4" 
-      class="form-control" 
-      placeholder="ประทับใจอะไรในสินค้าชิ้นนี้ เล่าให้เราฟังหน่อย...">
-    </textarea>
-  </div>
+  @if (showForm) {
+    <hr/>
 
-  <button (click)="submitReview()" class="btn-submit">
-    ส่งรีวิว
-  </button>
+    <!-- ฟอร์มกรอกรีวิว -->
+    <h4 class="fw-bold mb-3">เขียนรีวิวให้สินค้านี้</h4>
+
+    <div class="form-group">
+      <label>ให้คะแนนความพึงพอใจ:</label>
+      <select [(ngModel)]="rating" class="form-control">
+        <option value="5">⭐⭐⭐⭐⭐ (5 - ดีมาก)</option>
+        <option value="4">⭐⭐⭐⭐ (4 - ดี)</option>
+        <option value="3">⭐⭐⭐ (3 - ปานกลาง)</option>
+        <option value="2">⭐⭐ (2 - พอใช้)</option>
+        <option value="1">⭐ (1 - แย่)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>ความคิดเห็นของคุณ:</label>
+      <textarea 
+        [(ngModel)]="comment" 
+        rows="4" 
+        class="form-control" 
+        placeholder="ประทับใจอะไรในสินค้าชิ้นนี้ เล่าให้เราฟังหน่อย...">
+      </textarea>
+    </div>
+
+    <button (click)="submitReview()" class="btn-submit">
+      ส่งรีวิว
+    </button>
+  }
+
 </div>

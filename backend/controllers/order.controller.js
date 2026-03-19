@@ -34,6 +34,7 @@ exports.getOrdersByCustomer = async (req, res) => {
 
     const formattedOrders = orders.map((order) => {
       const items = order.order_items.map((item) => ({
+        product_id: item.product_id,
         name: item.product?.name ?? 'Unknown product',
         qty: item.quantity,
         price: Number(item.price_at_purchase),

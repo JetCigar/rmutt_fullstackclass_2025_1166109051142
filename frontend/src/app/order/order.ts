@@ -4,11 +4,12 @@ import { Router } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { AccountSidebar } from '../account-sidebar/account-sidebar';
 import { OrderService, OrderData } from '../services/order.service';
+import { ReviewComponent } from '../product-review/product-review';
 
 @Component({
   selector: 'app-order',
   standalone: true,
-  imports: [HttpClientModule, AccountSidebar],
+  imports: [HttpClientModule, AccountSidebar, ReviewComponent],
   templateUrl: './order.html',
   styleUrls: ['./order.css'],
 })
@@ -16,6 +17,8 @@ export class Order implements OnInit {
   orders: OrderData[] = [];
   loading = false;
   error = '';
+  showReviewModal = false;
+  selectedProductIdToReview: number | null = null;
 
   constructor(
     private orderService: OrderService,
@@ -80,6 +83,16 @@ export class Order implements OnInit {
 
   getTotal(order: OrderData) {
     return order.items.reduce((sum, item) => sum + item.price * item.qty, 0);
+  }
+
+  openReviewModal(productId: number) {
+    this.selectedProductIdToReview = productId;
+    this.showReviewModal = true;
+  }
+
+  closeReviewModal() {
+    this.showReviewModal = false;
+    this.selectedProductIdToReview = null;
   }
 }
 
