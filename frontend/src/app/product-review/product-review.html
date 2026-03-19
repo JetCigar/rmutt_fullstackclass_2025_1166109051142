@@ -1,27 +1,28 @@
-<div class="rating-card">
-  <h3>Product Rating</h3>
-  
-  <div class="rating-container">
-    <div class="average-section">
-      <h1 class="avg-score">4.8</h1>
-      <div class="stars">⭐⭐⭐⭐⭐</div>
-      <p class="review-total">Based on 245 reviews</p>
-    </div>
+<div class="review-container">
+  <h3>เขียนรีวิวให้สินค้านี้</h3>
 
-    <div class="bars-section">
-      @for (rating of ratingStats; track rating.stars) {
-        <div class="bar-item">
-          <span class="star-label">{{ rating.stars }} stars</span>
-          <div class="progress-container">
-            <div class="progress-fill" [style.width.%]="rating.percentage"></div>
-          </div>
-          <span class="percentage-label">{{ rating.percentage }}%</span>
-        </div>
-      }
-    </div>
+  <div class="form-group">
+    <label>ให้คะแนนความพึงพอใจ:</label>
+    <select [(ngModel)]="rating" class="form-control">
+      <option value="5">⭐⭐⭐⭐⭐ (5 - ดีมาก)</option>
+      <option value="4">⭐⭐⭐⭐ (4 - ดี)</option>
+      <option value="3">⭐⭐⭐ (3 - ปานกลาง)</option>
+      <option value="2">⭐⭐ (2 - พอใช้)</option>
+      <option value="1">⭐ (1 - แย่)</option>
+    </select>
   </div>
 
-  <div class="action-footer">
-    <button class="btn-write-review">Write a Review</button>
+  <div class="form-group">
+    <label>ความคิดเห็นของคุณ:</label>
+    <textarea 
+      [(ngModel)]="comment" 
+      rows="4" 
+      class="form-control" 
+      placeholder="ประทับใจอะไรในสินค้าชิ้นนี้ เล่าให้เราฟังหน่อย...">
+    </textarea>
   </div>
+
+  <button (click)="submitReview()" class="btn-submit">
+    ส่งรีวิว
+  </button>
 </div>
