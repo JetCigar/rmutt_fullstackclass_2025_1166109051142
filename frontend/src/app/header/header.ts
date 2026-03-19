@@ -42,7 +42,7 @@ export class HeaderComponent {
   onSearch(): void {
     if (!this.searchQuery.trim()) return;
     console.log('[Header] Search:', this.searchQuery);
-    // this.router.navigate(['/search'], { queryParams: { q: this.searchQuery } });
+    this.router.navigate(['/category'], { queryParams: { q: this.searchQuery } });
   }
 
   onWishlistClick(): void {
