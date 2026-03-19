@@ -1,5 +1,3 @@
-
-
 import { Component } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
@@ -21,15 +19,12 @@ export class RegisterComponent {
   password = '';
   confirmPassword = '';
   acceptTerms = false;
-
   showPassword = false;
   showConfirmPassword = false;
-
   hasUpperLower = false;
   hasMinLength = false;
   hasSpecial = false;
   passwordMismatch = false;
-
   showTerms = false;
   showPrivacy = false;
 

@@ -13,6 +13,7 @@ import { Review } from './review/review';
 import { CartComponent } from './cart/cart';
 import { ProductInfo } from './product-info/product-info';
 import { CheckoutComponent } from './checkout/checkout';
+import { Promotion } from './promotion/promotion';
 
 export const routes: Routes = [
   {
@@ -72,5 +73,9 @@ export const routes: Routes = [
   {
     path: 'product-info/:id',
     component: ProductInfo // 2.
+  },
+  {
+    path: 'promotion',
+    component: Promotion
   },
 ];

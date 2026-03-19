@@ -4,11 +4,11 @@ const register = async (req, res) => {
 
     const { first_name, last_name, email, phone, password } = req.body
 
-    const existingUser = await prisma.customer.findUnique({
+    const existingUser = await prisma.customer.findUnique({ //Prisma ORM สำหรับค้นหาข้อมูลใน Database
       where: { email }
     })
 
-    if (existingUser) {
+    if (existingUser) { //ใช้ป้องกันการสมัครสมาชิกซ้ำ
       return res.status(400).json({
         message: "Email already exists"
       })
@@ -26,14 +26,14 @@ const register = async (req, res) => {
       }
     })
 
-    delete user.password_hash
+    delete user.password_hash //ไม่ให้ password ถูกส่งกลับไป frontend
 
     res.json({
       message: "Register success",
       user
     })
 
-  } catch (error) {
+  } catch (error) { 
 
     res.status(500).json({
       message: "Register failed",

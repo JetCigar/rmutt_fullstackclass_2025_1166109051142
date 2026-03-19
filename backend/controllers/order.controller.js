@@ -67,7 +67,7 @@ exports.getOrdersByCustomer = async (req, res) => {
 
 exports.createOrder = async (req, res) => {
   const { customerId, address, addressId, paymentMethod, totalAmount, items } = req.body;
-  
+
   try {
     let finalAddressId = addressId;
 
@@ -127,10 +127,22 @@ exports.createOrder = async (req, res) => {
       }
     });
 
+    // Deduct stock for each purchased item
+    await Promise.all(items.map(async (item) => {
+      await prisma.product.update({
+        where: { product_id: Number(item.product_id) },
+        data: {
+          stock_quantity: {
+            decrement: Number(item.quantity)
+          }
+        }
+      });
+    }));
+
     // Clear only purchased items from cart
     const purchasedProductIds = items.map(item => Number(item.product_id));
     await prisma.cartItem.deleteMany({
-      where: { 
+      where: {
         customer_id: Number(customerId),
         product_id: { in: purchasedProductIds }
       }

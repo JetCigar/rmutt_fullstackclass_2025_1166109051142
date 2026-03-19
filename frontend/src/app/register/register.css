@@ -6,7 +6,6 @@
   align-items:center;
   background:#f3f3f3;
 }
-
 /* Card */
 .login-card{
   width:420px;
@@ -15,7 +14,6 @@
   border-radius:12px;
   box-shadow:0 6px 20px rgba(0,0,0,0.08);
 }
-
 /* form layout */
 form{
   display:flex;
