@@ -45,7 +45,7 @@ export class LoginComponent {
 localStorage.setItem("token", res.token || "login-success");
           alert('เข้าสู่ระบบสำเร็จ');
 
-          this.router.navigate(['/category']);
+          this.router.navigate(['/home']);
         },
 
         error: (err) => {
