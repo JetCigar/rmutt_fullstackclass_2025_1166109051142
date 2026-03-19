@@ -9,7 +9,7 @@ let test = "test-server "
  
 console.log(test);
  
-app.use(cors())
+
 app.use(express.json())
  
 const allRoutes = require('../routes/index');

@@ -1,0 +1,27 @@
+<div class="rating-card">
+  <h3>Product Rating</h3>
+  
+  <div class="rating-container">
+    <div class="average-section">
+      <h1 class="avg-score">4.8</h1>
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <p class="review-total">Based on 245 reviews</p>
+    </div>
+
+    <div class="bars-section">
+      @for (rating of ratingStats; track rating.stars) {
+        <div class="bar-item">
+          <span class="star-label">{{ rating.stars }} stars</span>
+          <div class="progress-container">
+            <div class="progress-fill" [style.width.%]="rating.percentage"></div>
+          </div>
+          <span class="percentage-label">{{ rating.percentage }}%</span>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="action-footer">
+    <button class="btn-write-review">Write a Review</button>
+  </div>
+</div>

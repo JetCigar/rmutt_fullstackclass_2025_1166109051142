@@ -1,10 +1,11 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CategoryService } from '../../services/category.service';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-category',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './category.html',
   styleUrl: './category.css',
 })
@@ -13,15 +14,24 @@ export class Category implements OnInit {
   allProducts: any[] = []; // เพิ่มตัวแปรสำหรับเก็บสินค้าทั้งหมดเพื่อแสดงฝั่งขวา
   filteredProducts: any[] = []; // ตัวแปรสำหรับเก็บสินค้าที่ถูกกรองตามหมวดหมู่ที่เลือกเอาไป for loop เพื่อ เเสดง 
   selectedCategoryIds: number[] = []; // ตัวแปรสำหรับเก็บหมวดหมู่ที่ถูกเลือก
-  imageUrl: string [] = []; // URL image ของสินค้า
-
+  imageUrl: string[] = []; // URL image ของสินค้า
+  currentPrice = 0;
+  sortOrder: string = '';
 
 
 
   constructor(
     private categoryService: CategoryService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router // เพิ่มตัวนี้
   ) { }
+
+
+  // ใน category.ts
+  viewProductDetail(product: any) {
+    // ส่งไปที่ path 'product-info' พร้อมกับ ID
+    this.router.navigate(['/product-info', product.product_id]);
+  }
 
   ngOnInit(): void {
     this.categoryService.getCategories().subscribe((res: any) => {
@@ -46,44 +56,59 @@ export class Category implements OnInit {
 
 
   onCategoryChange(event: any, categoryId: number) {
-    const isChecked = event.target.checked; // เช็คว่าเป็นการติ๊กถูก หรือเอาติ๊กออก
-
+    const isChecked = event.target.checked;
     if (isChecked) {
-      // ถ้าติ๊กถูก ให้เอา ID ยัดใส่ Array
       this.selectedCategoryIds.push(categoryId);
     } else {
-      // ถ้าเอาติ๊กออก ให้เตะ ID ออกจาก Array
       this.selectedCategoryIds = this.selectedCategoryIds.filter(id => id !== categoryId);
     }
 
-    // แล้วค่อยเรียกใช้ applyFilter เพื่อกรองสินค้า
+    // เรียก filter รวมจุดเดียว
     this.applyFilter();
   }
 
-  
-  applyFilter() {
-    if (this.selectedCategoryIds.length === 0) {
-      // กรณีที่ 1: ไม่ได้ติ๊กอะไรเลย -> ให้แสดงสินค้าทั้งหมด
-      this.filteredProducts = [...this.allProducts];
-    } else {
-      // กรณีที่ 2: มีการติ๊กเลือกหมวดหมู่
-      // ไปหาหมวดหมู่ที่ตรงกับ ID ที่เราเลือกไว้
-      const selectedCategories = this.categories.filter(category =>
-        this.selectedCategoryIds.includes(category.category_id)
-      );
-
-      // เอาสินค้าของหมวดหมู่ที่เลือกมาเทรวมกัน
-      this.filteredProducts = selectedCategories.reduce((acc, category) => {
-        if (category.products && category.products.length > 0) {
-          return acc.concat(category.products);
-        }
-        return acc;
-      }, []);
-    }
-  }
-
   clearFilter() {
-    this.filteredProducts = [...this.allProducts]; // คืนค่าสินค้าทั้งหมดให้กลับมาแสดงเหมือนเดิม
-    this.selectedCategoryIds = []; // เคลียร์การเลือกหมวดหมู่ทั้งหมด (ถ้ามีการใช้ตัวแปรนี้ใน HTML เพื่อเช็คสถานะการติ๊ก ก็จะทำให้ Checkbox กลับมาเป็นไม่ติ๊กทั้งหมดด้วย)
+    this.selectedCategoryIds = [];
+    this.currentPrice = 0; // หรือค่า max ที่คุณต้องการ
+    this.applyFilter(); // คืนค่ากลับเป็นสินค้าทั้งหมด
   }
+
+  onSortChange(order: string) {
+    this.sortOrder = order;
+    this.applyFilter();
+  }
+
+  applyFilter() {
+    // 1. เริ่มต้นจากสินค้าทั้งหมดก่อนเสมอ
+    let tempProducts = [...this.allProducts];
+
+    // 2. กรองตามหมวดหมู่ (ถ้ามีการเลือก)
+    if (this.selectedCategoryIds.length > 0) {
+      tempProducts = tempProducts.filter(product =>
+        // สมมติว่าใน product แต่ละตัวมี category_id เก็บไว้อยู่แล้ว
+        this.selectedCategoryIds.includes(product.category_id)
+      );
+    }
+
+    // 3. กรองตามราคา (ถ้า currentPrice > 0 หรือตามความเหมาะสม)
+    if (this.currentPrice > 0) {
+      tempProducts = tempProducts.filter(product =>
+        Number(product.price) <= this.currentPrice
+      );
+    }
+
+    //เรียงลำดับราคา (เพิ่มใหม่) 
+    if (this.sortOrder === 'lowToHigh') {
+      tempProducts.sort((a, b) => Number(a.price) - Number(b.price));
+    } else if (this.sortOrder === 'highToLow') {
+      tempProducts.sort((a, b) => Number(b.price) - Number(a.price));
+    }
+
+    // 4. เอาผลลัพธ์สุดท้ายไปแสดงผล
+    this.filteredProducts = tempProducts;
+  }
+
+
+
+
 }

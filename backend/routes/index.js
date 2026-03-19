@@ -7,12 +7,19 @@ const categoryRoutes = require('./category.routes');
 const authRoutes = require('./auth.routes');
 const cartRoutes = require('./cart.routes');
 const productRoutes = require('./product.routes');
+const productinfoRoutes = require('./productinfo.routes');
+const productreview = require ('./productreview.routes')
+
 
 // use routes
+router.use('/api/productInfo',productinfoRoutes);
 router.use('/api/categories', categoryRoutes);
 router.use('/auth', authRoutes);
 router.use('/api/products', productRoutes);
 router.use('/api/cart', cartRoutes);
+
+//product reveiw
+router.use('/api/review', productreview);
 
 // แยกการตั้งค่าบัญชี (profile/settings)
 const settingRoutes = require('./setting.routes');
