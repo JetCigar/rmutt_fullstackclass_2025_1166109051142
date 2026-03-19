@@ -1,7 +1,9 @@
 const { PrismaClient } = require("@prisma/client")
 const bcrypt = require("bcryptjs")
-
+const jwt = require("jsonwebtoken")
 const prisma = new PrismaClient()
+require('dotenv').config({ path: '../../.env' });
+
 
 // REGISTER
 exports.register = async (req, res) => {
@@ -57,9 +59,17 @@ exports.login = async (req, res) => {
       return res.status(401).json({ message: "Invalid password" })
     }
 
+    // 2. เพิ่มโค้ดส่วนนี้ เพื่อสร้าง Token!
+    const token = jwt.sign(
+      { customer_id: user.customer_id, email: user.email }, 
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" } 
+    );
+
     res.json({
       message: "Login success",
-      user
+      user,
+      token // <<<< ต้องมีบรรทัดนี้!
     })
 
   } catch (error) {
