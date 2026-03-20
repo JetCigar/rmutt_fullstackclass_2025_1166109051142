@@ -1,278 +1,321 @@
 /* Background */
-.login-wrapper{
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:#f3f3f3;
+.login-wrapper {
+  min-height: 100vh;
+  /* ใช้ min-height แทน */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  /* ไม่บังคับให้อยู่กลาง */
+  background: #f3f3f3;
+  padding: 40px 0;
+  /* เว้นขอบบนล่าง */
 }
+
 /* Card */
-.login-card{
-  width:420px;
-  background:white;
-  padding:40px;
-  border-radius:12px;
-  box-shadow:0 6px 20px rgba(0,0,0,0.08);
+.login-card {
+  width: 420px;
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
+
 /* form layout */
-form{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 /* Logo */
-.logo{
-  text-align:center;
-  font-size:24px;
-  font-weight:600;
-  margin-bottom:10px;
-  color:#333;
+.logo {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #333;
 }
 
-.logo i{
-  color:#2e7d32;
-  margin-right:6px;
+.logo i {
+  color: #2e7d32;
+  margin-right: 6px;
 }
 
-.logo .green{
-  color:#2e7d32;
+.logo .green {
+  color: #2e7d32;
 }
 
 /* Title */
-.login-card h2{
-  text-align:center;
-  margin-bottom:10px;
-  font-weight:600;
+.login-card h2 {
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: 600;
 }
 
 /* field */
-.field{
-  display:flex;
-  flex-direction:column;
-  gap:6px;
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 /* label */
-label{
-  font-size:14px;
+label {
+  font-size: 14px;
 }
 
 /* input ทุกช่อง */
 input,
-.form-control{
-  width:100%;
-  height:45px;
-  padding:0 45px 0 12px;
-  border:1px solid #ddd;
-  border-radius:8px;
-  font-size:14px;
-  box-sizing:border-box;
+.form-control {
+  width: 100%;
+  height: 45px;
+  padding: 0 45px 0 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
 }
 
 /* focus */
 input:focus,
-.form-control:focus{
-  border-color:#2e7d32;
-  outline:none;
-  box-shadow:0 0 0 2px rgba(46,125,50,0.1);
+.form-control:focus {
+  border-color: #2e7d32;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.1);
 }
 
 /* Name column */
-.name-column{
-  display:flex;
-  flex-direction:column;
-  gap:18px;
+.name-column {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
 /* password box */
-.position-relative{
-  position:relative;
-}
-
-/* ปุ่มตา */
-.position-relative button{
-  position:absolute;
-  right:10px;
-  top:50%;
-  transform:translateY(-50%);
-  border:none;
-  background:transparent;
-  cursor:pointer;
-  font-size:18px;
-  color:#666;
-  padding:0;
-}
-
-.position-relative button:hover{
-  color:#2e7d32;
-}
-
-/* Terms */
-.terms{
-  display:flex;
-  align-items:center;
-  font-size:13px;
-  gap:1px;
-}
-
-.terms input{
-  width:auto;
-  margin:0;
-}
-
-.terms a{
-  color:#00b000;
-  cursor:pointer;
-  text-decoration:none;
-}
-
-.terms a:hover{
-  text-decoration:underline;
-}
-
-/* Register button */
-.register-btn{
-  width:100%;
-  padding:12px;
-  background:#00b000;
-  color:white;
-  border:none;
-  border-radius:8px;
-  font-size:15px;
-  font-weight:500;
-  cursor:pointer;
-  transition:0.2s;
-}
-
-.register-btn:hover{
-  background:#009000;
-}
-
-/* Login link */
-.login-link{
-  text-align:center;
-  margin-top:20px;
-  font-size:14px;
-}
-
-.login-link a{
-  color:#2e7d32;
-  text-decoration:none;
-  font-weight:500;
-}
-
-.login-link a:hover{
-  text-decoration:underline;
-}
-
-/* Responsive */
-@media (max-width:500px){
-  .login-card{
-    width:90%;
-    padding:25px;
-  }
-}
-.password-rules p{
-font-size:13px;
-color:#888;
-margin:2px 0;
-}
-
-.password-rules .valid{
-color:green;
-font-weight:500;
-}
-
-.terms{
-margin-top:10px;
-font-size:14px;
-}
-.position-relative{
+.position-relative {
   position: relative;
 }
 
-.position-relative input{
-  width:100%;
-  height:45px;
-  padding:0 40px 0 12px; /* เว้นที่ด้านขวาให้ icon */
-  border:1px solid #ddd;
-  border-radius:8px;
+/* ปุ่มตา */
+.position-relative button {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  color: #666;
+  padding: 0;
+}
+
+.position-relative button:hover {
+  color: #2e7d32;
+}
+
+/* Terms */
+.terms {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+  gap: 1px;
+}
+
+.terms input {
+  width: auto;
+  margin: 0;
+}
+
+.terms a {
+  color: #00b000;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.terms a:hover {
+  text-decoration: underline;
+}
+
+/* Register button */
+.register-btn {
+  width: 100%;
+  padding: 12px;
+  background: #00b000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.register-btn:hover {
+  background: #009000;
+}
+
+/* Login link */
+.login-link {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.login-link a {
+  color: #2e7d32;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width:500px) {
+  .login-card {
+    width: 90%;
+    padding: 25px;
+  }
+}
+
+.password-rules p {
+  font-size: 13px;
+  color: #888;
+  margin: 2px 0;
+}
+
+.password-rules .valid {
+  color: green;
+  font-weight: 500;
+}
+
+.terms {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.position-relative input {
+  width: 100%;
+  height: 45px;
+  padding: 0 40px 0 12px;
+  /* เว้นที่ด้านขวาให้ icon */
+  border: 1px solid #ddd;
+  border-radius: 8px;
 }
 
 /* icon ตา */
-.eye-icon{
-  position:absolute;
-  right:12px;
-  top:50%;
-  transform:translateY(-50%);
-  font-size:18px;
-  color:#777;
-  cursor:pointer;
+.eye-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #777;
+  cursor: pointer;
 }
 
-.eye-icon:hover{
-  color:#2e7d32;
-}
-.error{
-color:red;
-font-size:13px;
-margin-top:4px;
-}
-.password-field{
-  position:relative;
+.eye-icon:hover {
+  color: #2e7d32;
 }
 
-.password-field input{
-  width:100%;
-  height:45px;
-  padding:0 40px 0 12px;
+.error {
+  color: red;
+  font-size: 13px;
+  margin-top: 4px;
 }
 
-.eye-icon{
-  position:absolute;
-  right:12px;
-  top:50%;
-  transform:translateY(-50%);
-  font-size:18px;
-  color:#777;
-  cursor:pointer;
+.password-field {
+  position: relative;
 }
 
-.eye-icon:hover{
-  color:#2e7d32;
-}.popup{
+.password-field input {
+  width: 100%;
+  height: 45px;
+  padding: 0 40px 0 12px;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #777;
+  cursor: pointer;
+}
+
+.eye-icon:hover {
+  color: #2e7d32;
+}
+
+/* Popup background */
+.popup {
   position: fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background: rgba(0,0,0,0.5);
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-.popup-content{
-  background:white;
-  padding:30px;
-  border-radius:10px;
-  width:400px;
-  text-align:center;
+/* Popup box */
+.popup-content {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 420px;
+  max-width: 90%;
+
+  max-height: 75vh;
+  /* จำกัดความสูง */
+  overflow-y: auto;
+  /* ทำให้เลื่อนอ่านได้ */
+
+  text-align: left;
+  line-height: 1.6;
 }
 
-.popup-content button{
-  margin-top:20px;
-  padding:10px 20px;
-  background-color:#28a745;
-  color:white;
-  border:none;
-  border-radius:8px;
-  font-size:16px;
-  cursor:pointer;
-  transition:0.3s;
+/* หัวข้อ popup */
+.popup-content h2 {
+  text-align: center;
+  margin-bottom: 15px;
 }
 
-.popup-content button:hover{
-  background-color:#218838;
+/* ปุ่มปิด */
+.popup-content button {
+  display: block;
+  margin: 20px auto 0 auto;
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.popup-content button:hover {
+  background-color: #218838;
+}
+
+/* scrollbar */
+.popup-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.popup-content::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 10px;
 }
