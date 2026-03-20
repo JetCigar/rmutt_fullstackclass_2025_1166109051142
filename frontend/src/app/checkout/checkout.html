@@ -8,7 +8,7 @@
         <div>
           <strong>ชำระเงิน</strong>
           <div class="step-label">
-            ขั้นตอนที่ {{ step }}: {{ step === 1 ? 'ที่อยู่จัดส่ง' : (step === 2 ? 'วิธีชำระเงิน' : 'ยืนยัน') }}
+            ขั้นตอนที่ {{ step }}: {{ step === 1 ? 'ที่อยู่จัดส่ง' : (step === 2 ? 'ยืนยันคำสั่งซื้อ' : 'วิธีชำระเงิน') }}
           </div>
         </div>
       </div>
@@ -25,12 +25,12 @@
       <div class="step-line" [class.active]="step > 1"></div>
       <div class="step-item" [class.active]="step === 2" [class.done]="step > 2">
         <div class="step-circle">2</div>
-        <div class="step-name">ชำระเงิน</div>
+        <div class="step-name">ยืนยัน</div>
       </div>
       <div class="step-line" [class.active]="step > 2"></div>
       <div class="step-item" [class.active]="step === 3">
         <div class="step-circle">3</div>
-        <div class="step-name">ยืนยัน</div>
+        <div class="step-name">ชำระเงิน</div>
       </div>
     </div>
 
@@ -120,8 +120,8 @@
       </div>
       }
 
-      <!-- STEP 2: Payment Method Selection + Card Info -->
-      @if (step === 2) {
+      <!-- STEP 3: Payment Method Selection + Card Info -->
+      @if (step === 3) {
       <div class="step-content">
         <p class="section-label">เลือกวิธีชำระเงิน</p>
         <div class="payment-grid">
@@ -211,12 +211,12 @@
       </div>
       <div class="step-footer two-btn">
         <button class="btn-back-outline" (click)="prevStep()">← ย้อนกลับ</button>
-        <button class="btn-next-full" (click)="nextStep()">ถัดไป →</button>
+        <button class="btn-confirm-final" (click)="confirmOrder()">✓ ชำระเงิน</button>
       </div>
       }
 
-      <!-- STEP 3: Confirm -->
-      @if (step === 3) {
+      <!-- STEP 2: Confirm -->
+      @if (step === 2) {
       <div class="step-content">
         <div class="confirm-summary">
           <div class="summary-section">
@@ -296,18 +296,13 @@
               <strong class="fs-4 text-success">฿{{ formattedTotal }}</strong>
             </div>
 
-            <div class="method-tag mt-2">
-              <span class="badge bg-white text-success px-3">
-                ช่องทาง: {{ paymentMethod === 'card' ? 'บัตรเครดิต' : paymentMethod === 'qr' ? 'QR พร้อมเพย์' :
-                paymentMethod === 'transfer' ? 'โอนเงิน' : 'เก็บปลายทาง' }}
-              </span>
-            </div>
+
           </div>
         </div>
       </div>
       <div class="step-footer two-btn">
         <button class="btn-back-outline" (click)="prevStep()">← ย้อนกลับ</button>
-        <button class="btn-confirm-final" (click)="confirmOrder()">✓ ยืนยันการสั่งซื้อ</button>
+        <button class="btn-next-full" (click)="nextStep()">ยืนยัน →</button>
       </div>
       }
     </div>

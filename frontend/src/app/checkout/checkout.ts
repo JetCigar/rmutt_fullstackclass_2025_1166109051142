@@ -16,7 +16,7 @@ import { AddressService, AddressData } from '../services/address.service';
 export class CheckoutComponent implements OnInit {
   @Output() closeModal = new EventEmitter<void>();
 
-  step = 1; // 1=ที่อยู่, 2=วิธีชำระเงิน, 3=ยืนยัน
+  step = 1; // 1=ที่อยู่, 2=ยืนยัน, 3=วิธีชำระเงิน
 
   // Address
   savedAddresses: AddressData[] = [];
@@ -128,19 +128,6 @@ export class CheckoutComponent implements OnInit {
       }
     }
     
-    if (this.step === 2) {
-      if (!this.paymentMethod) {
-        alert('กรุณาเลือกวิธีการชำระเงิน');
-        return;
-      }
-      if (this.paymentMethod === 'card') {
-        if (!this.card.number || !this.card.expiry || !this.card.cvv) {
-          alert('กรุณากรอกข้อมูลบัตรให้ครบถ้วน');
-          return;
-        }
-      }
-    }
-    
     if (this.step < 3) this.step++;
   }
 
@@ -168,6 +155,17 @@ export class CheckoutComponent implements OnInit {
   }
 
   confirmOrder() {
+    if (!this.paymentMethod) {
+      alert('กรุณาเลือกวิธีการชำระเงิน');
+      return;
+    }
+    if (this.paymentMethod === 'card') {
+      if (!this.card.number || !this.card.expiry || !this.card.cvv) {
+        alert('กรุณากรอกข้อมูลบัตรให้ครบถ้วน');
+        return;
+      }
+    }
+
     const stored = localStorage.getItem('user');
     let customerId = null;
     if (stored) {
