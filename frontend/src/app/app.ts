@@ -7,6 +7,7 @@ import { NavbarComponent } from './navbar/navbar';
 import { FooterComponent } from './footer/footer';
 import { CartComponent } from './cart/cart';
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -16,7 +17,8 @@ import { CartComponent } from './cart/cart';
     HttpClientModule,
     HeaderComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    CartComponent,
   ],
   templateUrl: './app.html',
   styleUrl: './app.css'

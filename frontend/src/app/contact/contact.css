@@ -1,65 +1,80 @@
+/* ===================== MAIN PAGE ===================== */
+
 .contact-page{
-  max-width:900px;
-  margin:60px auto;
-  padding:20px;
+  max-width:900px;     /* กำหนดความกว้างสูงสุดของหน้า */
+  margin:60px auto;    /* เว้นบน-ล่าง 60px และจัดให้อยู่ตรงกลาง */
+  padding:20px;        /* ระยะห่างด้านใน */
 }
 
-/* TITLE */
+
+
+/* ===================== TITLE ===================== */
 
 .contact-info h3{
-  color:#2f5d1a;
-  margin-bottom:30px;
-  text-align:center;
-  font-size:28px;
+  color:#2f5d1a;       /* สีเขียวเข้ม */
+  margin-bottom:30px;  /* เว้นระยะด้านล่าง */
+  text-align:center;   /* จัดข้อความให้อยู่ตรงกลาง */
+  font-size:28px;      /* ขนาดตัวอักษร */
 }
 
-/* CARD */
+
+
+/* ===================== CARD (กล่องข้อมูล) ===================== */
 
 .info-card{
-  display:flex;
-  gap:16px;
-  padding:20px;
-  border-radius:14px;
-  background:#f6fbf4;
-  margin-bottom:20px;
-  align-items:center;
-  border:1px solid #e3f0dc;
-  transition:all .25s ease;
+  display:flex;                 /* ใช้ Flexbox จัด layout */
+  gap:16px;                     /* ระยะห่างระหว่างไอคอนกับข้อความ */
+  padding:20px;                 /* ระยะห่างด้านใน */
+  border-radius:14px;           /* มุมโค้ง */
+  background:#f6fbf4;           /* สีพื้นหลังอ่อน */
+  margin-bottom:20px;           /* เว้นระยะระหว่างการ์ด */
+  align-items:center;           /* จัดให้อยู่กึ่งกลางแนวตั้ง */
+  border:1px solid #e3f0dc;     /* เส้นขอบ */
+  transition:all .25s ease;     /* ทำให้ animation ลื่น */
 }
 
+/* เอฟเฟกต์ตอนเอาเมาส์ไปชี้ */
 .info-card:hover{
-  transform:translateY(-4px);
-  box-shadow:0 8px 18px rgba(0,0,0,0.08);
+  transform:translateY(-4px);              /* ยกการ์ดขึ้นเล็กน้อย */
+  box-shadow:0 8px 18px rgba(0,0,0,0.08); /* เพิ่มเงา */
 }
 
-/* ICON */
+
+
+/* ===================== ICON ===================== */
 
 .icon{
-  width:50px;
-  height:50px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:#e6f3e0;
-  border-radius:12px;
-  font-size:20px;
-  color:#2f5d1a;
+  width:50px;              /* กำหนดความกว้าง */
+  height:50px;             /* กำหนดความสูง */
+  display:flex;            /* ใช้ Flexbox */
+  align-items:center;      /* จัดแนวตั้งให้อยู่กลาง */
+  justify-content:center;  /* จัดแนวนอนให้อยู่กลาง */
+  background:#e6f3e0;      /* สีพื้นหลังไอคอน */
+  border-radius:12px;      /* มุมโค้ง */
+  font-size:20px;          /* ขนาดไอคอน */
+  color:#2f5d1a;           /* สีไอคอน */
 }
-/* TEXT */
 
+
+
+/* ===================== TEXT ===================== */
+
+/* หัวข้อในแต่ละการ์ด */
 .info-card h4{
-  margin:0;
-  color:#2f5d1a;
-  font-size:18px;
+  margin:0;            /* ลบ margin เริ่มต้น */
+  color:#2f5d1a;       /* สีเขียว */
+  font-size:18px;      /* ขนาดตัวอักษร */
 }
 
+/* ข้อความหลัก (เช่น เบอร์ / อีเมล) */
 .info-card p{
-  margin:4px 0;
-  font-weight:600;
-  color:#333;
+  margin:4px 0;        /* เว้นระยะบน-ล่างเล็กน้อย */
+  font-weight:600;     /* ตัวหนา */
+  color:#333;          /* สีเทาเข้ม */
 }
 
+/* ข้อความรอง (คำอธิบายเล็ก ๆ) */
 .info-card span{
-  color:#7a7a7a;
-  font-size:13px;
+  color:#7a7a7a;       /* สีเทาอ่อน */
+  font-size:13px;      /* ขนาดตัวอักษรเล็ก */
 }

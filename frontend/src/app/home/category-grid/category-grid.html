@@ -4,34 +4,36 @@
       <span class="text-success fw-bold small text-uppercase">หมวดหมู่</span>
       <h2 class="fw-bold mb-0">หมวดหมู่ยอดนิยม</h2>
     </div>
-    <a [routerLink]="['/category']" class="text-success text-decoration-none fw-bold">ดูทั้งหมด <i class="bi bi-arrow-right"></i></a>
+    <a [routerLink]="['/category']" class="text-success text-decoration-none fw-bold">ดูทั้งหมด <i
+        class="bi bi-arrow-right"></i></a>
   </div>
 
   @if (isLoading()) {
-    <div class="text-center p-5">
-      <div class="spinner-border text-success" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-      <p class="mt-2 text-muted">กำลังโหลดหมวดหมู่...</p>
+  <div class="text-center p-5">
+    <div class="spinner-border text-success" role="status">
+      <span class="visually-hidden">Loading...</span>
     </div>
+    <p class="mt-2 text-muted">กำลังโหลดหมวดหมู่...</p>
+  </div>
   } @else {
-    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-3">
-      @for (category of categories(); track category.category_id) {
-        <div class="col">
-          <a [routerLink]="['/category']" [queryParams]="{ id: category.category_id }" class="text-decoration-none text-dark d-block h-100">
-            <div class="category-card text-center p-3 rounded-4 bg-white border-0 shadow-sm h-100 transition-up">
-              <div class="cat-img mb-3 p-2 bg-light rounded-circle mx-auto" style="width: 80px; height: 80px;">
-                <img [src]="category.image || 'https://cdn-icons-png.flaticon.com/512/1865/1865231.png'"
-                  [alt]="category.name" class="img-fluid h-100 object-fit-contain">
-              </div>
-              <h6 class="fw-bold mb-1 text-truncate">{{ category.name }}</h6>
-              <small class="text-muted">{{ category.product_count || 0 }} สินค้า</small>
-            </div>
-          </a>
+  <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-3">
+    @for (category of categories(); track category.category_id) {
+    <div class="col">
+      <a [routerLink]="['/category']" [queryParams]="{ id: category.category_id }"
+        class="text-decoration-none text-dark d-block h-100">
+        <div class="category-card text-center p-3 rounded-4 bg-white border-0 shadow-sm h-100 transition-up">
+          <div class="cat-img mb-3 p-2 bg-light rounded-circle mx-auto" style="width: 80px; height: 80px;">
+            <img [src]="category.image || 'https://cdn-icons-png.flaticon.com/512/1865/1865231.png'"
+              [alt]="category.name" class="img-fluid h-100 object-fit-contain">
+          </div>
+          <h6 class="fw-bold mb-1 text-truncate">{{ category.name }}</h6>
+          <small class="text-muted">{{ category.product_count || 0 }} สินค้า</small>
         </div>
-      } @empty {
-        <p class="text-center text-muted p-4">ไม่พบหมวดหมู่สินค้า</p>
-      }
+      </a>
     </div>
+    } @empty {
+    <p class="text-center text-muted p-4">ไม่พบหมวดหมู่สินค้า</p>
+    }
+  </div>
   }
 </section>

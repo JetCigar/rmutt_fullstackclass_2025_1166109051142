@@ -17,7 +17,6 @@ interface NavItem {
   styleUrls: ['./navbar.css']
 })
 export class NavbarComponent implements OnInit {
-
   navItems: NavItem[] = [
     { label: 'หน้าแรก', href: '/home', hasDropdown: false },
     { label: 'สินค้า', href: '/category', hasDropdown: false },
@@ -27,22 +26,13 @@ export class NavbarComponent implements OnInit {
   ];
 
   breadcrumbs: string[] = [];
-
   isLoggedIn = false;
-
-  // ⭐ เพิ่มตัวแปรเก็บชื่อผู้ใช้
   username: string = '';
-
   isMenuOpen = false;
-
-  toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
-  }
 
   breadcrumbMap: any = {
     '/login': 'เข้าสู่ระบบ',
     '/register': 'สมัครสมาชิก',
-    '/home': 'หน้าแรก',
     '/category': 'สินค้าทั้งหมด',
     '/promotion': 'โปรโมชั่น',
     '/about': 'เกี่ยวกับเรา',
@@ -51,59 +41,44 @@ export class NavbarComponent implements OnInit {
 
   constructor(private router: Router) {}
 
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
   ngOnInit(): void {
-
     this.checkLogin();
-
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
-
         this.checkLogin();
-        this.isMenuOpen = false; // ปิดเมนูเมื่อเปลี่ยนหน้า
+        this.isMenuOpen = false;
 
         const url = this.router.url.split('?')[0];
         const path = '/' + url.split('/')[1];
         const label = this.breadcrumbMap[path];
 
         this.breadcrumbs = [];
-
-        if (url !== '/' && label) {
+        if (url !== '/' && url !== '/home' && label) {
           this.breadcrumbs.push(label);
         }
-
       });
-
   }
 
   checkLogin() {
-
     const token = localStorage.getItem('token');
     this.isLoggedIn = !!token;
-
     const userData = localStorage.getItem('user');
-
     if (userData) {
-
       const user = JSON.parse(userData);
-
-      // ⭐ ดึงชื่อ user
       this.username = user.name || user.email || 'User';
-
     }
-
   }
 
   logout() {
-
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-
     this.isLoggedIn = false;
     this.username = '';
-
     this.router.navigate(['/login']);
-
   }
-
 }

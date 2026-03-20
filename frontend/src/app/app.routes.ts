@@ -14,6 +14,7 @@ import { CartComponent } from './cart/cart';
 import { ProductInfo } from './product-info/product-info';
 import { CheckoutComponent } from './checkout/checkout';
 import { Promotion } from './promotion/promotion';
+import { HeaderSearchComponent } from './header-search/header-search';
 
 export const routes: Routes = [
   {
@@ -78,4 +79,8 @@ export const routes: Routes = [
     path: 'promotion',
     component: Promotion
   },
+  {
+    path: 'search',
+    component: HeaderSearchComponent
+  }
 ];

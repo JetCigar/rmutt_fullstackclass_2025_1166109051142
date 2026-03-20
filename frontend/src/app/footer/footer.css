@@ -1,84 +1,102 @@
 /* ===================== FOOTER STYLES ===================== */
 
+/* กล่องหลักของ Footer ทั้งหมด */
 .footer {
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  width: 100%;
+  font-family: 'Helvetica Neue', Arial, sans-serif; /* กำหนดฟอนต์ */
+  width: 100%; /* เต็มความกว้างหน้าจอ */
 }
 
-/* ---------- Main Footer ---------- */
+
+/* ===================== MAIN FOOTER ===================== */
+
+/* ส่วนบนของ footer */
 .footer__main {
-  background-color: #1d2128;
-  padding: 48px 48px 36px;
+  background-color: #1d2128; /* พื้นหลังสีเข้ม */
+  padding: 48px 48px 36px;  /* ระยะห่างด้านใน */
 }
 
+/* กล่องจัด layout ด้านใน */
 .footer__inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1.8fr 1fr 1fr 1fr 1fr;
-  gap: 40px;
+  max-width: 1200px; /* ความกว้างสูงสุด */
+  margin: 0 auto;    /* จัดให้อยู่ตรงกลาง */
+  display: grid;     /* ใช้ Grid layout */
+  grid-template-columns: 1.8fr 1fr 1fr 1fr 1fr; /* แบ่ง 5 คอลัมน์ */
+  gap: 40px;         /* ระยะห่างแต่ละช่อง */
 }
 
-/* ---------- Brand ---------- */
-/* ---------- New Logo ---------- */
+
+/* ===================== BRAND / LOGO ===================== */
+
+/* รูปโลโก้ */
 .logo-icon{
-  width:28px;
-  height:28px;
-  object-fit:contain;
+  width:28px;          /* กำหนดความกว้าง */
+  height:28px;         /* กำหนดความสูง */
+  object-fit:contain;  /* ปรับภาพไม่ให้ยืด */
 }
 
+/* ตัวอักษรโลโก้ */
 .logo-text{
-  font-family:'Georgia', serif;
-  font-size:20px;
-  font-weight:700;
-  letter-spacing:-0.3px;
+  font-family:'Georgia', serif; /* ฟอนต์สวย */
+  font-size:20px;               /* ขนาดตัวอักษร */
+  font-weight:700;              /* ตัวหนา */
+  letter-spacing:-0.3px;        /* ระยะห่างตัวอักษร */
 }
 
+/* สีขาว */
 .logo-dark{
   color:#ffffff;
 }
 
+/* สีเขียว */
 .logo-green{
   color:#22c55e;
 }
 
+/* คำอธิบายแบรนด์ */
 .footer__desc {
   font-size: 13px;
-  color: #7a7f8e;
-  line-height: 1.75;
-  margin: 0 0 20px 0;
-  max-width: 220px;
+  color: #7a7f8e;       /* สีเทา */
+  line-height: 1.75;    /* ระยะบรรทัด */
+  margin: 0 0 20px 0;  /* เว้นด้านล่าง */
+  max-width: 220px;     /* จำกัดความกว้าง */
 }
 
+/* กล่อง contact */
 .footer__contacts {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  display: flex;            /* ใช้ Flex */
+  flex-direction: column;   /* เรียงแนวตั้ง */
+  gap: 8px;                 /* ระยะห่าง */
 }
 
+/* ปุ่ม contact */
 .footer__contact-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+  display: inline-flex;      /* inline + flex */
+  align-items: center;       /* กึ่งกลางแนวตั้ง */
+  gap: 6px;                  /* ระยะไอคอนกับข้อความ */
   font-size: 13px;
   color: #ffffff;
-  text-decoration: none;
+  text-decoration: none;     /* เอา underline ออก */
   padding: 6px 12px;
-  border: 1px solid #3a3f4e;
-  border-radius: 4px;
-  width: fit-content;
-  transition: border-color 0.2s, color 0.2s;
+  border: 1px solid #3a3f4e; /* เส้นขอบ */
+  border-radius: 4px;        /* มุมโค้ง */
+  width: fit-content;        /* พอดีกับเนื้อหา */
+  transition: border-color 0.2s, color 0.2s; /* animation */
 }
 
+/* hover effect */
 .footer__contact-badge:hover {
-  border-color: #22c55e;
+  border-color: #22c55e; /* เปลี่ยนสีขอบ */
 }
 
+/* ปรับสีเฉพาะ email */
 .footer__contact-badge--email {
   color: #22c55e;
 }
 
-/* ---------- Link Columns ---------- */
+
+/* ===================== LINK COLUMNS ===================== */
+
+/* หัวข้อคอลัมน์ */
 .footer__col-title {
   color: #ffffff;
   font-size: 14px;
@@ -87,15 +105,17 @@
   letter-spacing: 0.2px;
 }
 
+/* รายการลิงก์ */
 .footer__col-list {
-  list-style: none;
+  list-style: none;        /* เอาจุด list ออก */
   margin: 0;
   padding: 0;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* เรียงแนวตั้ง */
   gap: 10px;
 }
 
+/* ลิงก์ */
 .footer__col-link {
   font-size: 13px;
   color: #7a7f8e;
@@ -104,44 +124,55 @@
   transition: color 0.2s;
 }
 
+/* hover ลิงก์ */
 .footer__col-link:hover {
   color: #22c55e;
 }
 
-/* ---------- Bottom Bar ---------- */
+
+/* ===================== BOTTOM BAR ===================== */
+
+/* แถบล่างสุด */
 .footer__bottom {
   background-color: #16191f;
   padding: 14px 48px;
 }
 
+/* layout ด้านใน */
 .footer__bottom-inner {
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-between; /* ซ้าย-ขวา */
   gap: 16px;
 }
 
+/* copyright */
 .footer__copyright {
   font-size: 12px;
   color: #5a5f6e;
   margin: 0;
 }
 
+/* ฝั่งขวา */
 .footer__bottom-right {
   display: flex;
   align-items: center;
   gap: 20px;
 }
 
-/* ---------- Payments ---------- */
+
+/* ===================== PAYMENTS ===================== */
+
+/* กล่อง payment */
 .footer__payments {
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
+/* ป้าย payment */
 .footer__payment-badge {
   background: #2a2f3a;
   border-radius: 3px;
@@ -152,21 +183,26 @@
   letter-spacing: 0.5px;
 }
 
+/* แบบ secure */
 .footer__payment-badge--secure {
   color: #22c55e;
   border: 1px solid #22c55e;
 }
 
-/* ---------- Socials ---------- */
+
+/* ===================== SOCIAL ===================== */
+
+/* กล่อง social */
 .footer__socials {
   display: flex;
   gap: 8px;
 }
 
+/* ปุ่ม social */
 .footer__social {
   width: 30px;
   height: 30px;
-  border-radius: 50%;
+  border-radius: 50%;      /* ทำให้เป็นวงกลม */
   background: #2a2f3a;
   display: flex;
   align-items: center;
@@ -176,35 +212,40 @@
   transition: background 0.2s, color 0.2s;
 }
 
+/* hover social */
 .footer__social:hover {
   background: #22c55e;
   color: #ffffff;
 }
 
-/* ---------- Responsive ---------- */
+
+/* ===================== RESPONSIVE ===================== */
+
+/* Tablet */
 @media (max-width: 1024px) {
   .footer__inner {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr; /* เหลือ 3 คอลัมน์ */
     gap: 32px;
   }
 
   .footer__brand {
-    grid-column: span 3;
+    grid-column: span 3; /* ให้กินเต็มแถว */
   }
 }
 
+/* Mobile */
 @media (max-width: 640px) {
   .footer__main {
-    padding: 32px 24px;
+    padding: 32px 24px; /* ลด padding */
   }
 
   .footer__inner {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr; /* เหลือ 2 คอลัมน์ */
     gap: 28px;
   }
 
   .footer__brand {
-    grid-column: span 2;
+    grid-column: span 2; /* เต็มแถว */
   }
 
   .footer__bottom {
@@ -212,8 +253,8 @@
   }
 
   .footer__bottom-inner {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: column;  /* เรียงแนวตั้ง */
+    align-items: flex-start; /* ชิดซ้าย */
     gap: 12px;
   }
 }

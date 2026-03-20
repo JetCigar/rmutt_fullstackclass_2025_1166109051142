@@ -22,14 +22,12 @@
                 class="navbar__link"
               >
                 {{ item.label }}
-
                 @if (item.hasDropdown) {
                   <svg class="navbar__arrow" width="11" height="11" viewBox="0 0 24 24"
                     fill="none" stroke="currentColor" stroke-width="2.5">
                     <polyline points="6 9 12 15 18 9"/>
                   </svg>
                 }
-
               </a>
             </li>
           }
@@ -48,51 +46,36 @@
 
       <!-- USER MENU -->
       <div class="navbar__user">
-
         @if (isLoggedIn) {
-
           <div class="navbar__profile" [routerLink]="['/settings']">
-
             <svg width="18" height="18" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2">
               <path d="M20 21a8 8 0 10-16 0"/>
               <circle cx="12" cy="7" r="4"/>
             </svg>
-
             <span style="margin-left:6px">{{ username }}</span>
-
           </div>
-
           <button (click)="logout()" class="navbar__logout">
             Logout
           </button>
-
         } @else {
-          <!-- Optional: Show Login/Register when not logged in -->
           <a routerLink="/login" class="navbar__link mx-2">เข้าสู่ระบบ</a>
           <a routerLink="/register" class="navbar__link">สมัครสมาชิก</a>
         }
-
       </div>
     </div>
-
   </div>
-
 </nav>
 
+<!-- BREADCRUMB -->
 @if (breadcrumbs.length > 0) {
-
 <div class="navbar__breadcrumb">
   <div class="navbar__breadcrumb-inner">
-
-    <a routerLink="/">หน้าแรก</a>
-
+    <a routerLink="/home">หน้าแรก</a>
     @for (item of breadcrumbs; track item) {
       <span class="breadcrumb__separator">></span>
       <span class="breadcrumb__item">{{ item }}</span>
     }
-
   </div>
 </div>
-
 }
