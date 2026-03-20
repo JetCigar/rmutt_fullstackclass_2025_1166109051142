@@ -25,7 +25,7 @@ export class AuthService {
   }
 
   // LOGIN
-  login(data: any): Observable<any> {
+  login(data: any): Observable<any> { //เรียกใช้API
     return this.http.post(`${this.apiUrl}/login`, data);
   }
 

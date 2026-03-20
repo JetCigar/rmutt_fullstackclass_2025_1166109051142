@@ -62,7 +62,6 @@ export class Promotion implements OnInit {
 
   getOriginalPrice(price: number | string): number {
     const p = Number(price);
-    // Based on the image showing 3200 becomes 3840 (which is exactly +20% / * 1.2)
     return p * 1.2;
   }
 }

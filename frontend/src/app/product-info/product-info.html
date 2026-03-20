@@ -1,89 +1,88 @@
 <div class="container">
   @if (isLoading) {
-    <div class="loading-state">
-      <div class="spinner"></div>
-      <p>กำลังโหลดข้อมูลสินค้า...</p>
-    </div>
+  <div class="loading-state">
+    <div class="spinner"></div>
+    <p>กำลังโหลดข้อมูลสินค้า...</p>
+  </div>
 
   } @else if (product) {
-    <div class="product-main-grid">
-      <div class="image-section">
-        <div class="main-image-container">
-          @for (img of product.images; track img.image_id) {
-            @if (img.is_primary) {
-              <img [src]="img.image_url" [alt]="product.name" class="main-image" />
-            }
-          }
-        </div>
-        <div class="thumbnail-list">
-          @for (img of product.images; track img.image_id) {
-            <img [src]="img.image_url" class="thumbnail" [class.active]="img.is_primary" />
-          }
-        </div>
+  <div class="product-main-grid">
+    <div class="image-section">
+      <div class="main-image-container">
+        @for (img of product.images; track img.image_id) {
+        @if (img.is_primary) {
+        <img [src]="img.image_url" [alt]="product.name" class="main-image" />
+        }
+        }
       </div>
-
-      <div class="info-section">
-        <h1 class="product-title">{{ product.name }}</h1>
-        <div class="rating"></div>
-
-        <div class="price-container">
-          <span class="current-price">฿{{ +product.price | number }}</span>
-          <span class="original-price">฿{{ +product.price * 1.15 | number: '1.0-0' }}</span>
-          <span class="discount-badge">ลด 15%</span>
-        </div>
-
-        <p class="short-desc">{{ product.description }}</p>
-
-        <div class="specs-grid">
-          <div class="spec-item">
-            <span class="label">Brand</span>
-            <span class="value">{{ product.category.name }}</span>
-          </div>
-          <div class="spec-item">
-            <span class="label">คงเหลือ</span>
-            <span class="value">{{ product.stock_quantity }} ชิ้น</span>
-          </div>
-        </div>
-
-        <div class="purchase-actions">
-          <div class="quantity-control">
-            <button (click)="decrement()">-</button>
-            <input type="number" value="{{ quantity }}" />
-            <button type="button" (click)="increment()">+</button>
-          </div>
-          <button class="btn-add-cart" [disabled]="product.stock_quantity <= 0" (click)="addToCart()">
-            เพิ่มลงตะกร้า
-          </button>
-          <button class="btn-wishlist">♡</button>
-        </div>
-
-        <div class="trust-badges"></div>
+      <div class="thumbnail-list">
+        @for (img of product.images; track img.image_id) {
+        <img [src]="img.image_url" class="thumbnail" [class.active]="img.is_primary" />
+        }
       </div>
     </div>
 
-    <div class="product-tabs">
-      <div class="tab-header">
-        <button class="active">รายละเอียดสินค้า</button>
-        <button>เอาไว้ดึงรีวิว</button>
+    <div class="info-section">
+      <h1 class="product-title">{{ product.name }}</h1>
+      <div class="rating"></div>
+
+      <div class="price-container">
+        <span class="current-price">฿{{ +product.price | number }}</span>
+        <span class="original-price">฿{{ +product.price * 1.15 | number: '1.0-0' }}</span>
+        <span class="discount-badge">ลด 15%</span>
       </div>
-      <div class="tab-content">
-        <h3>{{ product.name }}</h3>
-        <p>{{ product.description }}</p>
-        <div class="attributes">
-          <strong>คุณสมบัติ:</strong>
-          <ul>
-            <li>หมวดหมู่: {{ product.category.name }}</li>
-            <li>SKU: {{ product.sku }}</li>
-          </ul>
+
+      <p class="short-desc">{{ product.description }}</p>
+
+      <div class="specs-grid">
+        <div class="spec-item">
+          <span class="label">Brand</span>
+          <span class="value">{{ product.category.name }}</span>
+        </div>
+        <div class="spec-item">
+          <span class="label">คงเหลือ</span>
+          <span class="value">{{ product.stock_quantity }} ชิ้น</span>
         </div>
       </div>
-      <app-product-review [productId]="product.product_id" [showForm]="false"></app-product-review>
+
+      <div class="purchase-actions">
+        <div class="quantity-control">
+          <button (click)="decrement()">-</button>
+          <input type="number" value="{{ quantity }}" />
+          <button type="button" (click)="increment()">+</button>
+        </div>
+        <button class="btn-add-cart" [disabled]="product.stock_quantity <= 0" (click)="addToCart()">
+          เพิ่มลงตะกร้า
+        </button>
+        <button class="btn-wishlist">♡</button>
+      </div>
+
+      <div class="trust-badges"></div>
     </div>
+  </div>
+
+  <div class="product-tabs">
+    <div class="tab-header">
+      <button class="active">รายละเอียดสินค้า</button>
+    </div>
+    <div class="tab-content">
+      <h3>{{ product.name }}</h3>
+      <p>{{ product.description }}</p>
+      <div class="attributes">
+        <strong>คุณสมบัติ:</strong>
+        <ul>
+          <li>หมวดหมู่: {{ product.category.name }}</li>
+          <li>SKU: {{ product.sku }}</li>
+        </ul>
+      </div>
+    </div>
+    <app-product-review [productId]="product.product_id" [showForm]="false"></app-product-review>
+  </div>
 
   } @else {
-    <div class="error-msg">
-      <p>ขออภัย ไม่พบข้อมูลสินค้าที่คุณต้องการ</p>
-      <a routerLink="/home" class="btn-back">กลับหน้าหลัก</a>
-    </div>
+  <div class="error-msg">
+    <p>ขออภัย ไม่พบข้อมูลสินค้าที่คุณต้องการ</p>
+    <a routerLink="/home" class="btn-back">กลับหน้าหลัก</a>
+  </div>
   }
 </div>

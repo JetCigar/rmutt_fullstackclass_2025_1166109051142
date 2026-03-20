@@ -55,7 +55,7 @@ export class CheckoutComponent implements OnInit {
     private cdr: ChangeDetectorRef
   ) {}
 
-  ngOnInit() {
+  ngOnInit() {//ทวน
     const stored = localStorage.getItem('user');
     if (stored) {
       try {

@@ -15,7 +15,6 @@ const register = async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10)
-
     const user = await prisma.customer.create({
       data: {
         first_name,
@@ -33,7 +32,7 @@ const register = async (req, res) => {
       user
     })
 
-  } catch (error) { 
+  } catch (error) {
 
     res.status(500).json({
       message: "Register failed",

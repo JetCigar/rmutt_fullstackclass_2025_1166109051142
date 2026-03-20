@@ -29,10 +29,10 @@ export class RegisterComponent {
   showPrivacy = false;
 
   openTerms() {
-    this.showTerms = true;
+    this.showTerms = true; //popupเงื่อนไข
   }
 
-  openPrivacy() {
+  openPrivacy() { 
     this.showPrivacy = true;
   }
 
@@ -40,13 +40,13 @@ export class RegisterComponent {
     this.showTerms = false;
     this.showPrivacy = false;
   }
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) { } 
 
-  togglePassword() {
+  togglePassword() { 
     this.showPassword = !this.showPassword;
   }
 
-  toggleConfirmPassword() {
+  toggleConfirmPassword() { 
     this.showConfirmPassword = !this.showConfirmPassword;
   }
 
@@ -63,7 +63,7 @@ export class RegisterComponent {
 
 }
 
-  checkConfirmPassword() {
+  checkConfirmPassword() { 
     this.passwordMismatch = this.password !== this.confirmPassword;
   }
   register() {
@@ -88,7 +88,7 @@ export class RegisterComponent {
       return;
     }
 
-    const data = {
+    const data = { 
       first_name: this.firstname,
       last_name: this.lastname,
       email: this.email,
@@ -98,10 +98,8 @@ export class RegisterComponent {
 
    this.http.post<any>('http://localhost:9999/auth/register', data)
       .subscribe({
-        next: () => {
-
+        next: () => { 
           alert('สมัครสมาชิกสำเร็จ');
-
           this.router.navigate(['/login']);
 
         },
